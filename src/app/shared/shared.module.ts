@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
         // Pipes
     ],
     imports: [
+        // Modules
         CommonModule,
         FormsModule,
         IonicModule,
@@ -24,6 +25,8 @@ import { RouterModule } from '@angular/router';
         CommonModule,
         IonicModule,
         FormsModule,
+        ReactiveFormsModule,
+        RouterModule
         //Pipes
     ]
 })
