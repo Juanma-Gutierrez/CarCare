@@ -1,10 +1,19 @@
 <ion-header [translucent]="true">
     <ion-toolbar>
         <ion-row>
-            <img src="../../../assets/images/logo_carcare_transparent.png">
-            <ion-title>
-                CarCare
-            </ion-title>
+            <ion-col size="5">
+                <ion-row>
+                    <img src="../../../assets/images/logo_carcare_transparent.png">
+                    <ion-title>
+                        CarCare
+                    </ion-title>
+                </ion-row>
+            </ion-col>
+            <ion-col size="7">
+                <ion-text>
+                    <h1>Listado de vehículos</h1>
+                </ion-text>
+            </ion-col>
         </ion-row>
     </ion-toolbar>
 </ion-header>
@@ -16,11 +25,7 @@
         </ion-toolbar>
     </ion-header>
 
-    <ion-row class="ion-justify-content-center">
-        <ion-text>
-            <h1>Listado de vehículos</h1>
-        </ion-text>
-    </ion-row>
+
     <div id="container">
         <app-vehicle *ngFor="let vehicle of borrarVehiculos" [vehicle]="vehicle"></app-vehicle>
     </div>
