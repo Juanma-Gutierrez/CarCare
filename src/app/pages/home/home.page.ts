@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Provider, ProviderCategory } from 'src/app/core/interfaces/Provider';
+import { Service, Spent } from 'src/app/core/interfaces/Spent';
 import { Vehicle, VehicleCategory } from 'src/app/core/interfaces/Vehicle';
 import { VehicleService } from 'src/app/core/services/vehicle.service';
 
@@ -9,11 +11,16 @@ import { VehicleService } from 'src/app/core/services/vehicle.service';
 })
 export class HomePage implements OnInit {
     public loading = true;
-    public borrarVehiculos: Vehicle[] | undefined;
     public filterAvailable = true;
+
+    // Mockup de datos locales en array
+    public borrarVehiculos: Vehicle[] | undefined;
+    public borrarProveedores: Provider[] | undefined;
+    public borrarGastos: Spent[] | undefined;
 
     constructor(
         public vehicleService: VehicleService,
+
     ) { }
 
     ngOnInit(): void {
@@ -23,7 +30,10 @@ export class HomePage implements OnInit {
         });
         // BORRAR
         this.crearVehiculosTemporales();
+        this.crearProveedoresTemporales();
+        this.crearGastosTemporales();
     }
+
 
     selectionChanged(event: CustomEvent) {
         console.log(event.detail.value);
@@ -69,4 +79,62 @@ export class HomePage implements OnInit {
             }
         ];
     }
+
+    crearProveedoresTemporales() {
+        this.borrarProveedores = [
+            { id: 1, name: "Repsol", category: ProviderCategory.fuelStation, phone: "952442354", spents: [] },
+            { id: 2, name: "Cepsa", category: ProviderCategory.fuelStation, phone: "", spents: [] },
+            { id: 3, name: "Línea Directa Aseguradora", category: ProviderCategory.insuranceCenter, phone: "952442354", spents: [] },
+            { id: 4, name: "Aurgi", category: ProviderCategory.workshop, phone: "952112233", spents: [] },
+            { id: 5, name: "Talleres Hermanos Gómez", category: ProviderCategory.workshop, phone: "952665577", spents: [] },
+            { id: 6, name: "ITV", category: ProviderCategory.workshop, phone: "952665577", spents: [] },
+
+        ]
+    }
+
+    crearGastosTemporales() {
+        this.borrarGastos = [
+            {
+                id: 1, date: new Date("2023-10-05"), amount: 30.40, observations: "", service: Service.refuelling, provider: 1, vehicle: 1
+            },
+            {
+                id: 2, date: new Date("2023-03-08"), amount: 40.00, observations: "", service: Service.refuelling, provider: 2, vehicle: 2
+            },
+            {
+                id: 3, date: new Date("2023-05-24"), amount: 240.35, observations: "Seguro anual", service: Service.insurance, provider: 3, vehicle: 3
+            },
+            {
+                id: 4, date: new Date("2023-06-10"), amount: 20.00, observations: "", service: Service.refuelling, provider: 2, vehicle: 3
+            },
+            {
+                id: 5, date: new Date("2023-07-12"), amount: 325.15, observations: "Cambio de batería y neumáticos", service: Service.repair, provider: 5, vehicle: 2
+            },
+            {
+                id: 6, date: new Date("2023-08-21"), amount: 25, observations: "", service: Service.refuelling, provider: 2, vehicle: 1
+            },
+            {
+                id: 7, date: new Date("2023-09-01"), amount: 20, observations: "", service: Service.refuelling, provider: 1, vehicle: 4
+            },
+            {
+                id: 8, date: new Date("2023-09-05"), amount: 40, observations: "", service: Service.refuelling, provider: 2, vehicle: 5
+            },
+            {
+                id: 9, date: new Date("2023-09-12"), amount: 44.75, observations: "Fallan las luces", service: Service.refuelling, provider: 6, vehicle: 6
+            },
+            {
+                id: 10, date: new Date("2023-09-21"), amount: 40, observations: "", service: Service.refuelling, provider: 1, vehicle: 5
+            },
+        ]
+    }
 }
+
+
+/*
+    id: number,
+    date: Date,
+    amount: number,
+    observations: string,
+    service: Service,
+    provider: number,
+    vehicle: number,
+*/
