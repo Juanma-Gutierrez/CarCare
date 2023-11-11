@@ -1,3 +1,9 @@
 ion-card{
     --background:var(--ion-color-light);
 }
+
+.container{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
