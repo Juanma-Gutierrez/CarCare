@@ -3,6 +3,7 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { VehicleComponent } from './vehicle/vehicle.component';
+import { SpentComponent } from './spent/spent.component';
 
 
 @NgModule({
@@ -10,6 +11,10 @@ import { VehicleComponent } from './vehicle/vehicle.component';
         SharedModule,
         HomePageRoutingModule
     ],
-    declarations: [HomePage, VehicleComponent]
+    declarations: [
+        HomePage,
+        VehicleComponent,
+        SpentComponent
+    ]
 })
 export class HomePageModule { }

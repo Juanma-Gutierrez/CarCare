@@ -17,6 +17,7 @@ export class HomePage implements OnInit {
     public borrarVehiculos: Vehicle[] | undefined;
     public borrarProveedores: Provider[] | undefined;
     public borrarGastos: Spent[] | undefined;
+    public selectedVehicle: number = -1;
 
     constructor(
         public vehicleService: VehicleService,

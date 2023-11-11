@@ -16,7 +16,7 @@
                 <div class="ion-text-center">
                     <h2>Vehículos</h2>
                 </div>
-                <ion-segment value = "available" color="primary" (ionChange)="selectionChanged($event)">
+                <ion-segment value="available" color="primary" (ionChange)="selectionChanged($event)">
                     <ion-segment-button value="available">
                         <ion-label>Disponibles</ion-label>
                     </ion-segment-button>
@@ -31,6 +31,22 @@
             <ion-grid>
                 <div class="ion-text-center">
                     <h2>Gastos</h2>
+                </div>
+                <div>
+
+                    <ion-card>
+                        <ion-card-header>
+                            <ion-card-title>Total gastado: </ion-card-title>
+                            <ion-card-subtitle>Nº de gastos: </ion-card-subtitle>
+                        </ion-card-header>
+                        <ion-card-content>
+                            <ion-list>
+                                <ion-item *ngFor="let spent of borrarGastos">
+                                    <app-spent [spent]="spent"></app-spent>
+                                </ion-item>
+                            </ion-list>
+                        </ion-card-content>
+                    </ion-card>
                 </div>
             </ion-grid>
         </ion-row>
