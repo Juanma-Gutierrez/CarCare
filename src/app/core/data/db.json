@@ -18,5 +18,21 @@
       "email": "laura@gmail.com",
       "password": "12456"
     }
+    ,
+    {
+      "id": 4,
+      "username": "javi",
+      "email": "javi@gmail.com",
+      "password": "12456"
+    }
+    ,
+    {
+      "id": 5,
+      "username": "ana",
+      "email": "ana@gmail.com",
+      "password": "12456"
+    }
+  ],
+  "spends":[
   ]
 }
