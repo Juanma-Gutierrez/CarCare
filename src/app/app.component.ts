@@ -13,10 +13,13 @@ export class AppComponent {
         private auth: AuthService,
         private router: Router
     ) {
+        // Se suscribe al observable isLogged$ del servicio AuthService.
         this.auth.isLogged$.subscribe(logged => {
             if (logged)
+                // Si el usuario está autenticado, navega a home.
                 this.router.navigate(['/home']);
             else
+                // Si el usuario está autenticado, navega a login.
                 this.router.navigate(['/login']);
         });
     }

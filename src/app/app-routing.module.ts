@@ -4,6 +4,10 @@ import { AuthGuard } from './core/guards/auth.guards';
 
 const routes: Routes = [
     {
+        /**
+        * AuthGuard utilizado para proteger el acceso a esta ruta.
+        * El usuario debe estar autenticado para acceder a la página principal.
+        */
         path: 'home',
         loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule),
         canActivate: [AuthGuard]
