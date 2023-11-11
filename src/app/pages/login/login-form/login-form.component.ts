@@ -25,7 +25,12 @@ export class LoginFormComponent implements OnInit {
 
     ngOnInit() { }
 
+    /**
+    * Método invocado al enviar el formulario. Emite los datos del formulario a
+    * través del evento onsubmit.
+    */
     onSubmit() {
+        console.log(this.form?.value.username, this.form?.value.password);
         this.onsubmit.emit(this.form?.value);
         this.form?.controls['password'].setValue('');
     }

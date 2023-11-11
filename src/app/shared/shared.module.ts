@@ -3,6 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     declarations: [
@@ -14,6 +15,7 @@ import { RouterModule } from '@angular/router';
         // Modules
         CommonModule,
         FormsModule,
+        HttpClientModule,
         IonicModule,
         ReactiveFormsModule,
         RouterModule
@@ -23,6 +25,7 @@ import { RouterModule } from '@angular/router';
         // Directives
         // Modules
         CommonModule,
+        HttpClientModule,
         IonicModule,
         FormsModule,
         ReactiveFormsModule,

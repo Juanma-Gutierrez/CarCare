@@ -1,8 +1,11 @@
 <ion-header [translucent]="true">
     <ion-toolbar>
-        <ion-title>
-            Blank
-        </ion-title>
+        <ion-row>
+            <img src="../../../assets/images/logo_carcare_transparent.png">
+            <ion-title>
+                CarCare
+            </ion-title>
+        </ion-row>
     </ion-toolbar>
 </ion-header>
 
@@ -13,9 +16,12 @@
         </ion-toolbar>
     </ion-header>
 
+    <ion-row class="ion-justify-content-center">
+        <ion-text>
+            <h1>Listado de vehículos</h1>
+        </ion-text>
+    </ion-row>
     <div id="container">
-        <strong>Ready to create an app?</strong>
-        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer"
-                href="https://ionicframework.com/docs/components">UI Components</a></p>
+        <app-vehicle *ngFor="let vehicle of borrarVehiculos" [vehicle]="vehicle"></app-vehicle>
     </div>
 </ion-content>
