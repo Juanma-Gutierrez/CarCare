@@ -17,11 +17,12 @@ export class HomePage implements OnInit {
     public borrarVehiculos: Vehicle[] | undefined;
     public borrarProveedores: Provider[] | undefined;
     public borrarGastos: Spent[] | undefined;
-    public selectedVehicle: number = -1;
+    public borrarGastosFiltrados: Spent[] | undefined;
+    public selectedVehicleId: number = -1;
+    public totalSpents: number | undefined;
 
     constructor(
         public vehicleService: VehicleService,
-
     ) { }
 
     ngOnInit(): void {
@@ -33,11 +34,10 @@ export class HomePage implements OnInit {
         this.crearVehiculosTemporales();
         this.crearProveedoresTemporales();
         this.crearGastosTemporales();
+        this.calculateTotalSpents;
     }
 
-
     selectionChanged(event: CustomEvent) {
-        console.log(event.detail.value);
         switch (event.detail.value) {
             case "available": this.filterAvailable = true;
                 break;
@@ -46,6 +46,18 @@ export class HomePage implements OnInit {
         }
     }
 
+
+    calculateTotalSpents() {
+        this.totalSpents = this.borrarGastosFiltrados?.reduce((total, spent) => total + spent.amount, 0);
+    }
+
+    vehicleSelected(vehicle: Vehicle) {
+        console.log("entra", vehicle.brand);
+        console.log(this.calculateTotalSpents);
+        this.selectedVehicleId = vehicle.id;
+        this.borrarGastosFiltrados = this.borrarGastos?.filter(gasto => gasto.vehicle == this.selectedVehicleId);
+        this.calculateTotalSpents();
+    }
 
     crearVehiculosTemporales() {
         // Creación temporal de vehículos, BORRAR
@@ -96,7 +108,7 @@ export class HomePage implements OnInit {
     crearGastosTemporales() {
         this.borrarGastos = [
             {
-                id: 1, date: new Date("2023-10-05"), amount: 30.40, observations: "", service: Service.refuelling, provider: 1, vehicle: 1
+                id: 1, date: new Date("2023-09-14"), amount: 30.40, observations: "", service: Service.refuelling, provider: 1, vehicle: 1
             },
             {
                 id: 2, date: new Date("2023-03-08"), amount: 40.00, observations: "", service: Service.refuelling, provider: 2, vehicle: 2
@@ -129,13 +141,3 @@ export class HomePage implements OnInit {
     }
 }
 
-
-/*
-    id: number,
-    date: Date,
-    amount: number,
-    observations: string,
-    service: Service,
-    provider: number,
-    vehicle: number,
-*/

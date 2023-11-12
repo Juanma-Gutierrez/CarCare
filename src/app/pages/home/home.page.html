@@ -24,7 +24,7 @@
                         <ion-label>Todos</ion-label>
                     </ion-segment-button>
                 </ion-segment>
-                <div *ngFor="let vehicle of borrarVehiculos">
+                <div *ngFor="let vehicle of borrarVehiculos" (click)="vehicleSelected(vehicle)">
                     <app-vehicle [vehicle]="vehicle" *ngIf="vehicle.available || !filterAvailable"></app-vehicle>
                 </div>
             </ion-grid>
@@ -36,14 +36,14 @@
 
                     <ion-card>
                         <ion-card-header>
-                            <ion-card-title>Total gastado: </ion-card-title>
-                            <ion-card-subtitle>Nº de gastos: </ion-card-subtitle>
+                            <ion-card-title>Total gastado: {{totalSpents | number:'1.2-2'}} €</ion-card-title>
+                            <ion-card-subtitle>Nº de gastos: {{selectedVehicleId}}</ion-card-subtitle>
                         </ion-card-header>
                         <ion-card-content>
-                            <ion-list>
-                                <ion-item *ngFor="let spent of borrarGastos">
-                                    <app-spent [spent]="spent"></app-spent>
-                                </ion-item>
+                            <ion-list *ngFor="let spent of borrarGastosFiltrados">
+                                    <ion-item>
+                                        <app-spent [spent]="spent"></app-spent>
+                                    </ion-item>
                             </ion-list>
                         </ion-card-content>
                     </ion-card>
