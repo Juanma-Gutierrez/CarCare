@@ -3,10 +3,10 @@ import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 
 @Component({
     selector: 'app-vehicle',
-    templateUrl: './vehicle.component.html',
-    styleUrls: ['./vehicle.component.scss'],
+    templateUrl: './vehicle-item.component.html',
+    styleUrls: ['./vehicle-item.component.scss'],
 })
-export class VehicleComponent implements OnInit {
+export class VehicleItemComponent implements OnInit {
     @Input() vehicle?: Vehicle;
 
     constructor() { }

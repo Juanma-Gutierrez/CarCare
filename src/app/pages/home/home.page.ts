@@ -17,9 +17,10 @@ export class HomePage implements OnInit {
     public borrarVehiculos: Vehicle[] | undefined;
     public borrarProveedores: Provider[] | undefined;
     public borrarGastos: Spent[] | undefined;
-    public borrarGastosFiltrados: Spent[] | undefined;
-    public selectedVehicleId: number = -1;
-    public totalSpents: number | undefined;
+    public filteredSpent: Spent[] | undefined;
+    public selectedVehicle: Vehicle | undefined;
+    public totalSpentsAmount: number | undefined;
+    public totalSpentsNumber: number | undefined = 0;
 
     constructor(
         public vehicleService: VehicleService,
@@ -46,16 +47,14 @@ export class HomePage implements OnInit {
         }
     }
 
-
     calculateTotalSpents() {
-        this.totalSpents = this.borrarGastosFiltrados?.reduce((total, spent) => total + spent.amount, 0);
+        this.totalSpentsAmount = this.filteredSpent?.reduce((total, spent) => total + spent.amount, 0);
+        this.totalSpentsNumber = this.filteredSpent?.length;
     }
 
     vehicleSelected(vehicle: Vehicle) {
-        console.log("entra", vehicle.brand);
-        console.log(this.calculateTotalSpents);
-        this.selectedVehicleId = vehicle.id;
-        this.borrarGastosFiltrados = this.borrarGastos?.filter(gasto => gasto.vehicle == this.selectedVehicleId);
+        this.selectedVehicle = vehicle;
+        this.filteredSpent = this.borrarGastos?.filter(spent => spent.vehicle == this.selectedVehicle?.id);
         this.calculateTotalSpents();
     }
 
@@ -135,7 +134,19 @@ export class HomePage implements OnInit {
                 id: 9, date: new Date("2023-09-12"), amount: 44.75, observations: "Fallan las luces", service: Service.refuelling, provider: 6, vehicle: 6
             },
             {
-                id: 10, date: new Date("2023-09-21"), amount: 40, observations: "", service: Service.refuelling, provider: 1, vehicle: 5
+                id: 10, date: new Date("2023-06-12"), amount: 40, observations: "", service: Service.refuelling, provider: 1, vehicle: 5
+            },
+            {
+                id: 11, date: new Date("2023-07-21"), amount: 45, observations: "", service: Service.refuelling, provider: 2, vehicle: 2
+            },
+            {
+                id: 12, date: new Date("2023-05-17"), amount: 25, observations: "", service: Service.refuelling, provider: 1, vehicle: 2
+            },
+            {
+                id: 13, date: new Date("2023-09-14"), amount: 1250, observations: "Reparación del accidenten en la autovía", service: Service.repair, provider: 5, vehicle: 2
+            },
+            {
+                id: 14, date: new Date("2023-09-30"), amount: 30, observations: "", service: Service.refuelling, provider: 2, vehicle: 5
             },
         ]
     }

@@ -10,4 +10,7 @@
             <h3 class="amount">{{spent?.amount | number:'1.2-2'}} €</h3>
         </ion-col>
     </ion-row>
+    <ion-row *ngIf="spent?.observations!==''">
+        <p>{{spent?.observations}}</p>
+    </ion-row>
 </ion-grid>

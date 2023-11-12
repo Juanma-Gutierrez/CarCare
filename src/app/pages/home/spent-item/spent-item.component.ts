@@ -2,11 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Spent } from 'src/app/core/interfaces/Spent';
 
 @Component({
-    selector: 'app-spent',
-    templateUrl: './spent.component.html',
-    styleUrls: ['./spent.component.scss'],
+    selector: 'app-spent-item',
+    templateUrl: './spent-item.component.html',
+    styleUrls: ['./spent-item.component.scss'],
 })
-export class SpentComponent implements OnInit {
+export class SpentItemComponent implements OnInit {
     @Input() spent?: Spent;
 
     constructor() { }
