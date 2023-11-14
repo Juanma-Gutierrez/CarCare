@@ -1,13 +1,18 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>about-me</ion-title>
-  </ion-toolbar>
+<ion-header [translucent]="true" id="title" class="10vh">
+    <ion-toolbar>
+        <ion-row class="ion-align-items-center">
+            <ion-col>
+                <img src="../../../assets/images/logo_carcare_transparent.png">
+            </ion-col>
+            <ion-col class="ion-text-end">
+                <ion-button shape="round" (click)="navToHome()">
+                    Inicio
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">about-me</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-text-center">
+    <app-card-about></app-card-about>
 </ion-content>

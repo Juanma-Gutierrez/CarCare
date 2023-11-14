@@ -1,15 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-about-me',
-  templateUrl: './about-me.page.html',
-  styleUrls: ['./about-me.page.scss'],
+    selector: 'app-about-me',
+    templateUrl: './about-me.page.html',
+    styleUrls: ['./about-me.page.scss'],
 })
 export class AboutMePage implements OnInit {
 
-  constructor() { }
+    constructor(
+        private router: Router) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
+    navToHome() {
+        this.router.navigate(["/home"]);
+    }
 }

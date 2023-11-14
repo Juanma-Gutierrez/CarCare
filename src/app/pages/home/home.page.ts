@@ -51,7 +51,6 @@ export class HomePage implements OnInit {
     }
 
     navToAbout() {
-        console.log("entra");
         this.router.navigate(['/about-me']);
     }
 
