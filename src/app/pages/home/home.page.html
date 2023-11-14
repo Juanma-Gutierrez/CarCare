@@ -1,7 +1,14 @@
 <ion-header [translucent]="true" id="title" class="10vh">
     <ion-toolbar>
-        <ion-row>
-            <img src="../../../assets/images/logo_carcare_transparent.png">
+        <ion-row class="ion-align-items-center">
+            <ion-col>
+                <img src="../../../assets/images/logo_carcare_transparent.png">
+            </ion-col>
+            <ion-col class="ion-text-end">
+                <ion-button shape="round" (click)="navToAbout()">
+                    About
+                </ion-button>
+            </ion-col>
         </ion-row>
     </ion-toolbar>
 </ion-header>

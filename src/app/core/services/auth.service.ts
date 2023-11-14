@@ -12,7 +12,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export abstract class AuthService {
     // -logged es un BehaviorSubject que controla si el usuario está logueado.
-    protected _logged = new BehaviorSubject<boolean>(false);
+    // TODO PONER A FALSE PARA QUE PIDA EL LOGIN
+    protected _logged = new BehaviorSubject<boolean>(true);
     // Observable que emite el estado de inicio de sesión del usuario.
     public isLogged$ = this._logged.asObservable();
 

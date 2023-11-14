@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Provider, ProviderCategory } from 'src/app/core/interfaces/Provider';
 import { Service, Spent } from 'src/app/core/interfaces/Spent';
 import { Vehicle, VehicleCategory } from 'src/app/core/interfaces/Vehicle';
@@ -10,6 +11,7 @@ import { VehicleService } from 'src/app/core/services/vehicle.service';
     styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
+
     public loading = true;
     public filterAvailable = true;
 
@@ -24,6 +26,7 @@ export class HomePage implements OnInit {
 
     constructor(
         public vehicleService: VehicleService,
+        private router: Router
     ) { }
 
     ngOnInit(): void {
@@ -45,6 +48,11 @@ export class HomePage implements OnInit {
             case "all": this.filterAvailable = false;
                 break;
         }
+    }
+
+    navToAbout() {
+        console.log("entra");
+        this.router.navigate(['/about-me']);
     }
 
     calculateTotalSpents() {
