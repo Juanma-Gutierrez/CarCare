@@ -14,43 +14,45 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <ion-row>
-        <ion-grid>
-            <div class="ion-text-center">
-                <h2>Vehículos</h2>
-            </div>
-            <ion-segment value="available" color="primary" (ionChange)="selectionChanged($event)">
-                <ion-segment-button value="available">
-                    <ion-label>Disponibles</ion-label>
-                </ion-segment-button>
-                <ion-segment-button value="all">
-                    <ion-label>Todos</ion-label>
-                </ion-segment-button>
-            </ion-segment>
-            <div *ngFor="let vehicle of borrarVehiculos" (click)="vehicleSelected(vehicle)">
-                <app-vehicle [vehicle]="vehicle" *ngIf="vehicle.available || !filterAvailable"></app-vehicle>
-            </div>
-        </ion-grid>
-        <ion-grid>
-            <div class="ion-text-center">
-                <h2>Gastos</h2>
-            </div>
-            <div>
-                <ion-card>
-                    <ion-card-header>
-                        <ion-card-title>{{selectedVehicle?.brand}} {{selectedVehicle?.model}}</ion-card-title>
-                        <ion-card-title>Total gastado: {{totalSpentsAmount | number:'1.2-2'}} €</ion-card-title>
-                        <ion-card-subtitle>Nº de gastos: {{totalSpentsNumber}}</ion-card-subtitle>
-                    </ion-card-header>
-                    <ion-card-content>
-                        <ion-list *ngFor="let spent of filteredSpent">
-                            <ion-item>
-                                <app-spent-item [spent]="spent"></app-spent-item>
-                            </ion-item>
-                        </ion-list>
-                    </ion-card-content>
-                </ion-card>
-            </div>
-        </ion-grid>
-    </ion-row>
+    <ion-grid [fixed]="true">
+        <ion-row>
+            <ion-col>
+                <div class="ion-text-center">
+                    <h2>Vehículos</h2>
+                </div>
+                <ion-segment value="available" color="primary" (ionChange)="selectionChanged($event)">
+                    <ion-segment-button value="available">
+                        <ion-label>Disponibles</ion-label>
+                    </ion-segment-button>
+                    <ion-segment-button value="all">
+                        <ion-label>Todos</ion-label>
+                    </ion-segment-button>
+                </ion-segment>
+                <div *ngFor="let vehicle of borrarVehiculos" (click)="vehicleSelected(vehicle)">
+                    <app-vehicle [vehicle]="vehicle" *ngIf="vehicle.available || !filterAvailable"></app-vehicle>
+                </div>
+            </ion-col>
+            <ion-col>
+                <div class="ion-text-center">
+                    <h2>Gastos</h2>
+                </div>
+                <div>
+                    <ion-card>
+                        <ion-card-header>
+                            <ion-card-title>{{selectedVehicle?.brand}} {{selectedVehicle?.model}}</ion-card-title>
+                            <ion-card-title>Total gastado: {{totalSpentsAmount | number:'1.2-2'}} €</ion-card-title>
+                            <ion-card-subtitle>Nº de gastos: {{totalSpentsNumber}}</ion-card-subtitle>
+                        </ion-card-header>
+                        <ion-card-content>
+                            <ion-list *ngFor="let spent of filteredSpent">
+                                <ion-item>
+                                    <app-spent-item [spent]="spent"></app-spent-item>
+                                </ion-item>
+                            </ion-list>
+                        </ion-card-content>
+                    </ion-card>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>
