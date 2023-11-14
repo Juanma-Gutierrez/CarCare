@@ -1,11 +1,20 @@
 <ion-card *ngIf="vehicle?.available===true" button>
-    <ion-card-header>
-        <ion-card-title>{{vehicle?.brand}} {{vehicle?.model}}</ion-card-title>
-        <ion-card-subtitle>{{ vehicle?.plate}}</ion-card-subtitle>
-    </ion-card-header>
+    <ion-row class="ion-align-items-center vehiclesItem">
+        <ion-col>
+            <ion-card-header>
+                <ion-card-title>{{vehicle?.brand}} {{vehicle?.model}}</ion-card-title>
+                <ion-card-subtitle>{{ vehicle?.plate}}</ion-card-subtitle>
+            </ion-card-header>
+        </ion-col>
+        <ion-col class="ion-text-end">
+            <ion-button fill="clear" id="editVehicle">
+                <ion-icon name="create-outline" size="large"></ion-icon>
+            </ion-button>
+        </ion-col>
+    </ion-row>
 </ion-card>
 
-<ion-card *ngIf="vehicle?.available===false" color="medium">
+<ion-card *ngIf="vehicle?.available===false" color="medium" button>
     <ion-row>
         <ion-col size="11">
             <ion-card-header>

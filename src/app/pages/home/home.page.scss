@@ -13,3 +13,16 @@ img {
 app-spent-item{
     width: 100%;
 }
+
+.vehicleasdFab{
+    position:fixed;
+    top:100px;
+    z-index: 100;
+}
+
+.spentFab{
+    position:fixed;
+    top:25px;
+    z-index: 100;
+    right:35px;
+}

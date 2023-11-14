@@ -20,14 +20,25 @@
                 <div class="ion-text-center">
                     <h2>Vehículos</h2>
                 </div>
-                <ion-segment value="available" color="primary" (ionChange)="selectionChanged($event)">
-                    <ion-segment-button value="available">
-                        <ion-label>Disponibles</ion-label>
-                    </ion-segment-button>
-                    <ion-segment-button value="all">
-                        <ion-label>Todos</ion-label>
-                    </ion-segment-button>
-                </ion-segment>
+                <div>
+                    <ion-row>
+                        <ion-col size="2">
+                            <ion-fab-button class="vehicleFab">
+                                <ion-icon name="add-outline"></ion-icon>
+                            </ion-fab-button>
+                        </ion-col>
+                        <ion-col size="10">
+                            <ion-segment value="available" color="primary" (ionChange)="selectionChanged($event)">
+                                <ion-segment-button value="available">
+                                    <ion-label>Disponibles</ion-label>
+                                </ion-segment-button>
+                                <ion-segment-button value="all">
+                                    <ion-label>Todos</ion-label>
+                                </ion-segment-button>
+                            </ion-segment>
+                        </ion-col>
+                    </ion-row>
+                </div>
                 <div *ngFor="let vehicle of borrarVehiculos" (click)="vehicleSelected(vehicle)">
                     <app-vehicle [vehicle]="vehicle" *ngIf="vehicle.available || !filterAvailable"></app-vehicle>
                 </div>
@@ -39,9 +50,22 @@
                 <div>
                     <ion-card>
                         <ion-card-header>
-                            <ion-card-title>{{selectedVehicle?.brand}} {{selectedVehicle?.model}}</ion-card-title>
-                            <ion-card-title>Total gastado: {{totalSpentsAmount | number:'1.2-2'}} €</ion-card-title>
-                            <ion-card-subtitle>Nº de gastos: {{totalSpentsNumber}}</ion-card-subtitle>
+                            <ion-row>
+                                <ion-col>
+                                    <ion-card-title>{{selectedVehicle?.brand}}
+                                        {{selectedVehicle?.model}}</ion-card-title>
+                                    <ion-card-title>Total gastado: {{totalSpentsAmount | number:'1.2-2'}}
+                                        €</ion-card-title>
+                                    <ion-card-subtitle>Nº de gastos: {{totalSpentsNumber}}</ion-card-subtitle>
+                                </ion-col>
+                                <ion-col>
+                                    <div *ngIf="selectedVehicle?.id!==null">
+                                        <ion-fab-button class="spentFab">
+                                            <ion-icon name="add-outline"></ion-icon>
+                                        </ion-fab-button>
+                                    </div>
+                                </ion-col>
+                            </ion-row>
                         </ion-card-header>
                         <ion-card-content>
                             <ion-list *ngFor="let spent of filteredSpent">
