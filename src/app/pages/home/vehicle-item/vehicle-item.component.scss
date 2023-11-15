@@ -1,13 +1,27 @@
-ion-card{
-    --background:var(--ion-color-light);
+ion-card {
+    --background: var(--ion-color-light);
 }
 
-.container{
-    display:flex;
+.container {
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.vehiclesItem{
+.vehiclesItem {
     padding-inline: 10px;
+}
+
+.retired {
+    --background: var(--ion-color-medium);
+    --color: var(--ion-color-light);
+
+    ion-card-title,
+    ion-card-subtitle {
+        color: var(--ion-color-light);
+    }
+
+    ion-icon {
+        color: var(--ion-color-light);
+    }
 }

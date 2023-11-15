@@ -24,8 +24,11 @@
                         </ion-col>
                     </ion-row>
                 </div>
-                <div *ngFor="let vehicle of borrarVehiculos" (click)="vehicleSelected(vehicle)">
-                    <app-vehicle [vehicle]="vehicle" *ngIf="vehicle.available || !filterAvailable"></app-vehicle>
+                <div *ngFor="let vehicle of vehicles">
+                    <app-vehicle [vehicle]="vehicle" *ngIf="vehicle.available || !filterAvailable"
+                        (onVehicleItemClicked)="onVehicleItemClicked(vehicle)"
+                        (onEditVehicleClicked)="onEditVehicleClicked(vehicle)">
+                    </app-vehicle>
                 </div>
             </ion-col>
             <ion-col>

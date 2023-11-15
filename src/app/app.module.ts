@@ -17,7 +17,7 @@ export function httpProviderFactory(
     return new HttpClientWebProvider(http);
 }
 
-export function AuthServiceProvider(
+export function AuthServiceFactory(
     api: ApiService
 ) {
     return new AuthStrapiService(api);
@@ -45,7 +45,7 @@ export function AuthServiceProvider(
         {
             provide: AuthService,
             deps: [/* JwtService, */ ApiService],
-            useFactory: AuthServiceProvider,
+            useFactory: AuthServiceFactory,
         }
     ],
     bootstrap: [AppComponent],

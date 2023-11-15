@@ -40,7 +40,6 @@ export class LoginPage implements OnInit {
                     // cssClass: 'fav-ion-toast' //Una clase que podemos poner en global.scss para configurar el ion-toast
                 };
                 this.toast.create(options).then(toast => toast.present());
-                console.log(err);
             }
         });
     }

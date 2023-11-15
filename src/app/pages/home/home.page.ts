@@ -16,9 +16,9 @@ export class HomePage implements OnInit {
     public filterAvailable = true;
 
     // Mockup de datos locales en array
-    public borrarVehiculos: Vehicle[] | undefined;
-    public borrarProveedores: Provider[] | undefined;
-    public borrarGastos: Spent[] | undefined;
+    public vehicles: Vehicle[] | undefined;
+    public providers: Provider[] | undefined;
+    public spents: Spent[] | undefined;
     public filteredSpent: Spent[] | undefined;
     public selectedVehicle: Vehicle | undefined;
     public totalSpentsAmount: number | undefined;
@@ -34,7 +34,7 @@ export class HomePage implements OnInit {
         this.vehicleService.getAll().subscribe((c) => {
             this.loading = false;
         });
-        // BORRAR
+        // TODO BORRAR
         this.crearVehiculosTemporales();
         this.crearProveedoresTemporales();
         this.crearGastosTemporales();
@@ -50,24 +50,26 @@ export class HomePage implements OnInit {
         }
     }
 
-    navToAbout() {
-        this.router.navigate(['/about-me']);
+    public async onVehicleItemClicked(vehicle: Vehicle) {
+        console.log(vehicle.brand + vehicle.model)
+        this.selectedVehicle = vehicle;
+        this.filteredSpent = this.spents?.filter(spent => spent.vehicle == this.selectedVehicle?.id);
+        this.calculateTotalSpents();
+
     }
+    public async onEditVehicleClicked(vehicle: Vehicle) {
+        console.log(vehicle.brand + vehicle.model)
+    }
+
 
     calculateTotalSpents() {
         this.totalSpentsAmount = this.filteredSpent?.reduce((total, spent) => total + spent.amount, 0);
         this.totalSpentsNumber = this.filteredSpent?.length;
     }
 
-    vehicleSelected(vehicle: Vehicle) {
-        this.selectedVehicle = vehicle;
-        this.filteredSpent = this.borrarGastos?.filter(spent => spent.vehicle == this.selectedVehicle?.id);
-        this.calculateTotalSpents();
-    }
-
     crearVehiculosTemporales() {
         // Creación temporal de vehículos, BORRAR
-        this.borrarVehiculos = [
+        this.vehicles = [
             {
                 id: 1, plate: "1122JMG", brand: "Seat", model: "León", registrationDate: new Date("2015-05-09"),
                 category: VehicleCategory.car, available: false, owner: "Juanma"
@@ -98,21 +100,20 @@ export class HomePage implements OnInit {
             }
         ];
     }
-
     crearProveedoresTemporales() {
-        this.borrarProveedores = [
-            { id: 1, name: "Repsol", category: ProviderCategory.fuelStation, phone: "952442354", spents: [] },
-            { id: 2, name: "Cepsa", category: ProviderCategory.fuelStation, phone: "", spents: [] },
-            { id: 3, name: "Línea Directa Aseguradora", category: ProviderCategory.insuranceCenter, phone: "952442354", spents: [] },
-            { id: 4, name: "Aurgi", category: ProviderCategory.workshop, phone: "952112233", spents: [] },
-            { id: 5, name: "Talleres Hermanos Gómez", category: ProviderCategory.workshop, phone: "952665577", spents: [] },
-            { id: 6, name: "ITV", category: ProviderCategory.workshop, phone: "952665577", spents: [] },
+        this.providers
+            = [
+                { id: 1, name: "Repsol", category: ProviderCategory.fuelStation, phone: "952442354", spents: [] },
+                { id: 2, name: "Cepsa", category: ProviderCategory.fuelStation, phone: "", spents: [] },
+                { id: 3, name: "Línea Directa Aseguradora", category: ProviderCategory.insuranceCenter, phone: "952442354", spents: [] },
+                { id: 4, name: "Aurgi", category: ProviderCategory.workshop, phone: "952112233", spents: [] },
+                { id: 5, name: "Talleres Hermanos Gómez", category: ProviderCategory.workshop, phone: "952665577", spents: [] },
+                { id: 6, name: "ITV", category: ProviderCategory.workshop, phone: "952665577", spents: [] },
 
-        ]
+            ]
     }
-
     crearGastosTemporales() {
-        this.borrarGastos = [
+        this.spents = [
             {
                 id: 1, date: new Date("2023-09-14"), amount: 30.40, observations: "", service: Service.refuelling, provider: 1, vehicle: 1
             },

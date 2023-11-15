@@ -5,12 +5,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { SelectedCardDirective } from './directives/selectable-card.directive';
 
 @NgModule({
     declarations: [
-        // Directives
         // Components
-        ToolbarComponent
+        ToolbarComponent,
+        // Directives
+        SelectedCardDirective,
         // Pipes
     ],
     imports: [
@@ -20,19 +22,20 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
         HttpClientModule,
         IonicModule,
         ReactiveFormsModule,
-        RouterModule
+        RouterModule,
     ],
     exports: [
         //Components
         ToolbarComponent,
         // Directives
+        SelectedCardDirective,
         // Modules
         CommonModule,
         HttpClientModule,
         IonicModule,
         FormsModule,
         ReactiveFormsModule,
-        RouterModule
+        RouterModule,
         //Pipes
     ]
 })
