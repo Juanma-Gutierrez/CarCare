@@ -10,6 +10,7 @@ import { NgModule } from '@angular/core';
 import { RouteReuseStrategy } from '@angular/router';
 import { HttpClientProvider } from './core/services/http-client.provider';
 import { HttpClientWebProvider } from './core/services/http-client-web.provider';
+import { SharedModule } from './shared/shared.module';
 
 export function httpProviderFactory(
     http: HttpClient) {
@@ -25,10 +26,11 @@ export function AuthServiceProvider(
 @NgModule({
     declarations: [AppComponent],
     imports: [
+        IonicModule.forRoot(),
         AppRoutingModule,
         BrowserModule,
-        IonicModule.forRoot(),
-        HttpClientModule
+        HttpClientModule,
+        SharedModule
     ],
     providers: [
         {

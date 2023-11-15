@@ -4,11 +4,13 @@ import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 @NgModule({
     declarations: [
         // Directives
         // Components
+        ToolbarComponent
         // Pipes
     ],
     imports: [
@@ -22,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     ],
     exports: [
         //Components
+        ToolbarComponent,
         // Directives
         // Modules
         CommonModule,

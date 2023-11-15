@@ -1,0 +1,23 @@
+<ion-header [translucent]="true" id="title">
+    <ion-toolbar>
+        <ion-row class="ion-align-items-center">
+            <ion-col>
+                <a href="../../../../app/pages/home/">
+                    <img src="../../../assets/images/logo_carcare_transparent.png">
+                </a>
+            </ion-col>
+            <ion-col class="ion-text-end">
+                <div class="in-line center-v end-h">
+                    <div *ngIf="selectedPage!=='home'">
+                        <ion-button shape="round" (click)="navToHome()" [ngClass]="{'active': selectedPage==='home'}">
+                            Inicio
+                        </ion-button>
+                    </div>
+                    <ion-button shape="round" (click)="navToAbout()" [ngClass]="{'active': selectedPage==='aboutMe'}">
+                        Sobre mí
+                    </ion-button>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
