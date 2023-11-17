@@ -2,8 +2,9 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { VehicleItemComponent } from './vehicle-item/vehicle-item.component';
 import { SpentItemComponent } from './spent-item/spent-item.component';
+import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
+import { VehicleItemComponent } from './vehicle-item/vehicle-item.component';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { SpentItemComponent } from './spent-item/spent-item.component';
     declarations: [
         HomePage,
         VehicleItemComponent,
+        VehicleDetailComponent,
         SpentItemComponent
     ]
 })

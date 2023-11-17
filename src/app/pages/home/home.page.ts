@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalController, ToastController, ToastOptions } from '@ionic/angular';
 import { Provider, ProviderCategory } from 'src/app/core/interfaces/Provider';
 import { Service, Spent } from 'src/app/core/interfaces/Spent';
 import { Vehicle, VehicleCategory } from 'src/app/core/interfaces/Vehicle';
 import { VehicleService } from 'src/app/core/services/vehicle.service';
+import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
 
 @Component({
     selector: 'app-home',
@@ -26,6 +28,8 @@ export class HomePage implements OnInit {
 
     constructor(
         public vehicleService: VehicleService,
+        private toast: ToastController,
+        private modal: ModalController,
         private router: Router
     ) { }
 
@@ -59,6 +63,59 @@ export class HomePage implements OnInit {
     }
     public async onEditVehicleClicked(vehicle: Vehicle) {
         console.log(vehicle.brand + vehicle.model)
+        var onDismiss = (info: any) => {
+            console.log(info);
+            switch (info.role) {
+                case 'ok': {
+                    this.vehicleService.updateVehicle(info.data).subscribe(async user => {
+                        const options: ToastOptions = {
+                            message: "User modified",
+                            duration: 1000,
+                            position: 'bottom',
+                            color: 'tertiary',
+                            cssClass: 'card-ion-toast'
+                        };
+                        const toast = await this.toast.create(options);
+                        toast.present();
+                    })
+                }
+                    break;
+                case 'delete': {
+                    this.vehicleService.deleteVehicle(info.data).subscribe(async user => {
+                        const options: ToastOptions = {
+                            message: "User deleted",
+                            duration: 1000,
+                            position: 'bottom',
+                            color: 'tertiary',
+                            cssClass: 'card-ion-toast'
+                        };
+                        const toast = await this.toast.create(options);
+                        toast.present();
+                    })
+                }
+                    break;
+                default: {
+                    console.error("No debería entrar");
+                }
+            }
+        }
+        this.presentForm(vehicle, onDismiss);
+    }
+
+    async presentForm(data: Vehicle | null, onDismiss: (result: any) => void) {
+        const modal = await this.modal.create({
+            component: VehicleDetailComponent,
+            componentProps: {
+                user: data
+            },
+            cssClass: "modal-w50"
+        });
+        modal.present();
+        modal.onDidDismiss().then(result => {
+            if (result && result.data) {
+                onDismiss(result);
+            }
+        });
     }
 
 
