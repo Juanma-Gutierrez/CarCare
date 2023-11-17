@@ -16,8 +16,13 @@ export class VehicleDetailComponent implements OnInit {
     @Input() set vehicle(_vehicle: Vehicle | null) {
         if (_vehicle) {
             this.mode = 'Edit';
-            //         this.form.controls['id'].setValue(_user.id);
-
+            this.form.controls['id'].setValue(_vehicle.id);
+            this.form.controls['model'].setValue(_vehicle.model);
+            this.form.controls['brand'].setValue(_vehicle.brand);
+            this.form.controls['registrationDate'].setValue(_vehicle.registrationDate);
+            this.form.controls['category'].setValue(_vehicle.category);
+            this.form.controls['available'].setValue(_vehicle.available);
+            this.form.controls['owner'].setValue(_vehicle.owner);
         }
     }
     constructor(

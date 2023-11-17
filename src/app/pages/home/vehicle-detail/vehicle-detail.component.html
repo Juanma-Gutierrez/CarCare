@@ -6,7 +6,7 @@
             </ion-button>
         </ion-buttons>
         <ion-title>
-            {{(mode==='New'?'Usuario nuevo':'Editar usuario')}}
+            {{(mode==='New'?'Nuevo vehículo':'Editar vehículo')}}
         </ion-title>
         <ion-buttons slot="end">
             <ion-button *ngIf="mode==='Edit'" color="primary" fill="clear" (click)="onDelete()">
@@ -18,27 +18,53 @@
 
 <ion-content class="ion-padding" size="small">
     <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
-        <ion-item size="small">
-            <ion-input label="Matrícula" labelPlacement="start" formControlName="plate" type="text"></ion-input>
-        </ion-item>
-        <ion-item size="small">
-            <ion-input label="Marca" labelPlacement="start" formControlName="brand" type="text"></ion-input>
-        </ion-item>
-        <ion-item size="small">
-            <ion-input label="Modelo" labelPlacement="start" formControlName="model" type="text"></ion-input>
-        </ion-item>
-        <ion-item size="small">
-            <ion-input label="Fecha de alta del vehículo" labelPlacement="start" formControlName="registrationDate" type="text"></ion-input>
-        </ion-item>
-        <ion-item size="small">
-            <ion-input label="Categoría" labelPlacement="start" formControlName="category" type="text"></ion-input>
-        </ion-item>
-        <ion-item size="small">
-            <ion-checkbox labelPlacement="start" formControlName="available">Vehículo disponible</ion-checkbox>
-        </ion-item>
-        <ion-item size="small">
-            <ion-input label="Propietario" labelPlacement="start" formControlName="owner" type="text"></ion-input>
-        </ion-item>
+        <ion-list>
+            <ion-row>
+                <div>
+
+                    <ion-input label="Matrícula" labelPlacement="floating" fill="outline" formControlName="plate"
+                        type="text"></ion-input>
+                </div>
+                <div>
+                    <ion-label label="Fecha de alta del vehículo" labelPlacement="start"
+                        formControlName="registrationDate">
+                        Fecha de alta del vehículo
+                        <ion-datetime-button datetime="datetime"></ion-datetime-button>
+                        <ion-modal [keepContentsMounted]="true">
+                            <ng-template>
+                                <ion-datetime id="datetime" presentation="date"> [firstDayOfWeek]="1"></ion-datetime>
+                            </ng-template>
+                        </ion-modal>
+                    </ion-label>
+                </div>
+            </ion-row>
+            <ion-row>
+                <div>
+                    <ion-input label="Marca" labelPlacement="floating" fill="outline" formControlName="brand"
+                        type="text"></ion-input>
+                </div>
+                <div>
+                    <ion-input label="Modelo" labelPlacement="floating" fill="outline" formControlName="model"
+                        type="text"></ion-input>
+                </div>
+            </ion-row>
+            <ion-row>
+                <div>
+                    <ion-input label="Categoría" labelPlacement="floating" fill="outline" formControlName="category"
+                        type="text"></ion-input>
+                </div>
+                <div>
+                    <ion-checkbox labelPlacement="end" formControlName="available">Vehículo
+                        disponible </ion-checkbox>
+                </div>
+            </ion-row>
+            <ion-row>
+                <div>
+                    <ion-input label="Propietario" labelPlacement="floating" fill="outline" formControlName="owner"
+                        type="text"></ion-input>
+                </div>
+            </ion-row>
+        </ion-list>
     </form>
 </ion-content>
 

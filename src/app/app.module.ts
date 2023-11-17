@@ -8,7 +8,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { IonicModule, IonicRouteStrategy, Platform } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { RouteReuseStrategy } from '@angular/router';
-import { HttpClientProvider } from './core/services/http-client.provider';
+import { HttpClientProvider as HttpClientService } from './core/services/http-client.provider';
 import { HttpClientWebProvider } from './core/services/http-client-web.provider';
 import { SharedModule } from './shared/shared.module';
 
@@ -38,7 +38,7 @@ export function AuthServiceFactory(
             useClass: IonicRouteStrategy
         },
         {
-            provide: HttpClientProvider,
+            provide: HttpClientService,
             deps: [HttpClient, Platform],
             useFactory: httpProviderFactory,
         },
