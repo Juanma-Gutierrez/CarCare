@@ -106,7 +106,7 @@ export class HomePage implements OnInit {
         const modal = await this.modal.create({
             component: VehicleDetailComponent,
             componentProps: {
-                user: data
+                vehicle: data
             },
             cssClass: "modal-w50"
         });

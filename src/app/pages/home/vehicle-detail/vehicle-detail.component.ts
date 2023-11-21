@@ -12,11 +12,12 @@ export class VehicleDetailComponent implements OnInit {
 
     form: FormGroup;
     mode: 'New' | 'Edit' = 'New';
-
     @Input() set vehicle(_vehicle: Vehicle | null) {
+        console.log(_vehicle)
         if (_vehicle) {
             this.mode = 'Edit';
             this.form.controls['id'].setValue(_vehicle.id);
+            this.form.controls['plate'].setValue(_vehicle.plate);
             this.form.controls['model'].setValue(_vehicle.model);
             this.form.controls['brand'].setValue(_vehicle.brand);
             this.form.controls['registrationDate'].setValue(_vehicle.registrationDate);
@@ -25,6 +26,7 @@ export class VehicleDetailComponent implements OnInit {
             this.form.controls['owner'].setValue(_vehicle.owner);
         }
     }
+
     constructor(
         private _modal: ModalController,
         private formBuilder: FormBuilder
