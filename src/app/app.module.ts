@@ -1,16 +1,17 @@
 import { ApiService } from './core/services/api/api.service';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AuthService } from './core/services/auth.service';
-import { AuthStrapiService } from './core/services/strapi/auth-strapi.service';
+import { AuthService } from './core/services/api/auth.service';
+import { AuthStrapiService } from './core/services/api/strapi/auth-strapi.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { IonicModule, IonicRouteStrategy, Platform } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { RouteReuseStrategy } from '@angular/router';
-import { HttpClientProvider as HttpClientService } from './core/services/http-client.provider';
-import { HttpClientWebProvider } from './core/services/http-client-web.provider';
+import { HttpClientProvider as HttpClientService } from './core/services/http/http-client.provider';
+import { HttpClientWebProvider } from './core/services/http/http-client-web.provider';
 import { SharedModule } from './shared/shared.module';
+import { JwtService } from './core/services/jwt.service';
 
 export function httpProviderFactory(
     http: HttpClient) {
@@ -18,9 +19,10 @@ export function httpProviderFactory(
 }
 
 export function AuthServiceFactory(
+    jwt: JwtService,
     api: ApiService
 ) {
-    return new AuthStrapiService(api);
+    return new AuthStrapiService(jwt, api);
 }
 
 @NgModule({
@@ -44,7 +46,7 @@ export function AuthServiceFactory(
         },
         {
             provide: AuthService,
-            deps: [/* JwtService, */ ApiService],
+            deps: [JwtService, ApiService],
             useFactory: AuthServiceFactory,
         }
     ],

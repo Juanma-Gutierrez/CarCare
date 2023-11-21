@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PaginatedData } from '../interfaces/data';
+import { PaginatedData } from '../../interfaces/data';
 
 @Injectable({
     providedIn: 'root'

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, ToastController, ToastOptions } from '@ionic/angular';
-import { Vehicle, VehicleCategory } from 'src/app/core/interfaces/Vehicle';
-import { VehiclesService } from 'src/app/core/services/vehicles.service';
+import { Vehicle, VehicleCategory } from 'src/app/core/interfaces/vehicle';
+import { VehiclesService } from 'src/app/core/services/api/vehicles.service';
 import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
-import { Provider, ProviderCategory } from 'src/app/core/interfaces/Provider';
-import { Service, Spent } from 'src/app/core/interfaces/Spent';
+import { Provider, ProviderCategory } from 'src/app/core/interfaces/provider';
+import { Service, Spent } from 'src/app/core/interfaces/spent';
 
 @Component({
     selector: 'app-home',

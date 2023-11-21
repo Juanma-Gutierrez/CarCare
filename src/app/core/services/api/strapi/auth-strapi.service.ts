@@ -1,8 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, lastValueFrom, map, tap } from 'rxjs';
-import { ApiService } from '../api/api.service';
+import { ApiService } from '../api.service';
 import { AuthService } from '../auth.service';
-import { UserCredentials } from '../../interfaces/user-credentials';
+import { UserCredentials } from '../../../interfaces/user-credentials';
+import { JwtService } from '../../jwt.service';
 
 
 
@@ -18,6 +19,7 @@ export class AuthStrapiService extends AuthService {
     }
 
     constructor(
+        private jwtSvc: JwtService,
         private apiSvc: ApiService
     ) {
         super();
@@ -25,9 +27,14 @@ export class AuthStrapiService extends AuthService {
     }
 
     private init() {
-        //this.jwtSvc.loadToken().subscribe(_ => {
-        //    this._logged.next(true);
-        // });
+        this.jwtSvc.loadToken().subscribe({
+            next: _ => {
+                this._logged.next(true);
+            },
+            error: err => {
+                console.error(err);
+            }
+        });
     }
 
     public login(credentials: UserCredentials): Observable<void> {
@@ -38,9 +45,9 @@ export class AuthStrapiService extends AuthService {
             };
             this.apiSvc.post("/api/auth/local", _credentials).subscribe({
                 next: async (data) => {
-                    /*  await lastValueFrom(this.jwtSvc.saveToken(data.jwt)); */
-                    /* let connected = data && data.jwt != ''; */
-                    this._logged.next(/* connected */ true);
+                    await lastValueFrom(this.jwtSvc.saveToken(data.jwt));
+                    let connected = data && data.jwt != '';
+                    this._logged.next(connected);
                     console.log(data.jwt)
                     obs.next();
                     obs.complete();

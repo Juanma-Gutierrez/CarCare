@@ -1,15 +1,15 @@
-import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable, map, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Vehicle } from '../interfaces/Vehicle';
-import { environment } from 'src/environments/environment';
+import { Vehicle } from '../../interfaces/vehicle';
+import { DataService } from './data.service';
+import { MappingService } from './mapping.service';
 
 interface CrudVehicles {
     getAll(): Observable<Vehicle[]>;
     getVehicle(id: number): Observable<Vehicle>;
     addVehicle(concert: Vehicle): Observable<Vehicle>;
     updateVehicle(concert: Vehicle): Observable<Vehicle>;
-    deleteVehicle(id: number): Observable<void>;
+    deleteVehicle(vehicle: Vehicle): Observable<Vehicle>;
 }
 
 @Injectable({
@@ -21,6 +21,8 @@ export class VehiclesService implements CrudVehicles {
 
     constructor(
         /* private http: HttpClient */
+        private dataService: DataService,
+        private mapping: MappingService
     ) { }
 
     public getAll(): Observable<Vehicle[]> {
@@ -33,14 +35,15 @@ export class VehiclesService implements CrudVehicles {
     getVehicle(id: number): Observable<Vehicle> {
         throw new Error('Method not implemented.');
     }
-    addVehicle(concert: Vehicle): Observable<Vehicle> {
+    addVehicle(vehicle: Vehicle): Observable<Vehicle> {
         throw new Error('Method not implemented.');
     }
-    updateVehicle(concert: Vehicle): Observable<Vehicle> {
+    updateVehicle(vehicle: Vehicle): Observable<Vehicle> {
         throw new Error('Method not implemented.');
     }
-    deleteVehicle(id: number): Observable<void> {
-        throw new Error('Method not implemented.');
+    deleteVehicle(vehicle: Vehicle): Observable<Vehicle> {
+        console.log("Borra vehículo")
+        return this.dataService.delete<any>(this.mapping.deleteVehicleUrl(vehicle.id!)).pipe(map(this.mapping.mapVehicle.bind(this.mapping)));
     }
 
 

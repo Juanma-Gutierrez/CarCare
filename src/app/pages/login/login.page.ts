@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController, ToastOptions } from '@ionic/angular';
 import { UserCredentials } from 'src/app/core/interfaces/user-credentials';
-import { AuthService } from 'src/app/core/services/auth.service';
+import { AuthService } from 'src/app/core/services/api/auth.service';
 
 @Component({
     selector: 'app-login',

@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
 import { environment } from 'src/environments/environment';
-import { HttpClientProvider } from '../http-client.provider';
+import { HttpClientProvider } from '../http/http-client.provider';
+import { JwtService } from '../jwt.service';
 
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
     constructor(
         private http: HttpClientProvider,
+        private jwt: JwtService
     ) {
         this.http.get
     }
@@ -19,8 +20,8 @@ export class ApiService {
             header['Accept'] = accept;
         if (contentType)
             header['Content-Type'] = contentType;
-        /*         if (!url.includes('auth'))
-                    header['Authorization'] = `Bearer ${this.jwt.getToken()}`; */
+        if (!url.includes('auth'))
+            header['Authorization'] = `Bearer ${this.jwt.getToken()}`;
         return header;
     }
 
@@ -34,7 +35,6 @@ export class ApiService {
 
     get(path: string, params: any = {}): Observable<any> {
         var url = `${environment.BASE_URL}${path}`;
-
         return this.http.get(url, params, this.getHeader(url));
     }
 
