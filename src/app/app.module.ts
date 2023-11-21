@@ -1,8 +1,8 @@
-import { ApiService } from './core/services/api.service';
+import { ApiService } from './core/services/api/api.service';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './core/services/auth.service';
-import { AuthStrapiService } from './core/services/auth-strapi.service';
+import { AuthStrapiService } from './core/services/strapi/auth-strapi.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { IonicModule, IonicRouteStrategy, Platform } from '@ionic/angular';

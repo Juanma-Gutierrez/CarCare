@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, lastValueFrom, map, tap } from 'rxjs';
-import { ApiService } from './api.service';
-import { AuthService } from './auth.service';
-import { UserCredentials } from '../interfaces/UserCredentials';
+import { ApiService } from '../api/api.service';
+import { AuthService } from '../auth.service';
+import { UserCredentials } from '../../interfaces/user-credentials';
 
 
 

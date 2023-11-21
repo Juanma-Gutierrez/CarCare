@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, ToastController, ToastOptions } from '@ionic/angular';
+import { Vehicle, VehicleCategory } from 'src/app/core/interfaces/Vehicle';
+import { VehiclesService } from 'src/app/core/services/vehicles.service';
+import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
 import { Provider, ProviderCategory } from 'src/app/core/interfaces/Provider';
 import { Service, Spent } from 'src/app/core/interfaces/Spent';
-import { Vehicle, VehicleCategory } from 'src/app/core/interfaces/Vehicle';
-import { VehicleService } from 'src/app/core/services/vehicle.service';
-import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
 
 @Component({
     selector: 'app-home',
@@ -27,7 +27,7 @@ export class HomePage implements OnInit {
     public totalSpentsNumber: number | undefined = 0;
 
     constructor(
-        public vehicleService: VehicleService,
+        public vehiclesService: VehiclesService,
         private toast: ToastController,
         private modal: ModalController,
         private router: Router
@@ -35,7 +35,7 @@ export class HomePage implements OnInit {
 
     ngOnInit(): void {
         this.loading = true;
-        this.vehicleService.getAll().subscribe((c) => {
+        this.vehiclesService.getAll().subscribe((c) => {
             this.loading = false;
         });
         // TODO BORRAR
@@ -67,7 +67,7 @@ export class HomePage implements OnInit {
             console.log(info);
             switch (info.role) {
                 case 'ok': {
-                    this.vehicleService.updateVehicle(info.data).subscribe(async user => {
+                    this.vehiclesService.updateVehicle(info.data).subscribe(async user => {
                         const options: ToastOptions = {
                             message: "User modified",
                             duration: 1000,
@@ -81,7 +81,8 @@ export class HomePage implements OnInit {
                 }
                     break;
                 case 'delete': {
-                    this.vehicleService.deleteVehicle(info.data).subscribe(async user => {
+                    console.log("delete");
+                    this.vehiclesService.deleteVehicle(info.data).subscribe(async user => {
                         const options: ToastOptions = {
                             message: "User deleted",
                             duration: 1000,

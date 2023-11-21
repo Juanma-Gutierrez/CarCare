@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserCredentials } from 'src/app/core/interfaces/UserCredentials';
+import { UserCredentials } from 'src/app/core/interfaces/user-credentials';
 
 @Component({
     selector: 'app-login-form',

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
-import { HttpClientProvider } from './http-client.provider';
+import { HttpClientProvider } from '../http-client.provider';
 
 
 @Injectable({ providedIn: 'root' })
@@ -19,8 +19,8 @@ export class ApiService {
             header['Accept'] = accept;
         if (contentType)
             header['Content-Type'] = contentType;
-/*         if (!url.includes('auth'))
-            header['Authorization'] = `Bearer ${this.jwt.getToken()}`; */
+        /*         if (!url.includes('auth'))
+                    header['Authorization'] = `Bearer ${this.jwt.getToken()}`; */
         return header;
     }
 

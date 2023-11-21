@@ -15,7 +15,7 @@ interface CrudVehicles {
 @Injectable({
     providedIn: 'root'
 })
-export class VehicleService implements CrudVehicles {
+export class VehiclesService implements CrudVehicles {
     private _vehicles: BehaviorSubject<Vehicle[]> = new BehaviorSubject<Vehicle[]>([]);
     public vehicle$: Observable<Vehicle[]> = this._vehicles.asObservable();
 
