@@ -6,11 +6,13 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SelectedCardDirective } from './directives/selectable-card.directive';
+import { UserItemComponent } from './components/user-item/user-item.component';
 
 @NgModule({
     declarations: [
         // Components
         ToolbarComponent,
+        UserItemComponent,
         // Directives
         SelectedCardDirective,
         // Pipes
@@ -27,6 +29,7 @@ import { SelectedCardDirective } from './directives/selectable-card.directive';
     exports: [
         //Components
         ToolbarComponent,
+        UserItemComponent,
         // Directives
         SelectedCardDirective,
         // Modules

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from './core/services/api/auth.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { UserPermission } from './core/interfaces/user-permission';
 
 @Component({
     selector: 'app-root',
@@ -8,9 +10,10 @@ import { Router } from '@angular/router';
     styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
+    user: UserPermission | undefined = undefined
 
     constructor(
-        private auth: AuthService,
+        public auth: AuthService,
         private router: Router
     ) {
         // Se suscribe al observable isLogged$ del servicio AuthService.
@@ -21,6 +24,15 @@ export class AppComponent {
             else
                 // Si el usuario está autenticado, navega a login.
                 this.router.navigate(['/login']);
+        });
+    }
+
+    logoutClicked() {
+        console.log("logoutClicked")
+        this.auth.logout().subscribe(_ => {
+            console.log("logout()")
+            this.router.navigate(['/login']);
+            this.user = undefined;
         });
     }
 }

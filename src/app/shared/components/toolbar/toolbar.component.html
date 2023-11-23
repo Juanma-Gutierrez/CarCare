@@ -16,6 +16,20 @@
                     <ion-button shape="round" (click)="navToAbout()" [ngClass]="{'active': selectedPage==='aboutMe'}">
                         Sobre mí
                     </ion-button>
+
+                    <app-user-item id="click-user-item"></app-user-item>
+                    <ion-popover trigger="click-user-item" triggerAction="click">
+                        <ng-template>
+                            <ion-content>
+                                <ion-list>
+                                    <ion-item [button]="true" [detail]="false">Modificar datos</ion-item>
+                                    <ion-item [button]="true" [detail]="false" (click)="logoutClick($event)">Cerrar
+                                        sesión</ion-item>
+                                </ion-list>
+                            </ion-content>
+                        </ng-template>
+                    </ion-popover>
+
                 </div>
             </ion-col>
         </ion-row>
