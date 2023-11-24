@@ -16,9 +16,13 @@
                     <ion-button shape="round" (click)="navToAbout()" [ngClass]="{'active': selectedPage==='aboutMe'}">
                         Sobre mí
                     </ion-button>
-
-                    <app-user-item *ngIf="(auth.isLogged$ | async)" (logoutClicked)="logoutClicked()"
-                    ></app-user-item>
+                    <div *ngIf="(auth.isLogged$ | async)" class="in-line center-v">
+                        <ion-button shape="round" (click)="navToVehicles()"
+                            [ngClass]="{'active': selectedPage==='vehicles'}">
+                            Vehículos
+                        </ion-button>
+                        <app-user-item (logoutClicked)="logoutClicked()"></app-user-item>
+                    </div>
 
                 </div>
             </ion-col>

@@ -18,7 +18,7 @@ export class HomePage implements OnInit {
     public filterAvailable = true;
 
     // Mockup de datos locales en array
-    public vehicles: Vehicle[] | undefined;
+    // public vehicles: Vehicle[] | undefined;
     public providers: Provider[] | undefined;
     public spents: Spent[] | undefined;
     public filteredSpent: Spent[] | undefined;
@@ -27,22 +27,26 @@ export class HomePage implements OnInit {
     public totalSpentsNumber: number | undefined = 0;
 
     constructor(
-        public vehiclesService: VehiclesService,
+        public vehiclesSvc: VehiclesService,
         private toast: ToastController,
         private modal: ModalController,
         private router: Router
     ) { }
 
     ngOnInit(): void {
-        this.loading = true;
-        this.vehiclesService.getAll().subscribe((c) => {
-            this.loading = false;
-        });
+        this.getVehicles();
         // TODO BORRAR
-        this.crearVehiculosTemporales();
         this.crearProveedoresTemporales();
         this.crearGastosTemporales();
         this.calculateTotalSpents;
+    }
+    
+    async getVehicles() {
+        this.loading = true;
+        this.vehiclesSvc.getAll().subscribe((c) => {
+            console.log("carga los vehiculos")
+            this.loading = false;
+        });
     }
 
     selectionChanged(event: CustomEvent) {
@@ -67,7 +71,7 @@ export class HomePage implements OnInit {
             console.log(info);
             switch (info.role) {
                 case 'ok': {
-                    this.vehiclesService.updateVehicle(info.data).subscribe(async user => {
+                    this.vehiclesSvc.updateVehicle(info.data).subscribe(async user => {
                         const options: ToastOptions = {
                             message: "User modified",
                             duration: 1000,
@@ -82,7 +86,7 @@ export class HomePage implements OnInit {
                     break;
                 case 'delete': {
                     console.log("delete");
-                    this.vehiclesService.deleteVehicle(info.data).subscribe(async user => {
+                    this.vehiclesSvc.deleteVehicle(info.data).subscribe(async user => {
                         const options: ToastOptions = {
                             message: "User deleted",
                             duration: 1000,
@@ -125,38 +129,8 @@ export class HomePage implements OnInit {
         this.totalSpentsNumber = this.filteredSpent?.length;
     }
 
-    crearVehiculosTemporales() {
-        // Creación temporal de vehículos, BORRAR
-        this.vehicles = [
-            {
-                id: 1, plate: "1122JMG", brand: "Seat", model: "León", registrationDate: new Date("2015-05-09"),
-                category: VehicleCategory.car, available: false, owner: "Juanma"
-            },
-            {
-                id: 2, plate: "2233JMG", brand: "Kia", model: "Stonic", registrationDate: new Date("2020-05-09"),
-                category: VehicleCategory.car, available: true, owner: "Juanma"
-            },
-            {
-                id: 3, plate: "1234GGG", brand: "Vespa", model: "125", registrationDate: new Date("2015-05-09"),
-                category: VehicleCategory.motorcycle, available: true, owner: "Gema"
-            },
-            {
-                id: 4, plate: "9988JGM", brand: "Kawasaki", model: "GPZ 500", registrationDate: new Date("2010-12-29"),
-                category: VehicleCategory.motorcycle, available: false, owner: "Juanma"
-            },
-            {
-                id: 5, plate: "8877JGM", brand: "Skoda", model: "Fabia", registrationDate: new Date("2008-08-21"),
-                category: VehicleCategory.car, available: true, owner: "Juanma"
-            },
-            {
-                id: 6, plate: "4455GGG", brand: "Volkswagen", model: "Golf", registrationDate: new Date("2014-07-13"),
-                category: VehicleCategory.car, available: true, owner: "Gema"
-            },
-            {
-                id: 7, plate: "4421LGG", brand: "Honda", model: "CBR 125", registrationDate: new Date("2013-07-08"),
-                category: VehicleCategory.motorcycle, available: false, owner: "Laura"
-            }
-        ];
+    async crearVehiculosTemporales() {
+        this.vehiclesSvc.getAll().subscribe()
     }
     crearProveedoresTemporales() {
         this.providers

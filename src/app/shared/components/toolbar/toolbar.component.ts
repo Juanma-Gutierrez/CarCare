@@ -35,6 +35,12 @@ export class ToolbarComponent implements OnInit {
         this.router.navigate(['/home']);
     }
 
+    navToVehicles(){
+        this.selectedPage = "vehicles"
+        console.log(this?.selectedPage)
+        this.router.navigate(['/vehicles']);
+    }
+
     logoutClicked() {
         console.log("logoutClicked")
         this.auth.logout().subscribe(_ => {

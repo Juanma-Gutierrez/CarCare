@@ -13,8 +13,9 @@ import { User } from '../../interfaces/user';
 })
 export abstract class AuthService {
     // TODO PONER A FALSE PARA QUE PIDA EL LOGIN
-    protected _logged = new BehaviorSubject<boolean>(false);
+    protected _logged = new BehaviorSubject<boolean>(true);
     public isLogged$ = this._logged.asObservable();
+    // TODO insertar aquí el usuario cargado para almacenarlo y mostrarlo en el user-item
     protected _user = new BehaviorSubject<User | undefined>(undefined);
     public user$ = this._user.asObservable();
 

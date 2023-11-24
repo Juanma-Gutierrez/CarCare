@@ -1,0 +1,27 @@
+<ion-card>
+    <ion-row>
+        <ion-col>
+            <img alt="Silhouette of mountains"
+                src="https://unsplash.com/photos/d1Jum1vVLew/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzAwODU1OTM0fA&force=true&w=640" />
+        </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+        <ion-card-title>{{vehicle?.brand}} {{vehicle?.model}}</ion-card-title>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+        <ion-card-subtitle>{{vehicle?.plate}}</ion-card-subtitle>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+        <ion-card-content>Fecha de matriculación:</ion-card-content>
+        <ion-datetime-button datetime="datetime" value="vehicle.registrationDate"></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+                <ion-datetime id="datetime" presentation="date"> [firstDayOfWeek]="1"></ion-datetime>
+            </ng-template>
+        </ion-modal>
+
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+        <ion-card-content>{{vehicle?.available}}</ion-card-content>
+    </ion-row>
+</ion-card>
