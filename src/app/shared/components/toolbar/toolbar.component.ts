@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { PopoverController } from '@ionic/angular';
+import { Observable, of } from 'rxjs';
 import { User } from 'src/app/core/interfaces/user';
 import { AuthService } from 'src/app/core/services/api/auth.service';
 
@@ -9,21 +9,19 @@ import { AuthService } from 'src/app/core/services/api/auth.service';
     templateUrl: './toolbar.component.html',
     styleUrls: ['./toolbar.component.scss'],
 })
-export class ToolbarComponent {
-    private _user: User | undefined
-    @Input('user') set user(_user: User | undefined) {
-        this._user = _user;
-    }
-    get() {
-        return this._user
-    }
+export class ToolbarComponent implements OnInit {
     public selectedPage = "home";
-
+    public user: User | null | undefined;
 
     constructor(
         private router: Router,
         public auth: AuthService,
     ) { }
+    ngOnInit(): void {
+        this.auth.user$.subscribe(user => {
+            console.log(user?.username)
+        })
+    }
 
     navToAbout() {
         this.selectedPage = "aboutMe"
@@ -42,7 +40,6 @@ export class ToolbarComponent {
         this.auth.logout().subscribe(_ => {
             console.log("logout()")
             this.router.navigate(['/login']);
-            this.user = undefined;
         });
     }
 }

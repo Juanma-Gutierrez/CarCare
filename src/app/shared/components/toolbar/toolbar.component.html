@@ -17,8 +17,8 @@
                         Sobre mí
                     </ion-button>
 
-                    <app-user-item *ngIf="auth.isLogged$ |async" (logoutClicked)="logoutClicked()"
-                        [user]="user" ></app-user-item>
+                    <app-user-item *ngIf="(auth.isLogged$ | async)" (logoutClicked)="logoutClicked()"
+                    ></app-user-item>
 
                 </div>
             </ion-col>

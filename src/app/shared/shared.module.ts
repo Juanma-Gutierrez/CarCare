@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SelectedCardDirective } from './directives/selectable-card.directive';
-import { UserItemComponent } from './components/user-item/user-item.component';
+import { UserItemComponent } from './components/toolbar/user-item/user-item.component';
 
 @NgModule({
     declarations: [

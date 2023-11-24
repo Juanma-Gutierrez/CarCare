@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { User } from '../../interfaces/user';
 
 /**
  * La clase abstracta `AuthService` define la interfaz para un servicio de
@@ -11,11 +12,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
     providedIn: 'root'
 })
 export abstract class AuthService {
-    // -logged es un BehaviorSubject que controla si el usuario está logueado.
     // TODO PONER A FALSE PARA QUE PIDA EL LOGIN
     protected _logged = new BehaviorSubject<boolean>(false);
-    // Observable que emite el estado de inicio de sesión del usuario.
     public isLogged$ = this._logged.asObservable();
+    protected _user = new BehaviorSubject<User | undefined>(undefined);
+    public user$ = this._user.asObservable();
 
     public abstract login(credentials: Object): Observable<any>;
 

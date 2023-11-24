@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from './core/services/api/auth.service';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { User } from './core/interfaces/user';
 
 @Component({
@@ -10,7 +10,8 @@ import { User } from './core/interfaces/user';
     styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-    user: User | undefined = undefined
+    protected _user = new BehaviorSubject<User | undefined>(undefined);
+    public user$ = this._user.asObservable();
 
     constructor(
         public auth: AuthService,
@@ -21,7 +22,7 @@ export class AppComponent {
             if (logged) {
                 // Si el usuario está autenticado, navega a home.
                 this.auth.me().subscribe(data => {
-                    this.user = data;
+                    this._user.next(data);
                     this.router.navigate(['/home']);
                 });
             }
@@ -31,5 +32,5 @@ export class AppComponent {
         });
     }
 
-    
+
 }

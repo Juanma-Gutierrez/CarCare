@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Preferences } from '@capacitor/preferences';
 import { UserCredentials } from 'src/app/core/interfaces/user-credentials';
 
 @Component({
@@ -23,13 +24,23 @@ export class LoginFormComponent implements OnInit {
         });
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+        Preferences.get({ key: 'username' }).then((ret: any) => {
+            if (ret['value']) {
+                this.username = JSON.parse(ret.value);
+            }
+        }).catch();
+    }
 
     /**
     * Método invocado al enviar el formulario. Emite los datos del formulario a
     * través del evento onsubmit.
     */
     onSubmit() {
+        Preferences.set({
+            key: 'username',
+            value: JSON.stringify(this.form?.value.username)
+        })
         console.log(this.form?.value.username, this.form?.value.password);
         this.onsubmit.emit(this.form?.value);
         this.form?.controls['password'].setValue('');
