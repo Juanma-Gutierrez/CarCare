@@ -1,13 +1,17 @@
-<ion-card id="click-user-item">USUARIO
-    <ion-popover trigger="click-user-item" triggerAction="click">
-        <ng-template>
-            <ion-content>
-                <ion-list>
-                    <ion-item [button]="true" [detail]="false">Modificar datos</ion-item>
-                    <ion-item [button]="true" [detail]="false" (click)="logoutClick($event)">Cerrar
-                        sesión</ion-item>
-                </ion-list>
-            </ion-content>
-        </ng-template>
-    </ion-popover>
-</ion-card>
+<ion-chip id="click-user-item">
+    <ion-avatar>
+        <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+    </ion-avatar>
+    <ion-label>Usuario</ion-label>
+</ion-chip>
+<ion-popover trigger="click-user-item" triggerAction="click">
+    <ng-template>
+        <ion-content>
+            <ion-list>
+                <ion-item [button]="true" [detail]="false" (click)="logoutClick($event)">
+                    Cerrar sesión
+                </ion-item>
+            </ion-list>
+        </ion-content>
+    </ng-template>
+</ion-popover>

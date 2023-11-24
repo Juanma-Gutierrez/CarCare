@@ -24,8 +24,12 @@ export class LoginFormComponent implements OnInit {
         });
     }
 
+    /**
+     * Si existe algún valor en localstorage para username, lo carga en
+     * this.username
+     */
     ngOnInit() {
-        Preferences.get({ key: 'username' }).then((ret: any) => {
+        Preferences.get({ key: 'userName' }).then((ret: any) => {
             if (ret['value']) {
                 this.username = JSON.parse(ret.value);
             }
@@ -38,7 +42,7 @@ export class LoginFormComponent implements OnInit {
     */
     onSubmit() {
         Preferences.set({
-            key: 'username',
+            key: 'userName',
             value: JSON.stringify(this.form?.value.username)
         })
         console.log(this.form?.value.username, this.form?.value.password);
