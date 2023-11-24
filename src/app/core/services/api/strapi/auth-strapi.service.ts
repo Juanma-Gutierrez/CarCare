@@ -4,6 +4,8 @@ import { ApiService } from '../api.service';
 import { AuthService } from '../auth.service';
 import { UserCredentials } from '../../../interfaces/user-credentials';
 import { JwtService } from '../../jwt.service';
+import { StrapiUser } from './strapi';
+import { User } from 'src/app/core/interfaces/user';
 
 
 
@@ -61,8 +63,28 @@ export class AuthStrapiService extends AuthService {
         throw new Error('Method not implemented.');
     }
 
-    public override me(): Observable<any> {
-        throw new Error('Method not implemented.');
+
+    public me(): Observable<User> {
+        return new Observable<User>(obs => {
+            this.apiSvc.get('/users/me').subscribe({
+                next: async (user: StrapiUser) => {
+                    let extended_user = await lastValueFrom(this.apiSvc.get(`/extended_users?filters[user_id]=${user.id}`));
+                    let ret: User = {
+                        id: user.id,
+                        username: user.username,
+                        email: user.email,
+                        name: extended_user.name,
+                        surname: extended_user.surname,
+                    }
+                    obs.next(ret);
+                    obs.complete();
+                },
+                error: err => {
+                    obs.error(err);
+                }
+            });
+        });
+
     }
 
     /*
@@ -94,27 +116,6 @@ export class AuthStrapiService extends AuthService {
         });
     }
  
-    public me(): Observable<User> {
-        return new Observable<User>(obs => {
-            this.apiSvc.get('/users/me').subscribe({
-                next: async (user: StrapiUser) => {
-                    let extended_user = await lastValueFrom(this.apiSvc.get(`/extended-users?filters[user_id]=${user.id}`));
-                    let ret: User = {
-                        id: user.id,
-                        name: extended_user.name,
-                        surname: extended_user.surname,
-                        age: 0
-                    }
-                    obs.next(ret);
-                    obs.complete();
-                },
-                error: err => {
-                    obs.error(err);
-                }
-            });
-        });
- 
-    }
 */
 
 }

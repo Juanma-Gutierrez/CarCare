@@ -17,7 +17,7 @@ export class JwtService {
                 if (ret['value']) {
                     this.token = JSON.parse(ret.value);
                     if (this.token == '' || this.token == null)
-                        observer.next('');
+                        observer.error('No token');
                     else
                         observer.next(this.token);
                     observer.complete();

@@ -1,3 +1,13 @@
-<ion-card>
-            USER {{user?.username}}
+<ion-card id="click-user-item">paco{{user?.username}}
+    <ion-popover trigger="click-user-item" triggerAction="click">
+        <ng-template>
+            <ion-content>
+                <ion-list>
+                    <ion-item [button]="true" [detail]="false">Modificar datos</ion-item>
+                    <ion-item [button]="true" [detail]="false" (click)="logoutClick($event)">Cerrar
+                        sesión</ion-item>
+                </ion-list>
+            </ion-content>
+        </ng-template>
+    </ion-popover>
 </ion-card>

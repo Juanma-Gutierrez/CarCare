@@ -1,19 +1,28 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { UserPermission } from 'src/app/core/interfaces/user-permission';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
+import { User } from 'src/app/core/interfaces/user';
 
 @Component({
     selector: 'app-user-item',
     templateUrl: './user-item.component.html',
     styleUrls: ['./user-item.component.scss'],
 })
-export class UserItemComponent implements OnInit {
-    private _user: UserPermission | undefined;
+export class UserItemComponent {
+    private _user: User | undefined
 
-    @Input('user') set user(_user: UserPermission | undefined) {
+    @Output() logoutClicked: EventEmitter<void> = new EventEmitter<void>()
+    @Input('user') set user(_user: User | undefined) {
         this._user = _user;
     }
-    constructor() { }
-
-    ngOnInit() { }
-
+    get() {
+        return this._user
+    }
+    constructor(
+        private popoverController: PopoverController
+    ) { }
+    logoutClick(event: Event) {
+        console.log("logoutClick")
+        this.popoverController.dismiss();
+        this.logoutClicked.emit()
+    }
 }
