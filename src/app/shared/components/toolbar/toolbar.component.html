@@ -2,29 +2,34 @@
     <ion-toolbar>
         <ion-row class="ion-align-items-center">
             <ion-col>
-                <a href="../../../../app/pages/home/">
-                    <img src="../../../assets/images/logo_carcare_transparent.png">
-                </a>
+                <img src="../../../assets/images/logo_carcare_transparent.png">
             </ion-col>
-            <ion-col class="ion-text-end">
+            <ion-col>
                 <div class="in-line center-v end-h">
-                    <div *ngIf="selectedPage!=='home'">
-                        <ion-button shape="round" (click)="navToHome()" [ngClass]="{'active': selectedPage==='home'}">
-                            Inicio
-                        </ion-button>
+                    <div *ngIf="(auth.isLogged$ | async)" class="in-line center-v">
+                        <div>
+                            <ion-button shape="round" (click)="navToHome()"
+                                [ngClass]="{'active': selectedPage==='home'}">
+                                <ion-icon slot="start" name="home-outline"></ion-icon>
+                                Inicio
+                            </ion-button>
+                        </div>
+                        <div>
+                            <ion-button shape="round" (click)="navToVehicles()"
+                                [ngClass]="{'active': selectedPage==='vehicles'}">
+                                <ion-icon slot="start" name="car-outline"></ion-icon>
+                                Vehículos
+                            </ion-button>
+                        </div>
                     </div>
                     <ion-button shape="round" (click)="navToAbout()" [ngClass]="{'active': selectedPage==='aboutMe'}">
+                        <ion-icon slot="start" name="information-circle-outline"></ion-icon>
                         Sobre mí
                     </ion-button>
-                    <div *ngIf="(auth.isLogged$ | async)" class="in-line center-v">
-                        <ion-button shape="round" (click)="navToVehicles()"
-                            [ngClass]="{'active': selectedPage==='vehicles'}">
-                            Vehículos
-                        </ion-button>
-                        <app-user-item (logoutClicked)="logoutClicked()"></app-user-item>
-                    </div>
-
                 </div>
+            </ion-col>
+            <ion-col class="ion-text-end" *ngIf="(auth.isLogged$ | async)">
+                <app-user-item (logoutClicked)="logoutClicked()"></app-user-item>
             </ion-col>
         </ion-row>
     </ion-toolbar>

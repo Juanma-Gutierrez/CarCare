@@ -5,6 +5,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { SpentItemComponent } from './spent-item/spent-item.component';
 import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
 import { VehicleItemComponent } from './vehicle-item/vehicle-item.component';
+import { AuthStrapiService } from 'src/app/core/services/api/strapi/auth-strapi.service';
 
 
 @NgModule({
@@ -17,6 +18,9 @@ import { VehicleItemComponent } from './vehicle-item/vehicle-item.component';
         VehicleItemComponent,
         VehicleDetailComponent,
         SpentItemComponent
+    ],
+    providers:[
+        AuthStrapiService,
     ]
 })
 export class HomePageModule { }

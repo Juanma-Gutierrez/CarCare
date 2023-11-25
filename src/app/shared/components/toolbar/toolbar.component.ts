@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { User } from 'src/app/core/interfaces/user';
+import { ApiService } from 'src/app/core/services/api/api.service';
 import { AuthService } from 'src/app/core/services/api/auth.service';
 
 @Component({
@@ -16,11 +17,13 @@ export class ToolbarComponent implements OnInit {
     constructor(
         private router: Router,
         public auth: AuthService,
+        public api: ApiService,
     ) { }
     ngOnInit(): void {
-        this.auth.user$.subscribe(user => {
+        this.api.user$.subscribe(user => {
             console.log(user?.username)
         })
+        console.log(this.api.user$)
     }
 
     navToAbout() {
@@ -35,7 +38,7 @@ export class ToolbarComponent implements OnInit {
         this.router.navigate(['/home']);
     }
 
-    navToVehicles(){
+    navToVehicles() {
         this.selectedPage = "vehicles"
         console.log(this?.selectedPage)
         this.router.navigate(['/vehicles']);

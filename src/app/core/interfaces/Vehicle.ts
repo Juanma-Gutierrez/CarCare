@@ -1,3 +1,5 @@
+import { PaginatedData } from "./data";
+
 export interface Vehicle {
     id: number,
     plate: string,
@@ -16,3 +18,7 @@ export enum VehicleCategory {
     van = 'Furgoneta',
     truck = 'Camión'
 }
+
+export type PaginatedVehicles = PaginatedData<Vehicle>;
+
+

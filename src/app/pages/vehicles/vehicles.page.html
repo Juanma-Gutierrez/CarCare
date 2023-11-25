@@ -4,8 +4,8 @@
     </ion-card-header>
     <ion-card-content>
         <ion-row class="ion-justify-content-center">
-            <app-vehicle-item-list *ngFor="let vehicle of vehiclesSvc.vehicle$ | async"
-            [vehicle]="vehicle"></app-vehicle-item-list>
+            <app-vehicle-item-list *ngFor="let vehicle of (vehiclesSvc.vehicles$ | async)?.data"
+                [vehicle]="vehicle"></app-vehicle-item-list>
         </ion-row>
     </ion-card-content>
 </ion-card>

@@ -24,7 +24,7 @@
                         </ion-col>
                     </ion-row>
                 </div>
-                <div *ngFor="let vehicle of vehiclesSvc.vehicle$ | async">
+                <div *ngFor="let vehicle of (vehiclesSvc.vehicles$ | async)?.data">
                     <app-vehicle [vehicle]="vehicle" *ngIf="vehicle.available || !filterAvailable"
                         (onVehicleItemClicked)="onVehicleItemClicked(vehicle)"
                         (onEditVehicleClicked)="onEditVehicleClicked(vehicle)">

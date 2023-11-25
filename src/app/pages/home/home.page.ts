@@ -42,6 +42,7 @@ export class HomePage implements OnInit {
     }
     
     async getVehicles() {
+        console.log("getVehicles")
         this.loading = true;
         this.vehiclesSvc.getAll().subscribe((c) => {
             console.log("carga los vehiculos")

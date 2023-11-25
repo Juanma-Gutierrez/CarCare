@@ -20,7 +20,7 @@ export function httpProviderFactory(
 
 export function AuthServiceFactory(
     jwt: JwtService,
-    api: ApiService
+    api: ApiService,
 ) {
     return new AuthStrapiService(jwt, api);
 }

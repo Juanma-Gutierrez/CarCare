@@ -4,11 +4,13 @@ import { ApiService } from '../api.service';
 import { AuthService } from '../auth.service';
 import { UserCredentials } from '../../../interfaces/user-credentials';
 import { JwtService } from '../../jwt.service';
-import { StrapiUser } from './strapi';
 import { User } from 'src/app/core/interfaces/user';
+import { StrapiMe, StrapiUser } from './interfaces/strapi-users';
 
 
-
+@Injectable({
+    providedIn: 'root'
+})
 export class AuthStrapiService extends AuthService {
 
     constructor(
@@ -31,6 +33,7 @@ export class AuthStrapiService extends AuthService {
     }
 
     public login(credentials: UserCredentials): Observable<void> {
+        console.log('this.authSvc:', this.apiSvc);
         return new Observable<void>(obs => {
             const _credentials = {
                 identifier: credentials.username,
@@ -41,7 +44,20 @@ export class AuthStrapiService extends AuthService {
                     await lastValueFrom(this.jwtSvc.saveToken(data.jwt));
                     let connected = data && data.jwt != '';
                     this._logged.next(connected);
-                    super.user$ = this.me();
+                    this.me().subscribe(
+                        (user: User) => {
+                            console.log("updateUser", user)
+                            if (this.apiSvc) {
+                                console.log("update")
+                                this.apiSvc.updateUser(user);
+                            } else {
+                                console.error('this.authSvc no está definido.');
+                            }
+                        },
+                        error => {
+                            console.error('Error en la suscripción a me():', error);
+                        }
+                    );
                     obs.next();
                     obs.complete();
                 },
@@ -66,16 +82,20 @@ export class AuthStrapiService extends AuthService {
 
     public me(): Observable<User> {
         return new Observable<User>(obs => {
-            this.apiSvc.get('/api/owners').subscribe({
-                next: async (user: StrapiUser) => {
-                    let extended_user = await lastValueFrom(this.apiSvc.get(`/api/owners?filters[user_id]=${user.id}`));
+            this.apiSvc.get('/api/users/me').subscribe({
+                next: async (user: StrapiMe) => {
+                    console.log(user)
+                    let extended_user = await lastValueFrom
+                        (this.apiSvc.get(`/api/users/${user.id}?populate=owner`));
                     let ret: User = {
                         id: user.id,
+                        ownerId: extended_user.owner.id,
                         username: user.username,
                         email: user.email,
-                        name: extended_user.name,
-                        surname: extended_user.surname,
+                        name: extended_user.owner.name,
+                        surname: extended_user.owner.surname,
                     }
+                    console.log(ret);
                     obs.next(ret);
                     obs.complete();
                 },
