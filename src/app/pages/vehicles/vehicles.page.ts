@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/core/services/api/api.service';
 import { VehiclesService } from 'src/app/core/services/api/vehicles.service';
 
 @Component({
@@ -8,16 +9,23 @@ import { VehiclesService } from 'src/app/core/services/api/vehicles.service';
 })
 export class VehiclesPage implements OnInit {
     constructor(
-        public vehiclesSvc: VehiclesService
+        public vehiclesSvc: VehiclesService,
+        public apiSvc: ApiService,
     ) { }
 
     ngOnInit() {
-        this.getVehicles();
+        this.apiSvc.user$.subscribe((user) => {
+            console.log(user);
+            if (user)
+                this.getVehicles(user?.ownerId);
+            // TODO BORRAR
+        })
+
     }
 
-    async getVehicles() {
+    async getVehicles(ownerId: number) {
         console.log("vehiculos")
-        this.vehiclesSvc.getAll().subscribe();
+        this.vehiclesSvc.getAll(ownerId).subscribe();
     }
 
 }

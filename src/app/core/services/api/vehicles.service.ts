@@ -1,12 +1,13 @@
-import { BehaviorSubject, Observable, map, tap } from 'rxjs';
+import { BehaviorSubject, Observable, map, switchMap, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { PaginatedVehicles, Vehicle, VehicleCategory } from '../../interfaces/vehicle';
+import { PaginatedVehicles, Vehicle, VehicleCategory } from '../../interfaces/Vehicle';
 import { MappingService } from './mapping.service';
 import { environment } from 'src/environments/environment';
 import { DataService } from './data.service';
+import { ApiService } from './api.service';
 
 interface CrudVehicles {
-    getAll(): Observable<PaginatedVehicles>;
+    getAll(ownerId: number): Observable<PaginatedVehicles>;
     getVehicle(id: number): Observable<Vehicle>;
     addVehicle(vehicle: Vehicle): Observable<Vehicle>;
     updateVehicle(vehicle: Vehicle): Observable<Vehicle>;
@@ -22,7 +23,8 @@ export class VehiclesService implements CrudVehicles {
 
     constructor(
         private dataSvc: DataService,
-        private mapping: MappingService
+        private mapping: MappingService,
+        private apiSvc: ApiService,
     ) { }
 
     public query(q: string): Observable<PaginatedVehicles> {
@@ -33,9 +35,9 @@ export class VehiclesService implements CrudVehicles {
         return obs
     }
 
-    public getAll(): Observable<PaginatedVehicles> {
-        console.log("getAll")
-        const apiUrl = `api/vehicles`;
+    public getAll(ownerId: number): Observable<PaginatedVehicles> {
+        console.log("getAll ownerId:", ownerId)
+        const apiUrl = "api/vehicles?populate=owner&filters[owner][id]="+ownerId;
         console.log("API URL:", apiUrl);
         // Si coincide el tipo de datos que recibo con mi interfaz
         var obs = this.dataSvc.query<any>(apiUrl, {}).pipe(map(this.mapping.mapVehicles.bind(this.mapping)), tap(vehicles => {
@@ -44,6 +46,7 @@ export class VehiclesService implements CrudVehicles {
         console.log(obs);
         return obs;
     }
+
 
     getVehicle(id: number): Observable<Vehicle> {
         console.log("getVehicle");

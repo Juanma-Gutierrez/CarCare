@@ -3,7 +3,7 @@ import { MappingService } from '../mapping.service';
 import { PaginatedData } from 'src/app/core/interfaces/data';
 import { StrapiExtendedUser } from './interfaces/strapi-data';
 import { User } from './interfaces/strapi-users';
-import { Vehicle } from 'src/app/core/interfaces/vehicle';
+import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 
 @Injectable({
     providedIn: 'root'

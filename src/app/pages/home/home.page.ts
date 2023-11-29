@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, ToastController, ToastOptions } from '@ionic/angular';
-import { Vehicle, VehicleCategory } from 'src/app/core/interfaces/vehicle';
+import { Vehicle, VehicleCategory } from 'src/app/core/interfaces/Vehicle';
 import { VehiclesService } from 'src/app/core/services/api/vehicles.service';
 import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
 import { Provider, ProviderCategory } from 'src/app/core/interfaces/provider';
 import { Service, Spent } from 'src/app/core/interfaces/spent';
+import { ApiService } from 'src/app/core/services/api/api.service';
+import { User } from 'src/app/core/services/api/strapi/interfaces/strapi-users';
 
 @Component({
     selector: 'app-home',
@@ -30,21 +32,26 @@ export class HomePage implements OnInit {
         public vehiclesSvc: VehiclesService,
         private toast: ToastController,
         private modal: ModalController,
-        private router: Router
+        private router: Router,
+        public apiSvc: ApiService,
     ) { }
 
     ngOnInit(): void {
-        this.getVehicles();
-        // TODO BORRAR
-        this.crearProveedoresTemporales();
-        this.crearGastosTemporales();
-        this.calculateTotalSpents;
+        this.apiSvc.user$.subscribe((user) => {
+            console.log(user);
+            if (user)
+                this.getVehicles(user?.ownerId);
+            // TODO BORRAR
+            this.crearProveedoresTemporales();
+            this.crearGastosTemporales();
+            this.calculateTotalSpents;
+        })
     }
-    
-    async getVehicles() {
+
+    async getVehicles(ownerId: number) {
         console.log("getVehicles")
         this.loading = true;
-        this.vehiclesSvc.getAll().subscribe((c) => {
+        this.vehiclesSvc.getAll(ownerId).subscribe((c) => {
             console.log("carga los vehiculos")
             this.loading = false;
         });
@@ -131,7 +138,7 @@ export class HomePage implements OnInit {
     }
 
     async crearVehiculosTemporales() {
-        this.vehiclesSvc.getAll().subscribe()
+        this.vehiclesSvc.getAll(-1).subscribe()
     }
     crearProveedoresTemporales() {
         this.providers

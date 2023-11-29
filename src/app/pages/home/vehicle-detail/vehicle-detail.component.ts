@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
-import { Vehicle } from 'src/app/core/interfaces/vehicle';
+import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 
 @Component({
     selector: 'app-vehicle-detail',

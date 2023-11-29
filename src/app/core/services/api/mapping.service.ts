@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PaginatedData } from '../../interfaces/data';
-import { Vehicle } from '../../interfaces/vehicle';
+import { Vehicle } from '../../interfaces/Vehicle';
 
 @Injectable({
     providedIn: 'root'

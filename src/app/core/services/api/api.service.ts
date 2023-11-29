@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, isEmpty, last, mergeMap, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClientProvider } from '../http/http-client.provider';
 import { JwtService } from '../jwt.service';
@@ -8,13 +8,20 @@ import { User } from '../../interfaces/user';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-    // TODO insertar aquí el usuario cargado para almacenarlo y mostrarlo en el user-item
+    // Inserta aquí el usuario cargado para almacenarlo y mostrarlo en el user-item
     protected _user = new BehaviorSubject<User | null>(null);
     public user$ = this._user.asObservable();
+
     updateUser(user: User): void {
-        console.log(user);
+        console.log("updateUser", user);
         this._user.next(user);
     }
+
+    getUser(): User | null {
+        console.log("getUser", this._user.getValue());
+        return this._user.getValue();
+    }
+    
 
     constructor(
         private http: HttpClientProvider,
