@@ -18,12 +18,10 @@ export class SelectedCardDirective {
     ) { }
 
     @HostListener('mouseenter') onMouseEnter() {
-        console.log("entra");
         this.setActiveCard();
     }
 
     @HostListener('mouseleave') onMouseLeave() {
-        console.log("entra");
         this.unsetActiveCard();
     }
 

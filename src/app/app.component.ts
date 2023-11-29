@@ -27,7 +27,7 @@ export class AppComponent {
                 });
             }
             else
-                // Si el usuario está autenticado, navega a login.
+                // Si el usuario no está autenticado, navega a login.
                 this.router.navigate(['/login']);
         });
     }

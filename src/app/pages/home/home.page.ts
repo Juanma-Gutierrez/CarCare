@@ -37,6 +37,7 @@ export class HomePage implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        this.loading = true;
         this.apiSvc.user$.subscribe((user) => {
             console.log(user);
             if (user)
@@ -49,8 +50,7 @@ export class HomePage implements OnInit {
     }
 
     async getVehicles(ownerId: number) {
-        console.log("getVehicles")
-        this.loading = true;
+        console.log("getVehicles", this.loading)
         this.vehiclesSvc.getAll(ownerId).subscribe((c) => {
             console.log("carga los vehiculos")
             this.loading = false;
@@ -131,15 +131,11 @@ export class HomePage implements OnInit {
         });
     }
 
-
     calculateTotalSpents() {
         this.totalSpentsAmount = this.filteredSpent?.reduce((total, spent) => total + spent.amount, 0);
         this.totalSpentsNumber = this.filteredSpent?.length;
     }
 
-    async crearVehiculosTemporales() {
-        this.vehiclesSvc.getAll(-1).subscribe()
-    }
     crearProveedoresTemporales() {
         this.providers
             = [

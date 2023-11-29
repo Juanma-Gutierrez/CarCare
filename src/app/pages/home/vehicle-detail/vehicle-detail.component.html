@@ -31,7 +31,8 @@
                         <ion-datetime-button datetime="datetime"></ion-datetime-button>
                         <ion-modal [keepContentsMounted]="true">
                             <ng-template>
-                                <ion-datetime id="datetime" presentation="date"> [firstDayOfWeek]="1"></ion-datetime>
+                                <ion-datetime id="datetime" presentation="date">
+                                    [firstDayOfWeek]="1"></ion-datetime>
                             </ng-template>
                         </ion-modal>
                     </ion-label>
@@ -57,17 +58,11 @@
                         disponible </ion-checkbox>
                 </div>
             </ion-row>
-            <ion-row>
-                <div>
-                    <ion-input label="Propietario" labelPlacement="floating" fill="outline" formControlName="owner"
-                        type="text"></ion-input>
-                </div>
-            </ion-row>
         </ion-list>
     </form>
 </ion-content>
 
 <ion-footer>
-    <ion-button type="submit" [disabled]="!form.valid || !form.dirty" class="ion-padding" expand="full"
+    <ion-button type="submit" [disabled]="!form.dirty" class="ion-padding" expand="full"
         (click)="onSubmit()">{{(mode==='New'?'Crear':'Guardar')}}</ion-button>
 </ion-footer>

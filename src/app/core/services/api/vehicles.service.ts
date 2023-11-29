@@ -5,10 +5,10 @@ import { MappingService } from './mapping.service';
 import { environment } from 'src/environments/environment';
 import { DataService } from './data.service';
 import { ApiService } from './api.service';
+import { HttpClient } from '@angular/common/http';
 
 interface CrudVehicles {
     getAll(ownerId: number): Observable<PaginatedVehicles>;
-    getVehicle(id: number): Observable<Vehicle>;
     addVehicle(vehicle: Vehicle): Observable<Vehicle>;
     updateVehicle(vehicle: Vehicle): Observable<Vehicle>;
     deleteVehicle(vehicle: Vehicle): Observable<Vehicle>;
@@ -25,6 +25,7 @@ export class VehiclesService implements CrudVehicles {
         private dataSvc: DataService,
         private mapping: MappingService,
         private apiSvc: ApiService,
+        private http: HttpClient,
     ) { }
 
     public query(q: string): Observable<PaginatedVehicles> {
@@ -37,43 +38,47 @@ export class VehiclesService implements CrudVehicles {
 
     public getAll(ownerId: number): Observable<PaginatedVehicles> {
         console.log("getAll ownerId:", ownerId)
-        const apiUrl = "api/vehicles?populate=owner&filters[owner][id]="+ownerId;
+        // Filtra los vehículos del propietario registrado
+        const apiUrl = "api/vehicles?populate=owner&filters[owner][id]=" + ownerId;
         console.log("API URL:", apiUrl);
         // Si coincide el tipo de datos que recibo con mi interfaz
         var obs = this.dataSvc.query<any>(apiUrl, {}).pipe(map(this.mapping.mapVehicles.bind(this.mapping)), tap(vehicles => {
             this._vehicles.next(vehicles);
         }));
-        console.log(obs);
         return obs;
     }
 
-
-    getVehicle(id: number): Observable<Vehicle> {
-        console.log("getVehicle");
-        throw new Error('Method not implemented.');
-    }
     addVehicle(vehicle: Vehicle): Observable<Vehicle> {
         console.log("addVehicle")
-        throw new Error('Method not implemented.');
+        const endPoint= "/api/vehicles/";
+        const completeUri = environment.BASE_URL + endPoint + vehicle.id;
+        console.table(vehicle);
+        console.log(completeUri);
+        var _vehicle: any = {
+            plate: vehicle.plate,
+            brand: vehicle.brand,
+            model: vehicle.model,
+            registrationDate: vehicle.registrationDate,
+            category: vehicle.category,
+            available: vehicle.available,
+            owner: vehicle.owner
+        }
+        return this.http.post<Vehicle>(completeUri, _vehicle).pipe(tap());
     }
     updateVehicle(vehicle: Vehicle): Observable<Vehicle> {
         console.log("updateVehicle")
-        throw new Error('Method not implemented.');
+        const endPoint= "/api/vehicle/";
+        const completeUri = environment.BASE_URL + endPoint + vehicle.id;
+        console.table(vehicle);
+        console.log(completeUri);
+        return new Observable<Vehicle>(obs => {
+            this.http.patch<Vehicle>(completeUri, vehicle).subscribe()
+        })
     }
+
     deleteVehicle(vehicle: Vehicle): Observable<Vehicle> {
         console.log("deleteVehicle")
+        console.table(vehicle);
         return this.dataSvc.delete<any>(this.mapping.deleteVehicleUrl(vehicle.id!)).pipe(map(this.mapping.mapVehicle.bind(this.mapping)));
     }
-
-
-    //    public getAll(): Observable<Vehicle[]> {
-    /* return this.http.get<Vehicle[]>(`${environment.BASE_URL}/vehicles`).pipe(tap(res => {
-        console.log(this._vehicles.value.toString);
-        this._vehicles.next(res);
-    })); */
-    //        this._vehicles.next(this.cargaVehiculos());
-    //        return new Observable<Vehicle[]>
-    //      }
-
-
 }

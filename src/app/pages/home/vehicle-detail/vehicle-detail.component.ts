@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Vehicle } from 'src/app/core/interfaces/Vehicle';
+import { ApiService } from 'src/app/core/services/api/api.service';
 
 @Component({
     selector: 'app-vehicle-detail',
@@ -23,13 +24,12 @@ export class VehicleDetailComponent implements OnInit {
             this.form.controls['registrationDate'].setValue(_vehicle.registrationDate);
             this.form.controls['category'].setValue(_vehicle.category);
             this.form.controls['available'].setValue(_vehicle.available);
-            this.form.controls['owner'].setValue(_vehicle.owner);
         }
     }
 
     constructor(
         private _modal: ModalController,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
     ) {
         this.form = this.formBuilder.group({
             id: [null],
@@ -38,8 +38,7 @@ export class VehicleDetailComponent implements OnInit {
             model: ['', Validators.required],
             registrationDate: [Date],
             category: ['', Validators.required],
-            available: ['', Validators.required],
-            owner: ['', Validators.required],
+            available: [],
             spents: []
         })
     }
@@ -47,14 +46,17 @@ export class VehicleDetailComponent implements OnInit {
     ngOnInit() { }
 
     onCancel() {
+        console.log("onCancel");
         this._modal.dismiss(null, 'cancel');
     }
 
     onSubmit() {
+        console.log("onSubmit");
         this._modal.dismiss(this.form.value, 'ok');
     }
 
     onDelete() {
+        console.log("onDelete");
         this._modal.dismiss(this.form.value, 'delete');
     }
 }
