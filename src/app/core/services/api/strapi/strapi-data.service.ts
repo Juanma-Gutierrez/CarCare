@@ -38,8 +38,12 @@ export class StrapiDataService extends DataService {
         throw new Error('Method not implemented.');
     }
     public override delete<T>(resource: string): Observable<T> {
-        throw new Error('Method not implemented.');
+        console.log("delete")
+        return this.api.delete(`/${resource}`).pipe(map((response: StrapiResponse<T>) => {
+            return { id: response.data.id, ...response.data.attributes };
+        }));
     }
-
-
 }
+
+
+

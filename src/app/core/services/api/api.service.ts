@@ -71,6 +71,7 @@ export class ApiService {
     }
 
     delete(path: string, params: Object = {}): Observable<any> {
+        console.log("delete")
         var url = `${environment.BASE_URL}${path}`;
         return this.http.delete(url, params, this.getHeader(url));
     }
