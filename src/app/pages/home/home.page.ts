@@ -76,7 +76,44 @@ export class HomePage implements OnInit {
 
     onNewVehicle() {
         console.log("homePage.onNewVehicle")
+        var onDismiss = (info: any) => {
+            console.log(info);
+            switch (info.role) {
+                case 'ok': {
+                    this.vehiclesSvc.addVehicle(info.data).subscribe(async user => {
+                        this.loadVehicles();
+                        this.uiSvc.showToast("User created", "tertiary", "bottom")
+                    })
+                    break;
+                }
+                default: {
+                    console.error("No debería entrar");
+                }
+            }
+        }
+        this.presentForm(null, onDismiss);
     }
+
+    private loadVehicles(page: number = 0, refresher: any = null) {
+        this.vehiclesSvc.query("").subscribe({
+            next:response=>{
+                console.log(response.data)
+            },
+            error: err =>{
+                console.log(err)
+            }
+/*             next: response => {
+                this.vehiclesSvc._vehicles.next(response.data);
+                this._pagination.next(response.pagination);
+                if (refresher) refresher.complete();
+            },
+            error: err => {
+                console.log(err);
+            } */
+        });
+    }
+
+
 
 
     public async onEditVehicleClicked(vehicle: Vehicle) {

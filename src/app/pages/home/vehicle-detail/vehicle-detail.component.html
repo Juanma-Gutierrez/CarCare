@@ -50,9 +50,15 @@
             </ion-row>
             <ion-row>
                 <div>
-                    <ion-input label="Categoría" labelPlacement="floating" fill="outline" formControlName="category"
-                        type="text"></ion-input>
+                    <ion-select label="Categoría" formControlName="category" placeholder="Selecciona tipo de vehículo">
+                        <ion-select-option value="Coche">Coche</ion-select-option>
+                        <ion-select-option value="Motocicleta">Motocicleta</ion-select-option>
+                        <ion-select-option value="Furgoneta">Furgoneta</ion-select-option>
+                        <ion-select-option value="Camión">Camión</ion-select-option>
+                    </ion-select>
                 </div>
+            </ion-row>
+            <ion-row>
                 <div>
                     <ion-checkbox labelPlacement="end" formControlName="available">Vehículo
                         disponible </ion-checkbox>

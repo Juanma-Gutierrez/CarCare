@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+import { take } from 'rxjs';
 import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 import { ApiService } from 'src/app/core/services/api/api.service';
 
@@ -30,16 +31,20 @@ export class VehicleDetailComponent implements OnInit {
     constructor(
         private _modal: ModalController,
         private formBuilder: FormBuilder,
+        private apiSvc: ApiService,
     ) {
+        var owner = apiSvc.getUser()
+        console.log(owner)
+        var ownerId = owner?.ownerId
         this.form = this.formBuilder.group({
             id: [null],
             plate: ['', Validators.required],
             brand: ['', Validators.required],
             model: ['', Validators.required],
             registrationDate: [Date],
-            category: ['', Validators.required],
-            available: [],
-            spents: []
+            category: ['Coche', Validators.required],
+            available: [false],
+            owner: ownerId
         })
     }
 

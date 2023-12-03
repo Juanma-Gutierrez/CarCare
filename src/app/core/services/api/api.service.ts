@@ -21,7 +21,7 @@ export class ApiService {
         console.log("getUser", this._user.getValue());
         return this._user.getValue();
     }
-    
+
 
     constructor(
         private http: HttpClientProvider,
