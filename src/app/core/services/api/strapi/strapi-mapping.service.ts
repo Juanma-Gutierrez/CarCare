@@ -10,21 +10,25 @@ import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 })
 
 export class StrapiMappingService extends MappingService {
-    public override queryVehiclesUrl(): string {
+    public override mapVehicle(data: any): Vehicle {
         throw new Error('Method not implemented.');
+    }
+    public override queryVehiclesUrl(): string {
+        console.log("querytVehicleUrl")
+        return 'vehicles?sort=brand';
+        //?populate=owner&filters[owner][id]=
     }
     public override getVehicleUrl(id: number): string {
-        throw new Error('Method not implemented.');
+        console.log("getVehicleUrl")
+        return `api/vehicles/${id}`;
     }
     public override updateVehicleUrl(id: number): string {
-        throw new Error('Method not implemented.');
+        console.log("updateVehicleUrl")
+        return `api/vehicles/${id}`;
     }
     public override deleteVehicleUrl(id: number): string {
         console.log("deleteVehicleUrl")
         return `api/vehicles/${id}`;
-    }
-    public override mapVehicle(data: any): Vehicle {
-        throw new Error('Method not implemented.');
     }
     public override mapVehicles(data: PaginatedData<any>): PaginatedData<Vehicle> {
         const strapi_data: PaginatedData<Vehicle> = { ...data };
@@ -46,11 +50,9 @@ export class StrapiMappingService extends MappingService {
         };
     }
 
-
     constructor() {
         super();
     }
-
 
     public  mapUser(data: StrapiExtendedUser): User {
         return {

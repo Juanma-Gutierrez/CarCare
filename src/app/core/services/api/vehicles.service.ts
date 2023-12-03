@@ -24,7 +24,6 @@ export class VehiclesService implements CrudVehicles {
     constructor(
         private dataSvc: DataService,
         private mapping: MappingService,
-        private apiSvc: ApiService,
         private http: HttpClient,
     ) { }
 
@@ -67,13 +66,8 @@ export class VehiclesService implements CrudVehicles {
     }
     updateVehicle(vehicle: Vehicle): Observable<Vehicle> {
         console.log("updateVehicle")
-        const endPoint= "/api/vehicle/";
-        const completeUri = environment.BASE_URL + endPoint + vehicle.id;
         console.table(vehicle);
-        console.log(completeUri);
-        return new Observable<Vehicle>(obs => {
-            this.http.patch<Vehicle>(completeUri, vehicle).subscribe()
-        })
+        return this.dataSvc.put<any>(this.mapping.updateVehicleUrl(vehicle.id!), vehicle).pipe(map(this.mapping.mapVehicle.bind(this.mapping)));
     }
 
     deleteVehicle(vehicle: Vehicle): Observable<Vehicle> {

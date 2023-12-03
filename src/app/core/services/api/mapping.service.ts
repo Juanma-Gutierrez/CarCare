@@ -16,7 +16,7 @@ export abstract class MappingService {
 
     public abstract deleteVehicleUrl(id: number): string;
 
-    public abstract mapVehicles(data: PaginatedData<any>): PaginatedData<Vehicle>;
-
     public abstract mapVehicle(data: any): Vehicle;
+
+    public abstract mapVehicles(data: PaginatedData<any>): PaginatedData<Vehicle>
 }

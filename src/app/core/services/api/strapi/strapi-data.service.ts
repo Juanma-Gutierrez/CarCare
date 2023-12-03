@@ -27,18 +27,28 @@ export class StrapiDataService extends DataService {
     }
     public get<T>(resource: string): Observable<T> {
         console.log("StrapiDataService.get");
+        console.log(resource)
         return this.api.get(`/${resource}`).pipe(map((response: StrapiResponse<T>) => {
             return { id: response.data.id, ...(response.data.attributes) };
         }));
     }
     public override post<T>(resource: string, data: any): Observable<T> {
-        throw new Error('Method not implemented.');
+        console.log("StrapiDataService.post")
+        console.log(resource)
+        return this.api.post(`/${resource}`, { data: data } as Object).pipe(map((response: StrapiResponse<T>) => {
+            return { id: response.data.id, ...response.data.attributes };
+        }));
     }
     public override put<T>(resource: string, data: any): Observable<T> {
-        throw new Error('Method not implemented.');
+        console.log("StrapiDataService.put")
+        console.log(resource)
+        return this.api.put(`/${resource}`, { data: data }).pipe(map((response: StrapiResponse<T>) => {
+            return { id: response.data.id, ...response.data.attributes };
+        }));
     }
     public override delete<T>(resource: string): Observable<T> {
-        console.log("delete")
+        console.log("StrapiDataService.delete")
+        console.log(resource)
         return this.api.delete(`/${resource}`).pipe(map((response: StrapiResponse<T>) => {
             return { id: response.data.id, ...response.data.attributes };
         }));

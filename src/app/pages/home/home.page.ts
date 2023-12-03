@@ -77,6 +77,7 @@ export class HomePage implements OnInit {
         console.log(vehicle.brand + vehicle.model)
         var onDismiss = (info: any) => {
             console.log(info);
+            console.log(info.role)
             switch (info.role) {
                 case 'ok': {
                     this.vehiclesSvc.updateVehicle(info.data).subscribe(async user => {
