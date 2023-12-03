@@ -16,7 +16,6 @@ export class StrapiMappingService extends MappingService {
     public override queryVehiclesUrl(): string {
         console.log("querytVehicleUrl")
         return 'vehicles?sort=brand';
-        //?populate=owner&filters[owner][id]=
     }
     public override getVehicleUrl(id: number): string {
         console.log("getVehicleUrl")

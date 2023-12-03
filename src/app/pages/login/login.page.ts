@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToastController, ToastOptions } from '@ionic/angular';
 import { UserCredentials } from 'src/app/core/interfaces/user-credentials';
 import { AuthService } from 'src/app/core/services/api/auth.service';
+import { InternalUIService } from 'src/app/core/services/internalUI.service';
 
 @Component({
     selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginPage implements OnInit {
     constructor(
         private auth: AuthService,
         private router: Router,
-        private toast: ToastController,
+        private uiSvc: InternalUIService,
     ) { }
 
     ngOnInit() {
@@ -32,14 +33,7 @@ export class LoginPage implements OnInit {
                 this.router.navigate(['home'])
             },
             error: err => {
-                const options: ToastOptions = {
-                    message: `Error en los datos introducidos`,
-                    duration: 2000,
-                    position: 'top',
-                    color: 'danger',
-                    // cssClass: 'fav-ion-toast' //Una clase que podemos poner en global.scss para configurar el ion-toast
-                };
-                this.toast.create(options).then(toast => toast.present());
+                this.uiSvc.showToast("Error en los datos introducidos", "danger", "top")
             }
         });
     }

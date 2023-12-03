@@ -8,6 +8,7 @@ import { Provider, ProviderCategory } from 'src/app/core/interfaces/provider';
 import { Service, Spent } from 'src/app/core/interfaces/spent';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { User } from 'src/app/core/services/api/strapi/interfaces/strapi-users';
+import { InternalUIService } from 'src/app/core/services/internalUI.service';
 
 @Component({
     selector: 'app-home',
@@ -30,10 +31,10 @@ export class HomePage implements OnInit {
 
     constructor(
         public vehiclesSvc: VehiclesService,
-        private toast: ToastController,
         private modal: ModalController,
         private router: Router,
         public apiSvc: ApiService,
+        private uiSvc: InternalUIService,
     ) { }
 
     ngOnInit(): void {
@@ -71,8 +72,13 @@ export class HomePage implements OnInit {
         this.selectedVehicle = vehicle;
         this.filteredSpent = this.spents?.filter(spent => spent.vehicle == this.selectedVehicle?.id);
         this.calculateTotalSpents();
-
     }
+
+    onNewVehicle() {
+        console.log("homePage.onNewVehicle")
+    }
+
+
     public async onEditVehicleClicked(vehicle: Vehicle) {
         console.log(vehicle.brand + vehicle.model)
         var onDismiss = (info: any) => {
@@ -81,30 +87,14 @@ export class HomePage implements OnInit {
             switch (info.role) {
                 case 'ok': {
                     this.vehiclesSvc.updateVehicle(info.data).subscribe(async user => {
-                        const options: ToastOptions = {
-                            message: "User modified",
-                            duration: 1000,
-                            position: 'bottom',
-                            color: 'tertiary',
-                            cssClass: 'card-ion-toast'
-                        };
-                        const toast = await this.toast.create(options);
-                        toast.present();
+                        this.uiSvc.showToast("User modified", "tertiary", "bottom")
                     })
                 }
                     break;
                 case 'delete': {
                     console.log("delete");
                     this.vehiclesSvc.deleteVehicle(info.data).subscribe(async user => {
-                        const options: ToastOptions = {
-                            message: "User deleted",
-                            duration: 1000,
-                            position: 'bottom',
-                            color: 'tertiary',
-                            cssClass: 'card-ion-toast'
-                        };
-                        const toast = await this.toast.create(options);
-                        toast.present();
+                        this.uiSvc.showToast("User deleted", "tertiary", "bottom")
                     })
                 }
                     break;
