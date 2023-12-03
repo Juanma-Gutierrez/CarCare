@@ -49,23 +49,21 @@ export class VehiclesService implements CrudVehicles {
 
     addVehicle(vehicle: Vehicle): Observable<Vehicle> {
         console.log("addVehicle")
-        const endPoint = "/api/vehicles";
+        const endPoint = "api/vehicles";
         const completeUri = environment.BASE_URL + endPoint;
         console.table(vehicle);
         console.log(completeUri);
         var _vehicle: any = {
-            data: {
-                plate: vehicle.plate,
-                brand: vehicle.brand,
-                model: vehicle.model,
-                registrationDate: vehicle.registrationDate,
-                category: vehicle.category,
-                available: vehicle.available,
-                owner: vehicle.owner
-            }
+            plate: vehicle.plate,
+            brand: vehicle.brand,
+            model: vehicle.model,
+            registrationDate: vehicle.registrationDate,
+            category: vehicle.category,
+            available: vehicle.available,
+            owner: vehicle.owner
         }
         console.table(_vehicle)
-        return this.http.post<Vehicle>(completeUri, _vehicle).pipe(tap());
+        return this.dataSvc.post<Vehicle>(endPoint, _vehicle).pipe(tap());
     }
     updateVehicle(vehicle: Vehicle): Observable<Vehicle> {
         console.log("updateVehicle")

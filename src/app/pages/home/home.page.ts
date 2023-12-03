@@ -39,8 +39,10 @@ export class HomePage implements OnInit {
 
     ngOnInit(): void {
         this.loading = true;
-        this.apiSvc.user$.subscribe((user) => {
-            console.log(user);
+        var user = this.apiSvc.getUser()
+        console.log(user)
+        this.apiSvc.user$.subscribe(v => {
+            console.log(v);
             if (user)
                 this.getVehicles(user?.ownerId);
             // TODO BORRAR
@@ -82,7 +84,7 @@ export class HomePage implements OnInit {
                 case 'ok': {
                     this.vehiclesSvc.addVehicle(info.data).subscribe(async user => {
                         this.loadVehicles();
-                        this.uiSvc.showToast("User created", "tertiary", "bottom")
+                        this.uiSvc.showToast("Vehículo creado correctamente", "tertiary", "bottom")
                     })
                     break;
                 }
@@ -96,20 +98,20 @@ export class HomePage implements OnInit {
 
     private loadVehicles(page: number = 0, refresher: any = null) {
         this.vehiclesSvc.query("").subscribe({
-            next:response=>{
+            next: response => {
                 console.log(response.data)
             },
-            error: err =>{
+            error: err => {
                 console.log(err)
             }
-/*             next: response => {
-                this.vehiclesSvc._vehicles.next(response.data);
-                this._pagination.next(response.pagination);
-                if (refresher) refresher.complete();
-            },
-            error: err => {
-                console.log(err);
-            } */
+            /*             next: response => {
+                            this.vehiclesSvc._vehicles.next(response.data);
+                            this._pagination.next(response.pagination);
+                            if (refresher) refresher.complete();
+                        },
+                        error: err => {
+                            console.log(err);
+                        } */
         });
     }
 
