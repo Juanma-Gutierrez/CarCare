@@ -16,6 +16,5 @@ export class ProviderItemComponent implements OnInit {
         public apiSvc: ApiService,
     ) { }
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 }

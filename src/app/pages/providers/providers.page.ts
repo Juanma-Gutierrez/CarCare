@@ -15,13 +15,18 @@ export class ProvidersPage implements OnInit {
         private apiSvc: ApiService,
         public providersSvc: ProvidersService,
     ) { }
-
     ngOnInit() {
         this.apiSvc.user$.subscribe(user => {
-            this.user = user
-            console.log("carga los proveedores")
-            if (this.user?.id)
-                this.providersSvc.getAll(this.user.id).subscribe();
+            if (user?.id)
+                this.getProviders(user.id);
         })
     }
+
+    async getProviders(userId: number) {
+        this.providersSvc.getAll(userId).subscribe();
+    }
 }
+
+
+
+

@@ -23,14 +23,11 @@ export class ProvidersService {
     ) { }
 
     public getAll(userId: number): Observable<PaginatedProviders> {
-        console.log("getAll Provider:", userId)
         // Filtra los proveedores del propietario registrado
         const apiUrl = "api/providers?populate=users_permissions_user&filters[users_permissions_user][id]=" + userId;
-        console.log("API URL:", apiUrl);
         // Si coincide el tipo de datos que recibo con mi interfaz
         var obs = this.dataSvc.query<any>(apiUrl, {}).pipe(tap(response => {
-            console.log("Proveedores: ")
-            console.table(response.data)
+            this._providers.next(response)
         }))
         return obs;
     }
