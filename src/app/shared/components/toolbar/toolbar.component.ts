@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, lastValueFrom, of } from 'rxjs';
 import { User } from 'src/app/core/interfaces/user';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { AuthService } from 'src/app/core/services/api/auth.service';
@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/core/services/api/auth.service';
 })
 export class ToolbarComponent implements OnInit {
     public selectedPage = "home";
-    public user: User | null | undefined;
+    public user: User | null = null;
 
     constructor(
         private router: Router,
@@ -22,6 +22,7 @@ export class ToolbarComponent implements OnInit {
     ngOnInit(): void {
         this.api.user$.subscribe(user => {
             console.log(user?.username)
+            this.user = user
         })
         console.log(this.api.user$)
     }

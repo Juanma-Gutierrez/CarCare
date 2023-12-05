@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController  } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 import { VehiclesService } from 'src/app/core/services/api/vehicles.service';
 import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
@@ -7,6 +7,7 @@ import { Provider, ProviderCategory } from 'src/app/core/interfaces/provider';
 import { Service, Spent } from 'src/app/core/interfaces/spent';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { InternalUIService } from 'src/app/core/services/internalUI.service';
+import { User } from 'src/app/core/interfaces/user';
 
 @Component({
     selector: 'app-home',
@@ -17,6 +18,8 @@ export class HomePage implements OnInit {
 
     public loading = true;
     public filterAvailable = true;
+    private user: User | null = null;
+
 
     // Mockup de datos locales en array
     // public vehicles: Vehicle[] | undefined;
@@ -38,15 +41,27 @@ export class HomePage implements OnInit {
         this.loading = true;
         var user = this.apiSvc.getUser()
         console.log(user)
-        this.apiSvc.user$.subscribe(v => {
-            console.log(v);
-            if (user)
-                this.getVehicles(user?.users_permissions_user);
+        this.apiSvc.user$.subscribe(u => {
+            console.log(u);
+            this.user = u
+            this.reloadVehicles(this.user)
+            /*             if (user)
+                            this.vehiclesSvc.getAll(user.users_permissions_user).subscribe((c) => {
+                                console.log("carga los vehiculos")
+                                this.loading = false;
+                            }); */
             // TODO BORRAR
             this.crearProveedoresTemporales();
             this.crearGastosTemporales();
             this.calculateTotalSpents;
         })
+    }
+
+    reloadVehicles(user: User | null) {
+        console.log("carga los vehiculos")
+        if (user)
+            this.vehiclesSvc.getAll(user.users_permissions_user).subscribe((c) => {
+            });
     }
 
     async getVehicles(ownerId: number) {
@@ -80,8 +95,8 @@ export class HomePage implements OnInit {
             switch (info.role) {
                 case 'ok': {
                     this.vehiclesSvc.addVehicle(info.data).subscribe(async user => {
-                        this.loadVehicles();
                         this.uiSvc.showToast("Vehículo creado correctamente", "tertiary", "bottom")
+                        this.reloadVehicles(this.user);
                     })
                     break;
                 }
@@ -112,14 +127,16 @@ export class HomePage implements OnInit {
             switch (info.role) {
                 case 'ok': {
                     this.vehiclesSvc.updateVehicle(info.data).subscribe(async user => {
-                        this.uiSvc.showToast("User modified", "tertiary", "bottom")
+                        this.uiSvc.showToast("Vehículo actualizado", "tertiary", "bottom")
+                        this.reloadVehicles(this.user);
                     })
                 }
                     break;
                 case 'delete': {
                     console.log("delete");
                     this.vehiclesSvc.deleteVehicle(info.data).subscribe(async user => {
-                        this.uiSvc.showToast("User deleted", "tertiary", "bottom")
+                        this.uiSvc.showToast("Vehículo eliminado", "tertiary", "bottom")
+                        this.reloadVehicles(this.user);
                     })
                 }
                     break;

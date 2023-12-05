@@ -28,8 +28,8 @@
                     </ion-button>
                 </div>
             </ion-col>
-            <ion-col class="ion-text-end" *ngIf="(auth.isLogged$ | async)">
-                <app-user-item (logoutClicked)="logoutClicked()"></app-user-item>
+            <ion-col class="ion-text-end" *ngIf="(auth.isLogged$ | async) && (auth.user$ | async)">
+                <app-user-item (logoutClicked)="logoutClicked()"  [user]="user"></app-user-item>
             </ion-col>
         </ion-row>
     </ion-toolbar>

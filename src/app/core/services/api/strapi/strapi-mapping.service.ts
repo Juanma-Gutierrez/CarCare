@@ -9,8 +9,19 @@ import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 })
 
 export class StrapiMappingService extends MappingService {
-    public override mapVehicle(data: any): Vehicle {
-        throw new Error('Method not implemented.');
+    public override mapVehicle(vehicle: any): Vehicle {
+        console.log(vehicle)
+        return {
+            id: vehicle.id,
+            plate: vehicle.plate,
+            brand: vehicle.brand,
+            model: vehicle.model,
+            registrationDate: vehicle.registrationDate,
+            category: vehicle.category,
+            available: vehicle.available,
+            owner: vehicle.owner,
+            spents: vehicle.spents
+        };
     }
     public override queryVehiclesUrl(): string {
         console.log("querytVehicleUrl")
@@ -52,10 +63,10 @@ export class StrapiMappingService extends MappingService {
         super();
     }
 
-    public  mapUser(data: StrapiOwner): User {
+    public mapUser(data: StrapiOwner): User {
         return {
             id: data.id || 0,
-            username:"",
+            username: "",
             email: "",
             provider: "",
             confirmed: false,

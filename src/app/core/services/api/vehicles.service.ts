@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { DataService } from './data.service';
 import { ApiService } from './api.service';
 import { HttpClient } from '@angular/common/http';
+import { User } from '../../interfaces/user';
 
 interface CrudVehicles {
     getAll(ownerId: number): Observable<PaginatedVehicles>;
@@ -63,7 +64,7 @@ export class VehiclesService implements CrudVehicles {
             owner: vehicle.owner
         }
         console.table(_vehicle)
-        return this.dataSvc.post<Vehicle>(endPoint, _vehicle).pipe(tap());
+        return this.dataSvc.post<Vehicle>(endPoint, _vehicle);
     }
     updateVehicle(vehicle: Vehicle): Observable<Vehicle> {
         console.log("updateVehicle")

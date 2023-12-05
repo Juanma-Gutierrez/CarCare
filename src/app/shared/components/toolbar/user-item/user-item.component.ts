@@ -11,15 +11,14 @@ import { ApiService } from 'src/app/core/services/api/api.service';
 })
 export class UserItemComponent implements OnInit {
     @Output() logoutClicked: EventEmitter<void> = new EventEmitter<void>()
+    @Input() user: User | null = null
 
     constructor(
         private popoverController: PopoverController,
         public apiSvc: ApiService
     ) { }
     ngOnInit(): void {
-        this.apiSvc.user$.subscribe(c=>{
-            console.log(c?.username)
-        })
+        console.log(this.user)
     }
 
     logoutClick(event: Event) {
