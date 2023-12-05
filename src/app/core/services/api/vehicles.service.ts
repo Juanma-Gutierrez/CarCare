@@ -25,7 +25,6 @@ export class VehiclesService implements CrudVehicles {
     constructor(
         private dataSvc: DataService,
         private mapping: MappingService,
-        private http: HttpClient,
     ) { }
 
     public query(q: string): Observable<PaginatedVehicles> {
@@ -36,10 +35,10 @@ export class VehiclesService implements CrudVehicles {
         return obs
     }
 
-    public getAll(ownerId: number): Observable<PaginatedVehicles> {
-        console.log("getAll ownerId:", ownerId)
+    public getAll(userId: number): Observable<PaginatedVehicles> {
+        console.log("getAll userId:", userId)
         // Filtra los vehículos del propietario registrado
-        const apiUrl = "api/vehicles?populate=owner&filters[owner][id]=" + ownerId;
+        const apiUrl = "api/vehicles?populate=users_permissions_user&filters[users_permissions_user]=" + userId;
         console.log("API URL:", apiUrl);
         // Si coincide el tipo de datos que recibo con mi interfaz
         var obs = this.dataSvc.query<any>(apiUrl, {}).pipe(map(this.mapping.mapVehicles.bind(this.mapping)), tap(vehicles => {

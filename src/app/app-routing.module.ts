@@ -32,7 +32,11 @@ const routes: Routes = [
     {
         path: 'register',
         loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterPageModule)
-    },
+    },  {
+    path: 'providers',
+    loadChildren: () => import('./pages/providers/providers.module').then( m => m.ProvidersPageModule)
+  },
+
 ];
 
 @NgModule({

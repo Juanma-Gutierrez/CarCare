@@ -17,6 +17,7 @@ export class StrapiDataService extends DataService {
     public override query<T>(resource: string, params: any): Observable<PaginatedData<T>> {
         console.log("StrapiDataService.query", resource);
         var res = this.api.get(`/${resource}`, params).pipe(map((response: StrapiArrayResponse<T>) => {
+            console.log(response)
             return {
                 data: response.data.map(data => { return { ...(data.attributes), id: data.id }; }),
                 pagination: response.meta.pagination!

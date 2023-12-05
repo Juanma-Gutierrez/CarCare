@@ -21,34 +21,32 @@ export class ToolbarComponent implements OnInit {
     ) { }
     ngOnInit(): void {
         this.api.user$.subscribe(user => {
-            console.log(user?.username)
             this.user = user
         })
-        console.log(this.api.user$)
     }
 
     navToAbout() {
         this.selectedPage = "aboutMe"
-        console.log(this?.selectedPage)
         this.router.navigate(['/about-me']);
     }
 
     navToHome() {
         this.selectedPage = "home"
-        console.log(this?.selectedPage)
         this.router.navigate(['/home']);
     }
 
     navToVehicles() {
         this.selectedPage = "vehicles"
-        console.log(this?.selectedPage)
         this.router.navigate(['/vehicles']);
+    }
+    navToProviders() {
+        this.selectedPage = "providers"
+        this.router.navigate(['/providers']);
     }
 
     logoutClicked() {
         console.log("logoutClicked")
         this.auth.logout().subscribe(_ => {
-            console.log("logout()")
             this.router.navigate(['/login']);
         });
     }

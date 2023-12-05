@@ -21,6 +21,13 @@
                                 Vehículos
                             </ion-button>
                         </div>
+                        <div>
+                            <ion-button shape="round" (click)="navToProviders()"
+                                [ngClass]="{'active': selectedPage==='providers'}">
+                                <ion-icon slot="start" name="build-outline"></ion-icon>
+                                Proveedores
+                            </ion-button>
+                        </div>
                     </div>
                     <ion-button shape="round" (click)="navToAbout()" [ngClass]="{'active': selectedPage==='aboutMe'}">
                         <ion-icon slot="start" name="information-circle-outline"></ion-icon>

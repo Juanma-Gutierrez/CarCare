@@ -14,17 +14,13 @@ export class VehiclesPage implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.apiSvc.user$.subscribe((user) => {
-            console.log(user);
-            if (user)
-                this.getVehicles(user?.users_permissions_user);
-            // TODO BORRAR
+        this.apiSvc.user$.subscribe(user => {
+            if (user?.id)
+                this.getVehicles(user.id);
         })
     }
 
-    async getVehicles(ownerId: number) {
-        console.log("vehiculos")
-        this.vehiclesSvc.getAll(ownerId).subscribe();
+    async getVehicles(userId: number) {
+        this.vehiclesSvc.getAll(userId).subscribe();
     }
-
 }

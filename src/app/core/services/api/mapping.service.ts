@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { PaginatedData } from '../../interfaces/data';
 import { Vehicle } from '../../interfaces/Vehicle';
+import { Provider } from './strapi/interfaces/strapi-providers';
 
 @Injectable({
     providedIn: 'root'
 })
 export abstract class MappingService {
-
 
     public abstract queryVehiclesUrl(): string;
 
@@ -19,4 +19,6 @@ export abstract class MappingService {
     public abstract mapVehicle(data: any): Vehicle;
 
     public abstract mapVehicles(data: PaginatedData<any>): PaginatedData<Vehicle>
+
+    public abstract mapProviders(data: PaginatedData<any>): PaginatedData<Provider>
 }

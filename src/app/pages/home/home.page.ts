@@ -45,23 +45,22 @@ export class HomePage implements OnInit {
             console.log(u);
             this.user = u
             this.reloadVehicles(this.user)
+            this.calculateTotalSpents;
             /*             if (user)
                             this.vehiclesSvc.getAll(user.users_permissions_user).subscribe((c) => {
                                 console.log("carga los vehiculos")
                                 this.loading = false;
                             }); */
             // TODO BORRAR
-            this.crearProveedoresTemporales();
             this.crearGastosTemporales();
-            this.calculateTotalSpents;
         })
     }
 
     reloadVehicles(user: User | null) {
         console.log("carga los vehiculos")
-        if (user)
-            this.vehiclesSvc.getAll(user.users_permissions_user).subscribe((c) => {
-            });
+        console.log(user)
+        if (user?.id)
+            this.vehiclesSvc.getAll(user.id).subscribe();
     }
 
     async getVehicles(ownerId: number) {
@@ -106,17 +105,6 @@ export class HomePage implements OnInit {
             }
         }
         this.presentForm(null, onDismiss);
-    }
-
-    private loadVehicles(page: number = 0, refresher: any = null) {
-        this.vehiclesSvc.query("").subscribe({
-            next: response => {
-                console.log(response.data)
-            },
-            error: err => {
-                console.log(err)
-            }
-        });
     }
 
     public async onEditVehicleClicked(vehicle: Vehicle) {

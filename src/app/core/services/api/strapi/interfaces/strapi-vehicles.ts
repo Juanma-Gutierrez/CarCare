@@ -1,10 +1,11 @@
+export interface StrapiResponse<T> {
+    data: T
+}
+
 /**
  * Main response of Strapi to Vehicles
  */
-export interface StrapiVehiclesResponse {
-    data: VehicleItem[]
-    meta: VehicleMeta
-}
+export type StrapiVehiclesResponse = StrapiResponse<VehicleItem>
 
 /**
  * Vehicle item
@@ -27,21 +28,4 @@ export interface VehicleItemAttributes {
     createdAt: string
     updatedAt: string
     publishedAt: string
-}
-
-/**
- * Vehicles meta info of the response
- */
-export interface VehicleMeta {
-    pagination: VehiclePagination
-}
-
-/**
- * Vehicles pagination info
- */
-export interface VehiclePagination {
-    page: number
-    pageSize: number
-    pageCount: number
-    total: number
 }
