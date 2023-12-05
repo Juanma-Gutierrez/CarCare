@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ModalController, ToastController, ToastOptions } from '@ionic/angular';
-import { Vehicle, VehicleCategory } from 'src/app/core/interfaces/Vehicle';
+import { ModalController  } from '@ionic/angular';
+import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 import { VehiclesService } from 'src/app/core/services/api/vehicles.service';
 import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
 import { Provider, ProviderCategory } from 'src/app/core/interfaces/provider';
 import { Service, Spent } from 'src/app/core/interfaces/spent';
 import { ApiService } from 'src/app/core/services/api/api.service';
-import { User } from 'src/app/core/services/api/strapi/interfaces/strapi-users';
 import { InternalUIService } from 'src/app/core/services/internalUI.service';
 
 @Component({
@@ -32,7 +30,6 @@ export class HomePage implements OnInit {
     constructor(
         public vehiclesSvc: VehiclesService,
         private modal: ModalController,
-        private router: Router,
         public apiSvc: ApiService,
         private uiSvc: InternalUIService,
     ) { }
@@ -44,7 +41,7 @@ export class HomePage implements OnInit {
         this.apiSvc.user$.subscribe(v => {
             console.log(v);
             if (user)
-                this.getVehicles(user?.ownerId);
+                this.getVehicles(user?.users_permissions_user);
             // TODO BORRAR
             this.crearProveedoresTemporales();
             this.crearGastosTemporales();
@@ -104,19 +101,8 @@ export class HomePage implements OnInit {
             error: err => {
                 console.log(err)
             }
-            /*             next: response => {
-                            this.vehiclesSvc._vehicles.next(response.data);
-                            this._pagination.next(response.pagination);
-                            if (refresher) refresher.complete();
-                        },
-                        error: err => {
-                            console.log(err);
-                        } */
         });
     }
-
-
-
 
     public async onEditVehicleClicked(vehicle: Vehicle) {
         console.log(vehicle.brand + vehicle.model)

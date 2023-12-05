@@ -4,8 +4,9 @@ import { ApiService } from '../api.service';
 import { AuthService } from '../auth.service';
 import { UserCredentials } from '../../../interfaces/user-credentials';
 import { JwtService } from '../../jwt.service';
-import { User } from 'src/app/core/interfaces/user';
-import { StrapiMe, StrapiUser } from './interfaces/strapi-users';
+import { User, UserRegisterInfo } from 'src/app/core/interfaces/user';
+import { PostStrapiRegister, StrapiMe, StrapiOwner, StrapiRegisterPayload, StrapiUser } from './interfaces/strapi-users';
+import { StrapiRegisterResponse } from './interfaces/strapi-data';
 
 
 @Injectable({
@@ -18,22 +19,22 @@ export class AuthStrapiService extends AuthService {
         private apiSvc: ApiService,
     ) {
         super();
-        this.init();
-    }
-
-    private init() {
-        this.jwtSvc.loadToken().subscribe({
-            next: _ => {
-                this._logged.next(true);
-            },
-            error: err => {
-                console.error(err);
+        this.jwtSvc.loadToken().subscribe(token => {
+            if (token) {
+                console.log("token")
+                this.me().subscribe(user => {
+                    this._logged.next(true);
+                    this._user.next(user);
+                })
+            } else {
+                console.log("No token")
+                this._logged.next(false);
+                this._user.next(null);
             }
         });
     }
 
     public login(credentials: UserCredentials): Observable<void> {
-        console.log('this.authSvc:', this.apiSvc);
         return new Observable<void>(obs => {
             const _credentials = {
                 identifier: credentials.username,
@@ -48,7 +49,6 @@ export class AuthStrapiService extends AuthService {
                         (user: User) => {
                             console.log("updateUser", user)
                             if (this.apiSvc) {
-                                console.log("update")
                                 this.apiSvc.updateUser(user);
                             } else {
                                 console.error('this.authSvc no está definido.');
@@ -75,8 +75,42 @@ export class AuthStrapiService extends AuthService {
         }));
     }
 
-    public override register(info: Object): Observable<any> {
-        throw new Error('Method not implemented.');
+
+    register(info: UserRegisterInfo): Observable<User> {
+        return new Observable<User>(obs => {
+            const _info: StrapiRegisterPayload = {
+                username: info.username,
+                email: info.email,
+                password: info.password
+            }
+            this.apiSvc.post("/api/auth/local/register", _info).subscribe({
+                next: async (data: StrapiRegisterResponse) => {
+                    await lastValueFrom(this.jwtSvc.saveToken(data.jwt));
+                    console.log(data)
+                    const _owner: PostStrapiRegister = {
+                        data: {
+                            name: info.name,
+                            surname: info.surname,
+                            users_permissions_user: data.user.id
+                        }
+                    }
+                    try {
+                        await lastValueFrom(this.apiSvc.post("/api/owners", _owner));
+                        const user = await lastValueFrom(this.me());
+                        this._user.next(user);
+                        this._logged.next(true);
+                        obs.next(user);
+                        obs.complete();
+                    } catch (error) {
+                        obs.error(error);
+                    }
+                },
+                error: err => {
+                    console.log(err)
+                    obs.error(err);
+                }
+            });
+        });
     }
 
 
@@ -89,7 +123,7 @@ export class AuthStrapiService extends AuthService {
                         (this.apiSvc.get(`/api/users/${user.id}?populate=owner`));
                     let ret: User = {
                         id: user.id,
-                        ownerId: extended_user.owner.id,
+                        users_permissions_user: extended_user.owner.id,
                         username: user.username,
                         email: user.email,
                         name: extended_user.owner.name,
@@ -104,38 +138,6 @@ export class AuthStrapiService extends AuthService {
                 }
             });
         });
-
     }
-
-    /*
-    register(info: UserRegisterInfo): Observable<void> {
-        return new Observable<void>(obs => {
-            const _info: StrapiRegisterPayload = {
-                email: info.email,
-                username: info.nickname,
-                password: info.password
-            }
-            this.apiSvc.post("/auth/local/register", info).subscribe({
-                next: async (data: StrapiRegisterResponse) => {
-                    let connected = data && data.jwt != '';
-                    this._logged.next(connected);
-                    await lastValueFrom(this.jwtSvc.saveToken(data.jwt));
-                    const _extended_user: StrapiExtendedUser = {
-                        name: info.name,
-                        surname: info.surname,
-                        user_id: data.user.id
-                    }
-                    await lastValueFrom(this.apiSvc.post("/extended_user", _extended_user));
-                    obs.next();
-                    obs.complete();
-                },
-                error: err => {
-                    obs.error(err);
-                }
-            });
-        });
-    }
- 
-*/
 
 }

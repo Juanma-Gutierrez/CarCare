@@ -35,10 +35,13 @@ export class StrapiDataService extends DataService {
     public override post<T>(resource: string, data: any): Observable<T> {
         console.log("StrapiDataService.post")
         console.log(resource)
+        console.table(data)
+        console.log(data)
         return this.api.post(`/${resource}`, { data: data } as Object).pipe(map((response: StrapiResponse<T>) => {
             return { id: response.data.id, ...response.data.attributes };
         }));
     }
+
     public override put<T>(resource: string, data: any): Observable<T> {
         console.log("StrapiDataService.put")
         console.log(resource)

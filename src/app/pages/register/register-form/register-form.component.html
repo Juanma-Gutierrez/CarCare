@@ -1,0 +1,54 @@
+<div class="form-container">
+    <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()" (key.enter)="onSubmit()">
+        <ion-item>
+            <ion-input labelPlacement="stacked" label="Nombre" formControlName="name" type="text"></ion-input>
+            <ion-icon *ngIf="hasTouched('name') && hasError('name')" color="danger" slot="end"
+                name="thumbs-down-outline"></ion-icon>
+            <ion-icon *ngIf="hasTouched('name') && !hasError('name')" color="success" slot="end"
+                name="thumbs-up-outline"></ion-icon>
+        </ion-item>
+        <ion-item>
+            <ion-input labelPlacement="stacked" label="Apellidos" formControlName="surname" type="text"></ion-input>
+            <ion-icon *ngIf="hasTouched('surname') && hasError('surname')" color="danger" slot="end"
+                name="thumbs-down-outline"></ion-icon>
+            <ion-icon *ngIf="hasTouched('surname') && !hasError('surname')" color="success" slot="end"
+                name="thumbs-up-outline"></ion-icon>
+        </ion-item>
+        <ion-item>
+            <ion-input labelPlacement="stacked" label="Nombre de usuario" formControlName="username"
+                type="text"></ion-input>
+            <ion-icon *ngIf="hasTouched('username') && hasError('username')" color="danger" slot="end"
+                name="thumbs-down-outline"></ion-icon>
+            <ion-icon *ngIf="hasTouched('username') && !hasError('username')" color="success" slot="end"
+                name="thumbs-up-outline"></ion-icon>
+        </ion-item>
+        <ion-item>
+            <ion-input labelPlacement="stacked" label="Correo electrónico" formControlName="email"
+                type="email"></ion-input>
+            <ion-icon *ngIf="hasTouched('email') && hasError('email')" color="danger" slot="end"
+                name="thumbs-down-outline"></ion-icon>
+            <ion-icon *ngIf="hasTouched('email') && !hasError('email')" color="success" slot="end"
+                name="thumbs-up-outline"></ion-icon>
+        </ion-item>
+        <ion-item>
+            <ion-input labelPlacement="stacked" label="Contraseña" formControlName="password"
+                type="password"></ion-input>
+            <ion-icon *ngIf="hasTouched('password') && hasError('password')" color="danger" slot="end"
+                name="thumbs-down-outline"></ion-icon>
+            <ion-icon *ngIf="hasTouched('password') && !hasError('password')" color="success" slot="end"
+                name="thumbs-up-outline"></ion-icon>
+        </ion-item>
+        <ion-item>
+            <ion-input labelPlacement="stacked" label="Repita la contraseña" formControlName="confirm"
+                type="password"></ion-input>
+            <ion-icon *ngIf="hasTouched('confirm') && hasError('confirm')" color="danger" slot="end"
+                name="thumbs-down-outline"></ion-icon>
+            <ion-icon *ngIf="hasTouched('confirm') && !hasError('confirm')" color="success" slot="end"
+                name="thumbs-up-outline"></ion-icon>
+        </ion-item>
+        <div class="ion-text-end">
+            <ion-button style="text-transform: none;" [disabled]="!form.valid"
+                (click)="onSubmit()">Registrar</ion-button>
+        </div>
+    </form>
+</div>

@@ -29,10 +29,17 @@ export interface StrapiArrayResponse<T> {
     }
 }
 
-export interface StrapiExtendedUser {
+export interface StrapiRegisterUser {
     id?: number,
     name: string,
-    surname: string,
-    user_id: number,
-    nickname?: string,
+    email: string,
+    password: string,
+    role: number
 }
+
+export interface StrapiLoginResponse{
+    jwt:string,
+    user:StrapiUser
+}
+
+export type StrapiRegisterResponse = StrapiLoginResponse;

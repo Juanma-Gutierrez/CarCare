@@ -3,20 +3,18 @@
         <ion-card>
             <ion-card-header>
                 <div class="ion-text-center">
-                    <img id="logoImage" alt="Logo of CarCare"
-                        src="../../../assets/images/logo_carcare_transparent.png" />
                     <ion-text color="dark">
-                        <h1>Login</h1>
+                        <h1>Registro</h1>
                     </ion-text>
                 </div>
                 <div>
-                    <ion-text [routerLink]="['/register']">
-                        No estoy registrado
+                    <ion-text [routerLink]="['/login']">
+                        Iniciar sesión
                     </ion-text>
                 </div>
             </ion-card-header>
             <ion-card-content>
-                <app-login-form (onsubmit)="onLogin($event)"></app-login-form>
+                <app-register-form (onsubmit)="onRegisterFormSubmit($event)"></app-register-form>
             </ion-card-content>
         </ion-card>
     </div>

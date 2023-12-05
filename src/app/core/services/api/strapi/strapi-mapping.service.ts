@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MappingService } from '../mapping.service';
 import { PaginatedData } from 'src/app/core/interfaces/data';
-import { StrapiExtendedUser } from './interfaces/strapi-data';
-import { User } from './interfaces/strapi-users';
+import { StrapiOwner, User } from './interfaces/strapi-users';
 import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 
 @Injectable({
@@ -53,10 +52,10 @@ export class StrapiMappingService extends MappingService {
         super();
     }
 
-    public  mapUser(data: StrapiExtendedUser): User {
+    public  mapUser(data: StrapiOwner): User {
         return {
             id: data.id || 0,
-            username: data.nickname || "",
+            username:"",
             email: "",
             provider: "",
             confirmed: false,

@@ -66,7 +66,7 @@ export class ApiService {
     post(path: string, body: Object = {}, content_type = null): Observable<any> {
         var url = `${environment.BASE_URL}${path}`;
         console.log("api.service.post")
-        console.log(url)
+        console.log(url, body)
         return this.http.post(url, body, this.getHeader(url));
     }
 

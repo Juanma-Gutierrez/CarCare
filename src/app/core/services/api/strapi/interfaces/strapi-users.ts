@@ -1,3 +1,4 @@
+import { StrapiData } from "./strapi-data";
 
 export interface StrapiUser {
     id: number,
@@ -69,3 +70,25 @@ export interface Error {
 export interface Details { }
 
 
+export interface StrapiRegisterPayload {
+    email: string,
+    password: string,
+    username: string
+}
+
+export interface StrapiOwner {
+    id?: number,
+    name: string,
+    surname: string,
+    user_id: number,
+}
+
+
+export interface PostStrapiRegister {
+    data: {
+        id?: number,
+        name: string,
+        surname: string,
+        users_permissions_user: number,
+    }
+}

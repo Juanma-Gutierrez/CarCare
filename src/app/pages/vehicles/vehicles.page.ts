@@ -17,10 +17,9 @@ export class VehiclesPage implements OnInit {
         this.apiSvc.user$.subscribe((user) => {
             console.log(user);
             if (user)
-                this.getVehicles(user?.ownerId);
+                this.getVehicles(user?.users_permissions_user);
             // TODO BORRAR
         })
-
     }
 
     async getVehicles(ownerId: number) {
