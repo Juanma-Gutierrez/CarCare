@@ -3,6 +3,7 @@ import { AuthService } from './core/services/api/auth.service';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { User } from './core/interfaces/user';
+import { ApiService } from './core/services/api/api.service';
 
 @Component({
     selector: 'app-root',
@@ -14,15 +15,16 @@ export class AppComponent {
     public user$ = this._user.asObservable();
 
     constructor(
-        public auth: AuthService,
-        private router: Router
+        public authSvc: AuthService,
+        private router: Router,
+        private apiSvc: ApiService
     ) {
         // Se suscribe al observable isLogged$ del servicio AuthService.
-        this.auth.isLogged$.subscribe(logged => {
+        this.authSvc.isLogged$.subscribe(logged => {
             if (logged) {
                 // Si el usuario está autenticado, navega a home.
-                this.auth.me().subscribe(data => {
-                    this._user.next(data);
+                this.authSvc.me().subscribe(data => {
+                    apiSvc.updateUser(data);
                     this.router.navigate(['/home']);
                 });
             }
