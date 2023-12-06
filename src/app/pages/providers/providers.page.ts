@@ -43,7 +43,7 @@ export class ProvidersPage implements OnInit {
     onNewProvider() {
         console.log("nuevo proveedor")
         var onDismiss = (info: any) => {
-            console.log(info.role);
+            console.log("******PROVEEDOR", info);
             switch (info.role) {
                 case 'ok': {
                     this.providersSvc.addProvider(info.data).subscribe(async provider => {

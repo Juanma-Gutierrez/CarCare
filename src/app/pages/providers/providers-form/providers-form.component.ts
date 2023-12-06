@@ -21,6 +21,7 @@ export class ProvidersFormComponent implements OnInit {
             this.form.controls['name'].setValue(_provider.name);
             this.form.controls['category'].setValue(_provider.category);
             this.form.controls['phone'].setValue(_provider.phone);
+            this.form.controls['providerUserPermissions'].setValue(_provider.providerUserPermissions)
         }
     }
 
@@ -31,13 +32,14 @@ export class ProvidersFormComponent implements OnInit {
     ) {
         var user = apiSvc.getUser()
         console.log(user)
-        var providerUserPermissionsId = user?.users_permissions_user
+        var providerUserPermissions = user?.id
+        console.log(providerUserPermissions)
         this.form = this.formBuilder.group({
             id: [null],
             name: ['', Validators.required],
             category: ['', Validators.required],
             phone: [''],
-            providerUserPermissions: [providerUserPermissionsId]
+            providerUserPermissions: [providerUserPermissions]
         })
     }
 

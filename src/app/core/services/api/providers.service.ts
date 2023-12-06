@@ -37,14 +37,13 @@ export class ProvidersService {
     addProvider(provider: Provider): Observable<Provider> {
         console.log("addProvider")
         const endPoint = "api/providers";
-        const completeUri = environment.BASE_URL + endPoint;
         console.table(provider);
-        console.log(completeUri);
+        console.log(provider.providerUserPermissions)
         var _provider: any = {
             name: provider.name,
             category: provider.category,
             phone: provider.phone,
-            users_permissions_user: provider.providerUserPermissionsId,
+            users_permissions_user: provider.providerUserPermissions,
         }
         console.table(_provider)
         return this.dataSvc.post<Provider>(endPoint, _provider);

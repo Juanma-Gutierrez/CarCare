@@ -22,3 +22,13 @@ export interface StrapiProvider {
 }
 
 export type PaginatedProviders = PaginatedData<StrapiProvider>;
+
+/* 
+Categorías de proveedores:
+    workshop,
+    gasStation,
+    insuranceCompany,
+    ITV,
+    towTruck,
+    other,
+ */

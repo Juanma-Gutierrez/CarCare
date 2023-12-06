@@ -3,7 +3,7 @@ export interface Provider {
     name: string,
     category: ProviderCategory,
     phone: string,
-    providerUserPermissionsId: number,
+    providerUserPermissions: number,
 }
 
 export enum ProviderCategory {
