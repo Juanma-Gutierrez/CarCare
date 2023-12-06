@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Provider } from 'src/app/core/interfaces/provider';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { ProvidersService } from 'src/app/core/services/api/providers.service';
-import { StrapiProvider } from 'src/app/core/services/api/strapi/interfaces/strapi-providers';
 
 @Component({
     selector: 'app-provider-item',
@@ -9,7 +9,7 @@ import { StrapiProvider } from 'src/app/core/services/api/strapi/interfaces/stra
     styleUrls: ['./provider-item.component.scss'],
 })
 export class ProviderItemComponent implements OnInit {
-    @Input() provider: StrapiProvider | undefined
+    @Input() provider?: Provider
     @Output() onEditProviderClicked: EventEmitter<void> = new EventEmitter<void>();
 
     constructor(

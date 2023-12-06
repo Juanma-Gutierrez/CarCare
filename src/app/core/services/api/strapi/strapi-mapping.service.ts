@@ -4,6 +4,7 @@ import { PaginatedData } from 'src/app/core/interfaces/data';
 import { StrapiOwner, User } from './interfaces/strapi-users';
 import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 import { ProviderItem, StrapiProvider } from './interfaces/strapi-providers';
+import { Provider } from 'src/app/core/interfaces/provider';
 
 @Injectable({
     providedIn: 'root'
@@ -64,20 +65,21 @@ export class StrapiMappingService extends MappingService {
             pagination: data.pagination
         };
     }
-    public mapProviders(data: PaginatedData<any>): PaginatedData<StrapiProvider> {
-        console.log(data)
-        const strapi_data: PaginatedData<ProviderItem> = { ...data };
+/*     public mapProviders(data: PaginatedData<any>): PaginatedData<Provider> {
+        const strapi_data: PaginatedData<Provider> = { ...data };
         return {
             data: strapi_data.data.map(provider => {
                 return {
-                    name: provider.attributes.name,
-                    category: provider.attributes.category,
-                    phone: provider.attributes.phone
+                    id: provider.id,
+                    name: provider.name,
+                    category: provider.category,
+                    phone: provider.phone,
+                    providerUserPermissions: provider.users_permissions_user
                 };
             }),
             pagination: data.pagination
         };
-    }
+    } */
 
 
     public mapUser(data: StrapiOwner): User {
@@ -91,6 +93,19 @@ export class StrapiMappingService extends MappingService {
             createdAt: "",
             updatedAt: "",
         };
+    }
+
+    public override updateProviderUrl(id: number): string {
+        console.log("updateProviderUrl")
+        return `api/providers/${id}`;
+    }
+    public override deleteProviderUrl(id: number): string {
+        console.log("deleteProviderUrl")
+        return `api/providers/${id}`;
+    }
+    public override mapProvider(data: any): Provider {
+        console.log("****************** no implementado **********************")
+        return data;
     }
 }
 

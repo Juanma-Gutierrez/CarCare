@@ -1,9 +1,9 @@
 export interface Provider {
-    id: number,
+    id?: number,
     name: string,
     category: ProviderCategory,
     phone: string,
-    providerUserPermissions: number,
+    users_permissions_user?: number,
 }
 
 export enum ProviderCategory {

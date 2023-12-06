@@ -21,7 +21,7 @@ export class ProvidersFormComponent implements OnInit {
             this.form.controls['name'].setValue(_provider.name);
             this.form.controls['category'].setValue(_provider.category);
             this.form.controls['phone'].setValue(_provider.phone);
-            this.form.controls['providerUserPermissions'].setValue(_provider.providerUserPermissions)
+            this.form.controls['providerUserPermissions'].setValue(_provider.users_permissions_user)
         }
     }
 

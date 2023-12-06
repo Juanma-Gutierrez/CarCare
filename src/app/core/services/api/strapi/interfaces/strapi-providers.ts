@@ -1,5 +1,6 @@
 import { PaginatedData } from "src/app/core/interfaces/data"
 import { StrapiResponse } from "./strapi-data"
+import { ProviderCategory } from "src/app/core/interfaces/provider"
 
 /**
  * Main response of Strapi to Providers
@@ -16,19 +17,11 @@ export interface ProviderItem {
 }
 
 export interface StrapiProvider {
+    id?: number,
     name: string
-    category: string
+    category: ProviderCategory
     phone: string
+    users_permissions_user?: number
 }
 
 export type PaginatedProviders = PaginatedData<StrapiProvider>;
-
-/* 
-Categorías de proveedores:
-    workshop,
-    gasStation,
-    insuranceCompany,
-    ITV,
-    towTruck,
-    other,
- */

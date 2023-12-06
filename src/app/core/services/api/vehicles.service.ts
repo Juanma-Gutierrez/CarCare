@@ -4,9 +4,6 @@ import { PaginatedVehicles, Vehicle, VehicleCategory } from '../../interfaces/Ve
 import { MappingService } from './mapping.service';
 import { environment } from 'src/environments/environment';
 import { DataService } from './data.service';
-import { ApiService } from './api.service';
-import { HttpClient } from '@angular/common/http';
-import { User } from '../../interfaces/user';
 
 interface CrudVehicles {
     getAll(ownerId: number): Observable<PaginatedVehicles>;

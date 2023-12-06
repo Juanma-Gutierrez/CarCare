@@ -21,7 +21,8 @@ export class ToolbarComponent implements OnInit {
     ) { }
     ngOnInit(): void {
         this.api.user$.subscribe(user => {
-            this.user = user
+            this.user = user;
+            this.selectedPage = "home";
         })
     }
 

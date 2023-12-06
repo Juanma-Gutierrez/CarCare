@@ -35,15 +35,42 @@ export class ProvidersPage implements OnInit {
         this.providersSvc.getAll(userId).subscribe();
     }
 
-    onEditProviderClicked(provider: StrapiProvider) {
-        console.log("clicked")
-        console.log(provider)
+    onEditProviderClicked(provider: Provider) {
+        console.log("clicked", provider)
+        var onDismiss = (info: any) => {
+            console.log(info);
+            console.log(info.role)
+            switch (info.role) {
+                case 'ok': {
+                    this.providersSvc.updateProvider(info.data).subscribe(async user => {
+                        this.uiSvc.showToast("Proveedor actualizado", "tertiary", "bottom")
+                        this.reloadProviders(this.user);
+                    })
+                }
+                    break;
+                case 'delete': {
+                    console.log("delete");
+                    this.providersSvc.deleteProvider(info.data).subscribe(async user => {
+                        this.uiSvc.showToast("Proveedor eliminado", "tertiary", "bottom")
+                        this.reloadProviders(this.user);
+                    })
+                }
+                    break;
+                default: {
+                    console.error("No debería entrar");
+                }
+            }
+        }
+        var newProvider: StrapiProvider = {
+            name: provider.name,
+            phone: provider.phone,
+            category: provider.category
+        }
+        this.presentForm(provider, onDismiss);
     }
 
     onNewProvider() {
-        console.log("nuevo proveedor")
         var onDismiss = (info: any) => {
-            console.log("******PROVEEDOR", info);
             switch (info.role) {
                 case 'ok': {
                     this.providersSvc.addProvider(info.data).subscribe(async provider => {
@@ -58,8 +85,6 @@ export class ProvidersPage implements OnInit {
             }
         }
         this.presentForm(null, onDismiss);
-
-
     }
     async presentForm(data: Provider | null, onDismiss: (result: any) => void) {
         console.log("present form")
@@ -86,11 +111,6 @@ export class ProvidersPage implements OnInit {
             this.providersSvc.getAll(user.id).subscribe();
     }
 
-
-    addProvider() {
-        console.log("add provider")
-
-    }
 }
 
 

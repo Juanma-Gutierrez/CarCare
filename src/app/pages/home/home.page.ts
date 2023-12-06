@@ -53,13 +53,6 @@ export class HomePage implements OnInit {
         })
     }
 
-    reloadVehicles(user: User | null) {
-        console.log("carga los vehiculos")
-        console.log(user)
-        if (user?.id)
-            this.vehiclesSvc.getAll(user.id).subscribe();
-    }
-
     async getVehicles(ownerId: number) {
         console.log("getVehicles", this.loading)
         this.vehiclesSvc.getAll(ownerId).subscribe((c) => {
@@ -75,6 +68,13 @@ export class HomePage implements OnInit {
             case "all": this.filterAvailable = false;
                 break;
         }
+    }
+
+    reloadVehicles(user: User | null) {
+        console.log("carga los vehiculos")
+        console.log(user)
+        if (user?.id)
+            this.vehiclesSvc.getAll(user.id).subscribe();
     }
 
     public async onVehicleItemClicked(vehicle: Vehicle) {

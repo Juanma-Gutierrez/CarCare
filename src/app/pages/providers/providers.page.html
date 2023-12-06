@@ -3,7 +3,7 @@
         <ion-card-title>Proveedores</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-        <div style="height: 300px; overflow-y: auto;">
+        <div class="card-list">
             <app-provider-item *ngFor="let provider of (providersSvc.providers$ | async)?.data" [provider]="provider"
                 (onEditProviderClicked)="onEditProviderClicked(provider)">
             </app-provider-item>

@@ -8,9 +8,9 @@ import { Provider } from '../../interfaces/provider';
 
 interface CrudProviders {
     getAll(ownerId: number): Observable<PaginatedProviders>;
-    addProvider(provider: StrapiProvider): Observable<StrapiProvider>;
-    updateProvider(provider: StrapiProvider): Observable<StrapiProvider>;
-    deleteProvider(provider: StrapiProvider): Observable<StrapiProvider>;
+    addProvider(provider: Provider): Observable<Provider>;
+    updateProvider(provider: Provider): Observable<Provider>;
+    deleteProvider(provider: Provider): Observable<Provider>;
 }
 @Injectable({
     providedIn: 'root'
@@ -38,17 +38,25 @@ export class ProvidersService {
         console.log("addProvider")
         const endPoint = "api/providers";
         console.table(provider);
-        console.log(provider.providerUserPermissions)
+        console.log(provider.users_permissions_user)
         var _provider: any = {
             name: provider.name,
             category: provider.category,
             phone: provider.phone,
-            users_permissions_user: provider.providerUserPermissions,
+            users_permissions_user: provider.users_permissions_user,
         }
         console.table(_provider)
         return this.dataSvc.post<Provider>(endPoint, _provider);
     }
 
 
+    updateProvider(provider: Provider): Observable<Provider> {
+        console.log("updateVehicle", provider)
+        return this.dataSvc.put<any>(this.mapping.updateProviderUrl(provider.id!), provider).pipe(map(this.mapping.mapProvider.bind(this.mapping)));
+    }
 
+    deleteProvider(provider: Provider): Observable<Provider> {
+        console.log("deleteVehicle", provider)
+        return this.dataSvc.delete<any>(this.mapping.deleteVehicleUrl(provider.id!)).pipe(map(this.mapping.mapProvider.bind(this.mapping)));
+    }
 }
