@@ -65,6 +65,7 @@ export class VehiclesService implements CrudVehicles {
         console.table(_vehicle)
         return this.dataSvc.post<Vehicle>(endPoint, _vehicle);
     }
+
     updateVehicle(vehicle: Vehicle): Observable<Vehicle> {
         console.log("updateVehicle")
         console.table(vehicle);

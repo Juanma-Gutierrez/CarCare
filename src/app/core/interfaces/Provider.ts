@@ -3,7 +3,7 @@ export interface Provider {
     name: string,
     category: ProviderCategory,
     phone: string,
-    spents?: number[]
+    providerUserPermissionsId: number,
 }
 
 export enum ProviderCategory {

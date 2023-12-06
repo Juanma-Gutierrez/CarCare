@@ -3,10 +3,9 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SpentItemComponent } from './spent-item/spent-item.component';
-import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
+import { VehicleFormComponent } from './vehicle-form/vehicle-formcomponent';
 import { VehicleItemComponent } from './vehicle-item/vehicle-item.component';
 import { AuthStrapiService } from 'src/app/core/services/api/strapi/auth-strapi.service';
-import { StrapiDataService } from 'src/app/core/services/api/strapi/strapi-data.service';
 
 
 @NgModule({
@@ -17,10 +16,10 @@ import { StrapiDataService } from 'src/app/core/services/api/strapi/strapi-data.
     declarations: [
         HomePage,
         VehicleItemComponent,
-        VehicleDetailComponent,
+        VehicleFormComponent,
         SpentItemComponent
     ],
-    providers:[
+    providers: [
         AuthStrapiService,
     ]
 })

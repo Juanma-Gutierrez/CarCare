@@ -3,7 +3,7 @@ import { MappingService } from '../mapping.service';
 import { PaginatedData } from 'src/app/core/interfaces/data';
 import { StrapiOwner, User } from './interfaces/strapi-users';
 import { Vehicle } from 'src/app/core/interfaces/Vehicle';
-import { Provider, ProviderItem } from './interfaces/strapi-providers';
+import { ProviderItem, StrapiProvider } from './interfaces/strapi-providers';
 
 @Injectable({
     providedIn: 'root'
@@ -64,7 +64,7 @@ export class StrapiMappingService extends MappingService {
             pagination: data.pagination
         };
     }
-    public mapProviders(data: PaginatedData<any>): PaginatedData<Provider> {
+    public mapProviders(data: PaginatedData<any>): PaginatedData<StrapiProvider> {
         console.log(data)
         const strapi_data: PaginatedData<ProviderItem> = { ...data };
         return {

@@ -1,16 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
-import { take } from 'rxjs';
 import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 import { ApiService } from 'src/app/core/services/api/api.service';
 
 @Component({
-    selector: 'app-vehicle-detail',
-    templateUrl: './vehicle-detail.component.html',
-    styleUrls: ['./vehicle-detail.component.scss'],
+    selector: 'app-vehicle-form',
+    templateUrl: './vehicle-form.component.html',
+    styleUrls: ['./vehicle-form.component.scss'],
 })
-export class VehicleDetailComponent implements OnInit {
+export class VehicleFormComponent implements OnInit {
 
     form: FormGroup;
     mode: 'New' | 'Edit' = 'New';

@@ -1,14 +1,16 @@
-import { Injectable, Provider } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map, tap } from 'rxjs';
-import { PaginatedProviders } from './strapi/interfaces/strapi-providers';
+import { PaginatedProviders, StrapiProvider } from './strapi/interfaces/strapi-providers';
 import { DataService } from './data.service';
 import { MappingService } from './mapping.service';
+import { environment } from 'src/environments/environment';
+import { Provider } from '../../interfaces/provider';
 
 interface CrudProviders {
     getAll(ownerId: number): Observable<PaginatedProviders>;
-    addProvider(vehicle: Provider): Observable<Provider>;
-    updateProvider(vehicle: Provider): Observable<Provider>;
-    deleteProvider(vehicle: Provider): Observable<Provider>;
+    addProvider(provider: StrapiProvider): Observable<StrapiProvider>;
+    updateProvider(provider: StrapiProvider): Observable<StrapiProvider>;
+    deleteProvider(provider: StrapiProvider): Observable<StrapiProvider>;
 }
 @Injectable({
     providedIn: 'root'
@@ -31,4 +33,23 @@ export class ProvidersService {
         }))
         return obs;
     }
+
+    addProvider(provider: Provider): Observable<Provider> {
+        console.log("addProvider")
+        const endPoint = "api/providers";
+        const completeUri = environment.BASE_URL + endPoint;
+        console.table(provider);
+        console.log(completeUri);
+        var _provider: any = {
+            name: provider.name,
+            category: provider.category,
+            phone: provider.phone,
+            users_permissions_user: provider.providerUserPermissionsId,
+        }
+        console.table(_provider)
+        return this.dataSvc.post<Provider>(endPoint, _provider);
+    }
+
+
+
 }

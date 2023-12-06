@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 import { VehiclesService } from 'src/app/core/services/api/vehicles.service';
-import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
 import { Provider, ProviderCategory } from 'src/app/core/interfaces/provider';
 import { Service, Spent } from 'src/app/core/interfaces/spent';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { InternalUIService } from 'src/app/core/services/internalUI.service';
 import { User } from 'src/app/core/interfaces/user';
+import { VehicleFormComponent } from './vehicle-form/vehicle-formcomponent';
 
 @Component({
     selector: 'app-home',
@@ -46,11 +46,6 @@ export class HomePage implements OnInit {
             this.user = u
             this.reloadVehicles(this.user)
             this.calculateTotalSpents;
-            /*             if (user)
-                            this.vehiclesSvc.getAll(user.users_permissions_user).subscribe((c) => {
-                                console.log("carga los vehiculos")
-                                this.loading = false;
-                            }); */
             // TODO BORRAR
             this.crearGastosTemporales();
         })
@@ -138,7 +133,7 @@ export class HomePage implements OnInit {
 
     async presentForm(data: Vehicle | null, onDismiss: (result: any) => void) {
         const modal = await this.modal.create({
-            component: VehicleDetailComponent,
+            component: VehicleFormComponent,
             componentProps: {
                 vehicle: data
             },
@@ -157,18 +152,6 @@ export class HomePage implements OnInit {
         this.totalSpentsNumber = this.filteredSpent?.length;
     }
 
-    crearProveedoresTemporales() {
-        this.providers
-            = [
-                { id: 1, name: "Repsol", category: ProviderCategory.fuelStation, phone: "952442354", spents: [] },
-                { id: 2, name: "Cepsa", category: ProviderCategory.fuelStation, phone: "", spents: [] },
-                { id: 3, name: "Línea Directa Aseguradora", category: ProviderCategory.insuranceCenter, phone: "952442354", spents: [] },
-                { id: 4, name: "Aurgi", category: ProviderCategory.workshop, phone: "952112233", spents: [] },
-                { id: 5, name: "Talleres Hermanos Gómez", category: ProviderCategory.workshop, phone: "952665577", spents: [] },
-                { id: 6, name: "ITV", category: ProviderCategory.workshop, phone: "952665577", spents: [] },
-
-            ]
-    }
     crearGastosTemporales() {
         this.spents = [
             {

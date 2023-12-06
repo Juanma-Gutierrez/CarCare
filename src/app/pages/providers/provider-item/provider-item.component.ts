@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { ProvidersService } from 'src/app/core/services/api/providers.service';
-import { Provider } from 'src/app/core/services/api/strapi/interfaces/strapi-providers';
+import { StrapiProvider } from 'src/app/core/services/api/strapi/interfaces/strapi-providers';
 
 @Component({
     selector: 'app-provider-item',
@@ -9,12 +9,19 @@ import { Provider } from 'src/app/core/services/api/strapi/interfaces/strapi-pro
     styleUrls: ['./provider-item.component.scss'],
 })
 export class ProviderItemComponent implements OnInit {
-    @Input() provider: Provider | undefined
+    @Input() provider: StrapiProvider | undefined
+    @Output() onEditProviderClicked: EventEmitter<void> = new EventEmitter<void>();
 
     constructor(
         public providerSvc: ProvidersService,
         public apiSvc: ApiService,
     ) { }
 
-    ngOnInit() {}
+    ngOnInit() { }
+
+    public async onEditProviderClick(event: Event) {
+        console.log("evento")
+        this.onEditProviderClicked.emit();
+        event.stopPropagation();
+    }
 }

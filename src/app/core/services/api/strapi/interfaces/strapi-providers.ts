@@ -15,10 +15,10 @@ export interface ProviderItem {
     }
 }
 
-export interface Provider {
+export interface StrapiProvider {
     name: string
     category: string
     phone: string
 }
 
-export type PaginatedProviders = PaginatedData<Provider>;
+export type PaginatedProviders = PaginatedData<StrapiProvider>;

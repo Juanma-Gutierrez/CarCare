@@ -1,19 +1,14 @@
-/* 
+.active {
+    --background: var(--ion-color-success);
+}
 
- .active {
-     --background: var(--ion-color-success);
- }
+.center-v {
+    align-items: center;
+}
 
-
-
- .center-v {
-     align-items: center;
- }
-
- .end-h {
-     justify-content: end;
- }
- */
+.end-h {
+    justify-content: end;
+}
 
 img {
     width: 60px;

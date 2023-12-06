@@ -12,7 +12,4 @@ export class VehicleItemListComponent implements OnInit {
 
     ) { }
     ngOnInit(): void { }
-
-
-
 }

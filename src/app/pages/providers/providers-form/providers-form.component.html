@@ -1,3 +1,39 @@
-<p>
-  providers-form works!
-</p>
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button color="primary" fill="clear" (click)="onCancel()">
+                <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            {{(mode==='New'?'Nuevo proveedor':'Editar proveedor')}}
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button *ngIf="mode==='Edit'" color="primary" fill="clear" (click)="onDelete()">
+                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding" size="small">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
+        <ion-list>
+            <ion-input label="Nombre" labelPlacement="floating" fill="outline" formControlName="name" type="text"
+                class="input">
+            </ion-input>
+            <ion-input label="Teléfono" labelPlacement="floating" fill="outline" formControlName="phone" type="text"
+                class="input">
+            </ion-input>
+            <ion-select label="Categoría" formControlName="category" placeholder="Selecciona categoría" class="input">
+                <ion-select-option value="gasStation">Gasolinera</ion-select-option>
+                <ion-select-option value="workshop">Taller</ion-select-option>
+                <ion-select-option value="insurance">Aseguradora</ion-select-option>
+                <ion-select-option value="itv">ITV</ion-select-option>
+            </ion-select>
+        </ion-list>
+    </form>
+</ion-content>
+<ion-footer>
+    <ion-button type="submit" [disabled]="!form.dirty" class="ion-padding" expand="full"
+        (click)="onSubmit()">{{(mode==='New'?'Crear':'Guardar')}}</ion-button>
+</ion-footer>

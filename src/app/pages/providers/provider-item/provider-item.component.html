@@ -2,4 +2,7 @@
     <ion-label>{{provider?.name}}</ion-label>
     <ion-label>{{provider?.category}}</ion-label>
     <ion-label>{{provider?.phone}}</ion-label>
+    <ion-button fill="clear" id="editProvider" (click)="onEditProviderClick($event)">
+        <ion-icon name="create-outline" size="large"></ion-icon>
+    </ion-button>
 </ion-item>
