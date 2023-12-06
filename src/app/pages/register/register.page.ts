@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Preferences } from '@capacitor/preferences';
 import { AuthService } from 'src/app/core/services/api/auth.service';
-import { DataService } from 'src/app/core/services/api/data.service';
 
 @Component({
     selector: 'app-register',
@@ -20,6 +20,10 @@ export class RegisterPage implements OnInit {
         let _data: any = { ...data };
         delete _data.confirm;
         console.log(_data)
+        Preferences.set({
+            key: 'userName',
+            value: JSON.stringify(_data.email)
+        })
         this.authSvc.register(_data).subscribe({
             next: (data) => { },
             error: (err) => { }

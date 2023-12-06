@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Preferences } from '@capacitor/preferences';
 import { UserCredentials } from 'src/app/core/interfaces/user-credentials';
 import { AuthService } from 'src/app/core/services/api/auth.service';
 import { InternalUIService } from 'src/app/core/services/internalUI.service';
@@ -17,8 +18,7 @@ export class LoginPage implements OnInit {
         private uiSvc: InternalUIService,
     ) { }
 
-    ngOnInit() {
-    }
+    ngOnInit() { }
 
     /**
     * Llama al servicio de autenticación para realizar el inicio de sesión con
@@ -26,8 +26,6 @@ export class LoginPage implements OnInit {
     * @param {UserCredentials} credentials - Las credenciales del usuario.
     */
     onLogin(credentials: UserCredentials) {
-        console.log(credentials.username, credentials.password);
-        console.log(credentials)
         this.auth.login(credentials).subscribe({
             next: data => {
                 this.router.navigate(['home'])

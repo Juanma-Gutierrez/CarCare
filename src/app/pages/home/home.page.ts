@@ -9,6 +9,7 @@ import { InternalUIService } from 'src/app/core/services/internalUI.service';
 import { User } from 'src/app/core/interfaces/user';
 import { VehicleFormComponent } from './vehicle-form/vehicle-formcomponent';
 
+
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
@@ -36,6 +37,7 @@ export class HomePage implements OnInit {
         public apiSvc: ApiService,
         private uiSvc: InternalUIService,
     ) { }
+
 
     ngOnInit(): void {
         this.loading = true;
