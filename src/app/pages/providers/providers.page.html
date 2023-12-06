@@ -3,9 +3,11 @@
         <ion-card-title>Proveedores</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-        <app-provider-item *ngFor="let provider of (providersSvc.providers$ | async)?.data" [provider]="provider"
-            (onEditProviderClicked)="onEditProviderClicked(provider)">
-        </app-provider-item>
+        <div style="height: 300px; overflow-y: auto;">
+            <app-provider-item *ngFor="let provider of (providersSvc.providers$ | async)?.data" [provider]="provider"
+                (onEditProviderClicked)="onEditProviderClicked(provider)">
+            </app-provider-item>
+        </div>
     </ion-card-content>
 </ion-card>
 <ion-fab-button class="providerFab" aria-label="New provider" (click)="onNewProvider()">

@@ -60,7 +60,7 @@ export class VehiclesService implements CrudVehicles {
             registrationDate: vehicle.registrationDate,
             category: vehicle.category,
             available: vehicle.available,
-            owner: vehicle.owner
+            users_permissions_user: vehicle.owner
         }
         console.table(_vehicle)
         return this.dataSvc.post<Vehicle>(endPoint, _vehicle);

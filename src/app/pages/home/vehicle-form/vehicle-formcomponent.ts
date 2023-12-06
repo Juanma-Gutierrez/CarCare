@@ -34,7 +34,7 @@ export class VehicleFormComponent implements OnInit {
     ) {
         var owner = apiSvc.getUser()
         console.log(owner)
-        var ownerId = owner?.users_permissions_user
+        var ownerId = owner?.id
         this.form = this.formBuilder.group({
             id: [null],
             plate: ['', Validators.required],
