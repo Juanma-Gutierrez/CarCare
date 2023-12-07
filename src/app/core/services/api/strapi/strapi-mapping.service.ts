@@ -16,24 +16,19 @@ export class StrapiMappingService extends MappingService {
         super();
     }
     public override queryVehiclesUrl(): string {
-        console.log("querytVehicleUrl")
         return 'vehicles?sort=brand';
     }
     public override getVehicleUrl(id: number): string {
-        console.log("getVehicleUrl")
         return `api/vehicles/${id}`;
     }
     public override updateVehicleUrl(id: number): string {
-        console.log("updateVehicleUrl")
         return `api/vehicles/${id}`;
     }
     public override deleteVehicleUrl(id: number): string {
-        console.log("deleteVehicleUrl")
         return `api/vehicles/${id}`;
     }
 
     public override mapVehicle(vehicle: any): Vehicle {
-        console.log(vehicle)
         return {
             id: vehicle.id,
             plate: vehicle.plate,
@@ -65,22 +60,6 @@ export class StrapiMappingService extends MappingService {
             pagination: data.pagination
         };
     }
-/*     public mapProviders(data: PaginatedData<any>): PaginatedData<Provider> {
-        const strapi_data: PaginatedData<Provider> = { ...data };
-        return {
-            data: strapi_data.data.map(provider => {
-                return {
-                    id: provider.id,
-                    name: provider.name,
-                    category: provider.category,
-                    phone: provider.phone,
-                    providerUserPermissions: provider.users_permissions_user
-                };
-            }),
-            pagination: data.pagination
-        };
-    } */
-
 
     public mapUser(data: StrapiOwner): User {
         return {
@@ -96,15 +75,12 @@ export class StrapiMappingService extends MappingService {
     }
 
     public override updateProviderUrl(id: number): string {
-        console.log("updateProviderUrl")
         return `api/providers/${id}`;
     }
     public override deleteProviderUrl(id: number): string {
-        console.log("deleteProviderUrl")
         return `api/providers/${id}`;
     }
     public override mapProvider(data: any): Provider {
-        console.log("****************** no implementado **********************")
         return data;
     }
 }

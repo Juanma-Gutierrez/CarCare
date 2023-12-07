@@ -21,7 +21,6 @@ export class ProviderItemComponent implements OnInit {
     ngOnInit() { }
 
     public async onEditProviderClick(event: Event) {
-        console.log("evento")
         this.onEditProviderClicked.emit();
         event.stopPropagation();
     }

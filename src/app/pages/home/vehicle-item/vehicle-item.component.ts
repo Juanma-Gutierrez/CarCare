@@ -16,13 +16,11 @@ export class VehicleItemComponent implements OnInit {
     ngOnInit() { }
 
     onEditVehicleClick(event: any) {
-        console.log("Editar vehiculo")
         this.onEditVehicleClicked.emit();
         event.stopPropagation();
     }
 
     onVehicleItemClick(event: any) {
-        console.log("Click vehículo")
         this.onVehicleItemClicked.emit();
         event.stopPropagation();
     }

@@ -21,13 +21,11 @@ export class AuthStrapiService extends AuthService {
         super();
         this.jwtSvc.loadToken().subscribe(token => {
             if (token) {
-                console.log("token")
                 this.me().subscribe(user => {
                     this._logged.next(true);
                     this._user.next(user);
                 })
             } else {
-                console.log("No token")
                 this._logged.next(false);
                 this._user.next(null);
             }
@@ -47,7 +45,6 @@ export class AuthStrapiService extends AuthService {
                     this._logged.next(connected);
                     this.me().subscribe(
                         (user: User) => {
-                            console.log("updateUser", user)
                             if (this.apiSvc) {
                                 this.apiSvc.updateUser(user);
                             } else {
@@ -86,7 +83,6 @@ export class AuthStrapiService extends AuthService {
             this.apiSvc.post("/api/auth/local/register", _info).subscribe({
                 next: async (data: StrapiRegisterResponse) => {
                     await lastValueFrom(this.jwtSvc.saveToken(data.jwt));
-                    console.log(data)
                     const _owner: PostStrapiRegister = {
                         data: {
                             name: info.name,
@@ -106,7 +102,7 @@ export class AuthStrapiService extends AuthService {
                     }
                 },
                 error: err => {
-                    console.log(err)
+                    console.error(err)
                     obs.error(err);
                 }
             });
@@ -118,7 +114,6 @@ export class AuthStrapiService extends AuthService {
         return new Observable<User>(obs => {
             this.apiSvc.get('/api/users/me').subscribe({
                 next: async (user: StrapiMe) => {
-                    console.log(user)
                     let extended_user = await lastValueFrom
                         (this.apiSvc.get(`/api/users/${user.id}?populate=owner`));
                     let ret: User = {
@@ -129,7 +124,6 @@ export class AuthStrapiService extends AuthService {
                         name: extended_user.owner.name,
                         surname: extended_user.owner.surname,
                     }
-                    console.log(ret);
                     obs.next(ret);
                     obs.complete();
                 },

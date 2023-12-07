@@ -19,55 +19,42 @@
 <ion-content class="ion-padding" size="small">
     <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
         <ion-list>
-            <ion-row>
+            <ion-input label="Matrícula" labelPlacement="floating" fill="outline" formControlName="plate"
+                type="text"></ion-input>
+            <ion-input label="Marca" labelPlacement="floating" fill="outline" formControlName="brand"
+                type="text"></ion-input>
+            <ion-input label="Modelo" labelPlacement="floating" fill="outline" formControlName="model"
+                type="text"></ion-input>
+            <div>
+                <ion-select label="Categoría" formControlName="category" placeholder="Selecciona tipo de vehículo">
+                    <ion-select-option value="Coche">Coche</ion-select-option>
+                    <ion-select-option value="Motocicleta">Motocicleta</ion-select-option>
+                    <ion-select-option value="Furgoneta">Furgoneta</ion-select-option>
+                    <ion-select-option value="Camión">Camión</ion-select-option>
+                </ion-select>
+            </div>
+            <div>
+                <ion-checkbox labelPlacement="end" formControlName="available" checked="true">Vehículo
+                    disponible </ion-checkbox>
+            </div>
+            <div class="date-block">
                 <div>
-                    <ion-input label="Matrícula" labelPlacement="floating" fill="outline" formControlName="plate"
-                        type="text"></ion-input>
+                    Fecha de matriculación:
                 </div>
                 <div>
-                    <ion-label label="Fecha de alta del vehículo" labelPlacement="start"
-                        formControlName="registrationDate">
-                        Fecha de alta del vehículo
-                        <ion-datetime-button datetime="datetime"></ion-datetime-button>
-                        <ion-modal [keepContentsMounted]="true">
-                            <ng-template>
-                                <ion-datetime id="datetime" presentation="date">
-                                    [firstDayOfWeek]="1"></ion-datetime>
-                            </ng-template>
-                        </ion-modal>
-                    </ion-label>
+                    <ion-datetime-button datetime="datetime"></ion-datetime-button>
+                    <ion-modal [keepContentsMounted]="true">
+                        <ng-template>
+                            <ion-datetime id="datetime" presentation="date" [firstDayOfWeek]="1"
+                                [value]="vehicle?.registrationDate" formControlName="registrationDate"></ion-datetime>
+                        </ng-template>
+                    </ion-modal>
                 </div>
-            </ion-row>
-            <ion-row>
-                <div>
-                    <ion-input label="Marca" labelPlacement="floating" fill="outline" formControlName="brand"
-                        type="text"></ion-input>
-                </div>
-                <div>
-                    <ion-input label="Modelo" labelPlacement="floating" fill="outline" formControlName="model"
-                        type="text"></ion-input>
-                </div>
-            </ion-row>
-            <ion-row>
-                <div>
-                    <ion-select label="Categoría" formControlName="category" placeholder="Selecciona tipo de vehículo">
-                        <ion-select-option value="Coche">Coche</ion-select-option>
-                        <ion-select-option value="Motocicleta">Motocicleta</ion-select-option>
-                        <ion-select-option value="Furgoneta">Furgoneta</ion-select-option>
-                        <ion-select-option value="Camión">Camión</ion-select-option>
-                    </ion-select>
-                </div>
-            </ion-row>
-            <ion-row>
-                <div>
-                    <ion-checkbox labelPlacement="end" formControlName="available">Vehículo
-                        disponible </ion-checkbox>
-                </div>
-            </ion-row>
+            </div>
         </ion-list>
     </form>
 </ion-content>
 <ion-footer>
-    <ion-button type="submit" [disabled]="!form.dirty" class="ion-padding" expand="full"
+    <ion-button buttonDirective type="submit" [disabled]="!form.dirty" class="ion-padding" expand="full"
         (click)="onSubmit()">{{(mode==='New'?'Crear':'Guardar')}}</ion-button>
 </ion-footer>

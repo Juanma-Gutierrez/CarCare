@@ -14,7 +14,6 @@ export class VehicleFormComponent implements OnInit {
     form: FormGroup;
     mode: 'New' | 'Edit' = 'New';
     @Input() set vehicle(_vehicle: Vehicle | null) {
-        console.log(_vehicle)
         if (_vehicle) {
             this.mode = 'Edit';
             this.form.controls['id'].setValue(_vehicle.id);
@@ -33,7 +32,6 @@ export class VehicleFormComponent implements OnInit {
         private apiSvc: ApiService,
     ) {
         var owner = apiSvc.getUser()
-        console.log(owner)
         var ownerId = owner?.id
         this.form = this.formBuilder.group({
             id: [null],
@@ -42,7 +40,7 @@ export class VehicleFormComponent implements OnInit {
             model: ['', Validators.required],
             registrationDate: [Date],
             category: ['Coche', Validators.required],
-            available: [false],
+            available: [true],
             owner: ownerId
         })
     }
@@ -50,17 +48,14 @@ export class VehicleFormComponent implements OnInit {
     ngOnInit() { }
 
     onCancel() {
-        console.log("onCancel");
         this._modal.dismiss(null, 'cancel');
     }
 
     onSubmit() {
-        console.log("onSubmit");
         this._modal.dismiss(this.form.value, 'ok');
     }
 
     onDelete() {
-        console.log("onDelete");
         this._modal.dismiss(this.form.value, 'delete');
     }
 }

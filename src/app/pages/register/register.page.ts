@@ -19,7 +19,6 @@ export class RegisterPage implements OnInit {
     onRegisterFormSubmit(data: any) {
         let _data: any = { ...data };
         delete _data.confirm;
-        console.log(_data)
         Preferences.set({
             key: 'userName',
             value: JSON.stringify(_data.email)

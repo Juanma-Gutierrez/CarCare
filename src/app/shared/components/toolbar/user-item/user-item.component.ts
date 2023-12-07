@@ -17,12 +17,9 @@ export class UserItemComponent implements OnInit {
         private popoverController: PopoverController,
         public apiSvc: ApiService
     ) { }
-    ngOnInit(): void {
-        console.log(this.user)
-    }
+    ngOnInit(): void { }
 
     logoutClick(event: Event) {
-        console.log("logoutClick")
         this.popoverController.dismiss();
         this.logoutClicked.emit()
     }

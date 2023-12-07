@@ -35,28 +35,22 @@ export class ProvidersService {
     }
 
     addProvider(provider: Provider): Observable<Provider> {
-        console.log("addProvider")
         const endPoint = "api/providers";
-        console.table(provider);
-        console.log(provider.users_permissions_user)
         var _provider: any = {
             name: provider.name,
             category: provider.category,
             phone: provider.phone,
             users_permissions_user: provider.users_permissions_user,
         }
-        console.table(_provider)
         return this.dataSvc.post<Provider>(endPoint, _provider);
     }
 
 
     updateProvider(provider: Provider): Observable<Provider> {
-        console.log("updateVehicle", provider)
         return this.dataSvc.put<any>(this.mapping.updateProviderUrl(provider.id!), provider).pipe(map(this.mapping.mapProvider.bind(this.mapping)));
     }
 
     deleteProvider(provider: Provider): Observable<Provider> {
-        console.log("deleteVehicle", provider)
         return this.dataSvc.delete<any>(this.mapping.deleteProviderUrl(provider.id!)).pipe(map(this.mapping.mapProvider.bind(this.mapping)));
     }
 }

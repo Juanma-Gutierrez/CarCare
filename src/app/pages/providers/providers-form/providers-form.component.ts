@@ -15,7 +15,6 @@ export class ProvidersFormComponent implements OnInit {
     form: FormGroup;
     mode: 'New' | 'Edit' = 'New';
     @Input() set provider(_provider: Provider | null) {
-        console.table(_provider)
         if (_provider) {
             this.mode = 'Edit';
             this.form.controls['id'].setValue(_provider.id);
@@ -32,9 +31,7 @@ export class ProvidersFormComponent implements OnInit {
         private apiSvc: ApiService,
     ) {
         var user = apiSvc.getUser()
-        console.log("User: ", user)
         var userId = user?.id
-        console.log("************* userId", userId)
         this.form = this.formBuilder.group({
             id: [null],
             name: ['', Validators.required],
@@ -47,17 +44,14 @@ export class ProvidersFormComponent implements OnInit {
     ngOnInit() { }
 
     onCancel() {
-        console.log("onCancel");
         this._modal.dismiss(null, 'cancel');
     }
 
     onSubmit() {
-        console.log("onSubmit");
         this._modal.dismiss(this.form.value, 'ok');
     }
 
     onDelete() {
-        console.log("onDelete");
         this._modal.dismiss(this.form.value, 'delete');
     }
 }

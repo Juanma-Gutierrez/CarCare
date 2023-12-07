@@ -36,10 +36,7 @@ export class ProvidersPage implements OnInit {
     }
 
     onEditProviderClicked(provider: Provider) {
-        console.log("clicked", provider)
         var onDismiss = (info: any) => {
-            console.log(info);
-            console.log(info.role)
             switch (info.role) {
                 case 'ok': {
                     this.providersSvc.updateProvider(info.data).subscribe(async user => {
@@ -49,7 +46,6 @@ export class ProvidersPage implements OnInit {
                 }
                     break;
                 case 'delete': {
-                    console.log("delete");
                     this.providersSvc.deleteProvider(info.data).subscribe(async user => {
                         this.uiSvc.showToast("Proveedor eliminado", "tertiary", "bottom")
                         this.reloadProviders(this.user);
@@ -87,7 +83,6 @@ export class ProvidersPage implements OnInit {
         this.presentForm(null, onDismiss);
     }
     async presentForm(data: Provider | null, onDismiss: (result: any) => void) {
-        console.log("present form")
         const modal = await this.modal.create({
             component: ProvidersFormComponent,
             componentProps: {
@@ -97,7 +92,6 @@ export class ProvidersPage implements OnInit {
         });
         modal.present();
         modal.onDidDismiss().then(result => {
-            console.log(result, result.data)
             if (result && result.data) {
                 onDismiss(result);
             }
@@ -105,12 +99,9 @@ export class ProvidersPage implements OnInit {
     }
 
     reloadProviders(user: User | null) {
-        console.log("carga los proveedores")
-        console.log(user)
         if (user?.id)
             this.providersSvc.getAll(user.id).subscribe();
     }
-
 }
 
 

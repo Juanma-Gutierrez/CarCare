@@ -28,7 +28,6 @@ export class RegisterFormComponent implements OnInit {
     ngOnInit() { }
 
     onSubmit() {
-        console.log(this.form?.value.username, this.form?.value.password);
         this.onsubmit.emit(this.form?.value);
     }
 

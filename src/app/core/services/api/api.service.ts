@@ -13,12 +13,10 @@ export class ApiService {
     public user$ = this._user.asObservable();
 
     updateUser(user: User): void {
-        console.log("updateUser", user);
         this._user.next(user);
     }
 
     getUser(): User | null {
-        console.log("getUser", this._user.getValue());
         return this._user.getValue();
     }
 
@@ -51,36 +49,26 @@ export class ApiService {
 
     get(path: string, params: any = {}): Observable<any> {
         var url = `${environment.BASE_URL}${path}`;
-        console.log("api.service.get")
-        console.log(url)
         return this.http.get(url, params, this.getHeader(url));
     }
 
     put(path: string, body: Object = {}): Observable<any> {
         var url = `${environment.BASE_URL}${path}`;
-        console.log("api.service.put")
-        console.log(url)
         return this.http.put(url, body, this.getHeader(url));
     }
 
     post(path: string, body: Object = {}, content_type = null): Observable<any> {
         var url = `${environment.BASE_URL}${path}`;
-        console.log("api.service.post")
-        console.log(url, body)
         return this.http.post(url, body, this.getHeader(url));
     }
 
     patch(path: string, body: Object = {}): Observable<any> {
         var url = `${environment.BASE_URL}${path}`;
-        console.log("api.service.patch")
-        console.log(url)
         return this.http.patch(url, body, this.getHeader(url));
     }
 
     delete(path: string, params: Object = {}): Observable<any> {
         var url = `${environment.BASE_URL}${path}`;
-        console.log("api.service.delete")
-        console.log(url)
         return this.http.delete(url, params, this.getHeader(url));
     }
 }

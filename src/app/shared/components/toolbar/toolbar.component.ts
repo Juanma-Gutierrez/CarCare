@@ -46,7 +46,6 @@ export class ToolbarComponent implements OnInit {
     }
 
     logoutClicked() {
-        console.log("logoutClicked")
         this.auth.logout().subscribe(_ => {
             this.router.navigate(['/login']);
         });

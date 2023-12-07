@@ -45,7 +45,6 @@ export class LoginFormComponent implements OnInit {
             key: 'userName',
             value: JSON.stringify(this.form?.value.username)
         })
-        console.log(this.form?.value.username, this.form?.value.password);
         this.onsubmit.emit(this.form?.value);
         this.form?.controls['password'].setValue('');
     }

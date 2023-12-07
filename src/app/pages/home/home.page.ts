@@ -42,9 +42,7 @@ export class HomePage implements OnInit {
     ngOnInit(): void {
         this.loading = true;
         var user = this.apiSvc.getUser()
-        console.log(user)
         this.apiSvc.user$.subscribe(u => {
-            console.log(u);
             this.user = u
             this.reloadVehicles(this.user)
             this.calculateTotalSpents;
@@ -54,9 +52,7 @@ export class HomePage implements OnInit {
     }
 
     async getVehicles(ownerId: number) {
-        console.log("getVehicles", this.loading)
         this.vehiclesSvc.getAll(ownerId).subscribe((c) => {
-            console.log("carga los vehiculos")
             this.loading = false;
         });
     }
@@ -71,23 +67,18 @@ export class HomePage implements OnInit {
     }
 
     reloadVehicles(user: User | null) {
-        console.log("carga los vehiculos")
-        console.log(user)
         if (user?.id)
             this.vehiclesSvc.getAll(user.id).subscribe();
     }
 
     public async onVehicleItemClicked(vehicle: Vehicle) {
-        console.log(vehicle.brand + vehicle.model)
         this.selectedVehicle = vehicle;
         this.filteredSpent = this.spents?.filter(spent => spent.vehicle == this.selectedVehicle?.id);
         this.calculateTotalSpents();
     }
 
     onNewVehicle() {
-        console.log("homePage.onNewVehicle")
         var onDismiss = (info: any) => {
-            console.log(info);
             switch (info.role) {
                 case 'ok': {
                     this.vehiclesSvc.addVehicle(info.data).subscribe(async user => {
@@ -105,10 +96,7 @@ export class HomePage implements OnInit {
     }
 
     public async onEditVehicleClicked(vehicle: Vehicle) {
-        console.log(vehicle.brand + vehicle.model)
         var onDismiss = (info: any) => {
-            console.log(info);
-            console.log(info.role)
             switch (info.role) {
                 case 'ok': {
                     this.vehiclesSvc.updateVehicle(info.data).subscribe(async user => {
@@ -118,7 +106,6 @@ export class HomePage implements OnInit {
                 }
                     break;
                 case 'delete': {
-                    console.log("delete");
                     this.vehiclesSvc.deleteVehicle(info.data).subscribe(async user => {
                         this.uiSvc.showToast("Vehículo eliminado", "tertiary", "bottom")
                         this.reloadVehicles(this.user);

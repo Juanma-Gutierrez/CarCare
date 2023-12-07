@@ -12,19 +12,12 @@
         <ion-card-subtitle>{{vehicle?.plate}}</ion-card-subtitle>
     </ion-row>
     <ion-row class="ion-justify-content-center">
-        <ion-card-content>Fecha de matriculación:</ion-card-content>
-        <ion-datetime-button datetime="datetime" value="vehicle.registrationDate"></ion-datetime-button>
-        <ion-modal [keepContentsMounted]="true">
-            <ng-template>
-                <ion-datetime id="datetime" presentation="date"> [firstDayOfWeek]="1"></ion-datetime>
-            </ng-template>
-        </ion-modal>
-    </ion-row>
-    <ion-row class="ion-justify-content-center">
         <ion-card-content>{{vehicle?.available}}
             <ion-item>
                 <ion-checkbox justify="start" value="vehicle.available">Vehículo disponible</ion-checkbox>
             </ion-item>
         </ion-card-content>
     </ion-row>
+    <ion-datetime presentation="date" [firstDayOfWeek]="1"
+        [value]="vehicle?.registrationDate"></ion-datetime>
 </ion-card>
