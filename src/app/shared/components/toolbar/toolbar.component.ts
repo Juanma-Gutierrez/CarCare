@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, lastValueFrom, of } from 'rxjs';
-import { User } from 'src/app/core/interfaces/user';
+import { User } from 'src/app/core/interfaces/User';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { AuthService } from 'src/app/core/services/api/auth.service';
 

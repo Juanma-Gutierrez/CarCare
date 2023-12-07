@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from './core/services/api/auth.service';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { User } from './core/interfaces/user';
+import { User } from './core/interfaces/User';
 import { ApiService } from './core/services/api/api.service';
 
 @Component({

@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 import { VehiclesService } from 'src/app/core/services/api/vehicles.service';
-import { Provider, ProviderCategory } from 'src/app/core/interfaces/provider';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { InternalUIService } from 'src/app/core/services/internalUI.service';
-import { User } from 'src/app/core/interfaces/user';
+import { User } from 'src/app/core/interfaces/User';
 import { VehicleFormComponent } from './vehicle-form/vehicle-formcomponent';
-import { Spent } from 'src/app/core/interfaces/spent';
+import { Vehicle } from 'src/app/core/interfaces/Vehicle';
+import { Spent } from 'src/app/core/interfaces/Spent';
+import { SpentsService } from 'src/app/core/services/api/spents.service';
+import { SpentFormComponent } from './spent-form/spent-form.component';
 
 
+
+type PaginatedSpents = Spent[]
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
@@ -18,36 +21,39 @@ import { Spent } from 'src/app/core/interfaces/spent';
 export class HomePage implements OnInit {
 
     public loading = true;
-    public filterAvailable = true;
+    public filterAvailableVehicle = true;
     private user: User | null = null;
 
 
     // Mockup de datos locales en array
     // public vehicles: Vehicle[] | undefined;
-    public providers: Provider[] | undefined;
-    public spents: Spent[] | undefined;
-    public filteredSpent: Spent[] | undefined;
+    //public providers: Provider[] | undefined;
+    public spents: Spent[] = [];
+    public filteredSpent: Spent[] = [];
     public selectedVehicle: Vehicle | undefined;
-    public totalSpentsAmount: number | undefined;
-    public totalSpentsNumber: number | undefined = 0;
+    public totalSpentsAmount: number = 0;
+    public totalSpentsNumber: number = 0;
 
     constructor(
-        public vehiclesSvc: VehiclesService,
         private modal: ModalController,
-        public apiSvc: ApiService,
         private uiSvc: InternalUIService,
+        public apiSvc: ApiService,
+        public vehiclesSvc: VehiclesService,
+        public spentsSvc: SpentsService
     ) { }
 
 
     ngOnInit(): void {
         this.loading = true;
-        var user = this.apiSvc.getUser()
+        this.user = this.apiSvc.getUser();
         this.apiSvc.user$.subscribe(u => {
-            this.user = u
-            this.reloadVehicles(this.user)
+            this.user = u;
+            this.reloadVehicles(this.user);
             this.calculateTotalSpents;
         })
     }
+
+    // ***************************** VEHICLES *****************************
 
     async getVehicles(ownerId: number) {
         this.vehiclesSvc.getAll(ownerId).subscribe((c) => {
@@ -57,9 +63,9 @@ export class HomePage implements OnInit {
 
     selectionChanged(event: CustomEvent) {
         switch (event.detail.value) {
-            case "available": this.filterAvailable = true;
+            case "available": this.filterAvailableVehicle = true;
                 break;
-            case "all": this.filterAvailable = false;
+            case "all": this.filterAvailableVehicle = false;
                 break;
         }
     }
@@ -71,12 +77,13 @@ export class HomePage implements OnInit {
 
     public async onVehicleItemClicked(vehicle: Vehicle) {
         this.selectedVehicle = vehicle;
-        this.filteredSpent = this.spents?.filter(spent => spent.vehicle == this.selectedVehicle?.id);
-        this.calculateTotalSpents();
-        this.reloadSpents();
-    }
-    reloadSpents() {
-        console.log("Entra en reloadSpents")
+        if (this.user) {
+            await this.getSpents();
+            console.log(this.spents);
+            this.filteredSpent = this.spents?.filter(spent => spent.vehicle == this.selectedVehicle?.id);
+            this.calculateTotalSpents();
+            this.reloadSpents(this.user);
+        }
     }
 
     onNewVehicle() {
@@ -94,7 +101,7 @@ export class HomePage implements OnInit {
                 }
             }
         }
-        this.presentForm(null, onDismiss);
+        this.presentFormVehicles(null, onDismiss);
     }
 
     public async onEditVehicleClicked(vehicle: Vehicle) {
@@ -119,10 +126,10 @@ export class HomePage implements OnInit {
                 }
             }
         }
-        this.presentForm(vehicle, onDismiss);
+        this.presentFormVehicles(vehicle, onDismiss);
     }
 
-    async presentForm(data: Vehicle | null, onDismiss: (result: any) => void) {
+    async presentFormVehicles(data: Vehicle | null, onDismiss: (result: any) => void) {
         const modal = await this.modal.create({
             component: VehicleFormComponent,
             componentProps: {
@@ -138,9 +145,88 @@ export class HomePage implements OnInit {
         });
     }
 
+    // ***************************** SPENTS *****************************
+
+    /*
+    StrapiSpent
+    id?: number,
+    date: string,
+    amount: number,
+    observations: string,
+    vehicle_id: number,
+    provider_id: number
+     */
+
+    async getSpents() {
+        if (this.selectedVehicle?.id) {
+            this.spentsSvc.getAll(this.selectedVehicle?.id).subscribe(s => {
+                this.spents = [];
+                for (var i = 0; i < s.data.length; i++) {
+                    var temp = s.data[i];
+                    var newSpent: Spent = {
+                        id: temp.id,
+                        date: temp.date,
+                        amount: temp.amount,
+                        provider: temp.provider.data.id,
+                        vehicle: temp.vehicle.data.id
+                    }
+                    this.spents?.push(newSpent)
+                }
+                this.calculateTotalSpents();
+            });
+        }
+    }
+
+
+    onNewSpent() {
+        console.log("nuevo gasto")
+        var onDismiss = (info: any) => {
+            switch (info.role) {
+                case 'ok': {
+                    this.spentsSvc.addSpent(info.data).subscribe(async user => {
+                        this.uiSvc.showToast("Gasto creado correctamente", "tertiary", "bottom")
+                        if (this.user)
+                            this.reloadSpents(this.user);
+                    })
+                    break;
+                }
+                default: {
+                    console.error("No debería entrar");
+                }
+            }
+        }
+        this.presentFormSpents(null, onDismiss);
+    }
+
+
+
+    reloadSpents(user: User) {
+        console.log("Entra en reloadSpents")
+        if (user?.id)
+            this.vehiclesSvc.getAll(user.id).subscribe();
+    }
+
+
     calculateTotalSpents() {
         this.totalSpentsAmount = this.filteredSpent?.reduce((total, spent) => total + spent.amount, 0);
         this.totalSpentsNumber = this.filteredSpent?.length;
     }
+
+    async presentFormSpents(data: Spent | null, onDismiss: (result: any) => void) {
+        const modal = await this.modal.create({
+            component: SpentFormComponent,
+            componentProps: {
+                spent: data
+            },
+            cssClass: "modal-w50"
+        });
+        modal.present();
+        modal.onDidDismiss().then(result => {
+            if (result && result.data) {
+                onDismiss(result);
+            }
+        });
+    }
 }
+
 

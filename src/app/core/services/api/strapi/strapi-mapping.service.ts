@@ -3,8 +3,7 @@ import { MappingService } from '../mapping.service';
 import { PaginatedData } from 'src/app/core/interfaces/data';
 import { StrapiOwner, User } from './interfaces/strapi-users';
 import { Vehicle } from 'src/app/core/interfaces/Vehicle';
-import { ProviderItem, StrapiProvider } from './interfaces/strapi-providers';
-import { Provider } from 'src/app/core/interfaces/provider';
+import { Provider } from 'src/app/core/interfaces/Provider';
 
 @Injectable({
     providedIn: 'root'

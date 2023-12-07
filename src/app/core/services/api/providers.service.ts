@@ -4,7 +4,7 @@ import { PaginatedProviders, StrapiProvider } from './strapi/interfaces/strapi-p
 import { DataService } from './data.service';
 import { MappingService } from './mapping.service';
 import { environment } from 'src/environments/environment';
-import { Provider } from '../../interfaces/provider';
+import { Provider } from '../../interfaces/Provider';
 
 interface CrudProviders {
     getAll(ownerId: number): Observable<PaginatedProviders>;
@@ -15,7 +15,7 @@ interface CrudProviders {
 @Injectable({
     providedIn: 'root'
 })
-export class ProvidersService {
+export class ProvidersService implements CrudProviders{
     private _providers: BehaviorSubject<PaginatedProviders> = new BehaviorSubject<PaginatedProviders>({ data: [], pagination: { page: 0, pageCount: 0, pageSize: 0, total: 0 } });
     public providers$: Observable<PaginatedProviders> = this._providers.asObservable();
 

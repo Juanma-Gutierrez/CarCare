@@ -1,9 +1,9 @@
-import { BehaviorSubject, Observable, map, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, Observable, map, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { PaginatedVehicles, Vehicle, VehicleCategory } from '../../interfaces/Vehicle';
 import { MappingService } from './mapping.service';
 import { environment } from 'src/environments/environment';
 import { DataService } from './data.service';
+import { PaginatedVehicles, Vehicle } from '../../interfaces/Vehicle';
 
 interface CrudVehicles {
     getAll(ownerId: number): Observable<PaginatedVehicles>;

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Preferences } from '@capacitor/preferences';
-import { UserCredentials } from 'src/app/core/interfaces/user-credentials';
+import { UserCredentials } from 'src/app/core/interfaces/User-credentials';
 import { AuthService } from 'src/app/core/services/api/auth.service';
 import { InternalUIService } from 'src/app/core/services/internalUI.service';
 

@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
-import { Provider } from 'src/app/core/interfaces/provider';
-import { User } from 'src/app/core/interfaces/user';
+import { Provider } from 'src/app/core/interfaces/Provider';
+import { User } from 'src/app/core/interfaces/User';
 import { ApiService } from 'src/app/core/services/api/api.service';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { User } from '../../interfaces/user';
+import { User } from '../../interfaces/User';
 
 /**
  * La clase abstracta `AuthService` define la interfaz para un servicio de

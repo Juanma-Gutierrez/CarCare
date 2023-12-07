@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable, isEmpty, last, mergeMap, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClientProvider } from '../http/http-client.provider';
 import { JwtService } from '../jwt.service';
-import { User } from '../../interfaces/user';
+import { User } from '../../interfaces/User';
 
 
 @Injectable({ providedIn: 'root' })

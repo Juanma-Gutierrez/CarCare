@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserRegisterInfo } from 'src/app/core/interfaces/user';
+import { UserRegisterInfo } from 'src/app/core/interfaces/User';
 import { PasswordValidation } from 'src/app/core/validators/PasswordValidation';
 
 @Component({

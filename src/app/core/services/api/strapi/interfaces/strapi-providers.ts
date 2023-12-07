@@ -1,6 +1,6 @@
 import { PaginatedData } from "src/app/core/interfaces/data"
 import { StrapiResponse } from "./strapi-data"
-import { ProviderCategory } from "src/app/core/interfaces/provider"
+import { ProviderCategory } from "src/app/core/interfaces/Provider"
 
 /**
  * Main response of Strapi to Providers

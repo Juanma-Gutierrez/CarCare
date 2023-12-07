@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { User } from 'src/app/core/interfaces/user';
+import { User } from 'src/app/core/interfaces/User';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { ProvidersService } from 'src/app/core/services/api/providers.service';
 import { InternalUIService } from 'src/app/core/services/internalUI.service';
 import { ProvidersFormComponent } from './providers-form/providers-form.component';
 import { StrapiProvider } from 'src/app/core/services/api/strapi/interfaces/strapi-providers';
-import { Provider } from 'src/app/core/interfaces/provider';
+import { Provider } from 'src/app/core/interfaces/Provider';
 
 @Component({
     selector: 'app-providers',
