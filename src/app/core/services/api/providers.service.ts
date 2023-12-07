@@ -57,6 +57,6 @@ export class ProvidersService {
 
     deleteProvider(provider: Provider): Observable<Provider> {
         console.log("deleteVehicle", provider)
-        return this.dataSvc.delete<any>(this.mapping.deleteVehicleUrl(provider.id!)).pipe(map(this.mapping.mapProvider.bind(this.mapping)));
+        return this.dataSvc.delete<any>(this.mapping.deleteProviderUrl(provider.id!)).pipe(map(this.mapping.mapProvider.bind(this.mapping)));
     }
 }

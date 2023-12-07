@@ -14,7 +14,7 @@ import { Provider } from 'src/app/core/interfaces/provider';
     styleUrls: ['./providers.page.scss'],
 })
 export class ProvidersPage implements OnInit {
-    private user: User | null = null;
+    public user: User | null = null;
 
     constructor(
         private apiSvc: ApiService,

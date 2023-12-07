@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Provider } from 'src/app/core/interfaces/provider';
+import { User } from 'src/app/core/interfaces/user';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { ProvidersService } from 'src/app/core/services/api/providers.service';
 

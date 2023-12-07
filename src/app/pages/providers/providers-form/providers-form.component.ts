@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Provider } from 'src/app/core/interfaces/provider';
+import { User } from 'src/app/core/interfaces/user';
 import { ApiService } from 'src/app/core/services/api/api.service';
 
 @Component({
@@ -14,14 +15,14 @@ export class ProvidersFormComponent implements OnInit {
     form: FormGroup;
     mode: 'New' | 'Edit' = 'New';
     @Input() set provider(_provider: Provider | null) {
-        console.log(_provider)
+        console.table(_provider)
         if (_provider) {
             this.mode = 'Edit';
             this.form.controls['id'].setValue(_provider.id);
             this.form.controls['name'].setValue(_provider.name);
             this.form.controls['category'].setValue(_provider.category);
             this.form.controls['phone'].setValue(_provider.phone);
-            this.form.controls['providerUserPermissions'].setValue(_provider.users_permissions_user)
+            this.form.controls['users_permissions_user'].setValue(_provider.users_permissions_user)
         }
     }
 
@@ -31,15 +32,15 @@ export class ProvidersFormComponent implements OnInit {
         private apiSvc: ApiService,
     ) {
         var user = apiSvc.getUser()
-        console.log(user)
-        var providerUserPermissions = user?.id
-        console.log(providerUserPermissions)
+        console.log("User: ", user)
+        var userId = user?.id
+        console.log("************* userId", userId)
         this.form = this.formBuilder.group({
             id: [null],
             name: ['', Validators.required],
             category: ['', Validators.required],
             phone: [''],
-            providerUserPermissions: [providerUserPermissions]
+            users_permissions_user: [userId]
         })
     }
 

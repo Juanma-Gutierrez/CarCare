@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SelectedCardDirective } from './directives/selectable-card.directive';
 import { UserItemComponent } from './components/toolbar/user-item/user-item.component';
+import { ButtonDirective } from './directives/button-directive.directive';
 import { ItemDirective } from './directives/item-directive.directive';
 
 @NgModule({
@@ -16,6 +17,7 @@ import { ItemDirective } from './directives/item-directive.directive';
         UserItemComponent,
         // Directives
         SelectedCardDirective,
+        ButtonDirective,
         ItemDirective,
         // Pipes
     ],
@@ -34,6 +36,7 @@ import { ItemDirective } from './directives/item-directive.directive';
         UserItemComponent,
         // Directives
         SelectedCardDirective,
+        ButtonDirective,
         ItemDirective,
         // Modules
         CommonModule,
