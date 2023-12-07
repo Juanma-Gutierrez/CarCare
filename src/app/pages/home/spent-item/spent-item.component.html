@@ -1,13 +1,13 @@
 <ion-grid>
-    <ion-row >
+    <ion-row>
         <ion-col size="7">
-            <h3>{{spent?.provider?.data?.attributes?.name}}</h3>
+            <h3>{{spent?.provider?.data?.attributes?.name | upperCamelCase}}</h3>
         </ion-col>
         <ion-col>
             <h3 class="date">{{spent?.date | date:'dd/MM/yyyy'}}</h3>
         </ion-col>
         <ion-col>
-            <h3 class="amount">{{spent?.amount | number:'1.2-2'}} €</h3>
+            <h3 class="amount">{{spent?.amount | numberFormat}}</h3>
         </ion-col>
     </ion-row>
     <ion-row *ngIf="spent?.observations!==''">

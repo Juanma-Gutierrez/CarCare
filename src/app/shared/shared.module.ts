@@ -9,6 +9,8 @@ import { SelectedCardDirective } from './directives/selectable-card.directive';
 import { UserItemComponent } from './components/toolbar/user-item/user-item.component';
 import { ButtonDirective } from './directives/button-directive.directive';
 import { ItemDirective } from './directives/item-directive.directive';
+import { UpperCamelCasePipe } from './pipes/upper-camel-case.pipe';
+import { NumberFormatPipe } from './pipes/number-format.pipe';
 
 @NgModule({
     declarations: [
@@ -19,7 +21,10 @@ import { ItemDirective } from './directives/item-directive.directive';
         SelectedCardDirective,
         ButtonDirective,
         ItemDirective,
+        UpperCamelCasePipe,
         // Pipes
+        UpperCamelCasePipe,
+        NumberFormatPipe,
     ],
     imports: [
         // Modules
@@ -46,6 +51,8 @@ import { ItemDirective } from './directives/item-directive.directive';
         ReactiveFormsModule,
         RouterModule,
         //Pipes
+        UpperCamelCasePipe,
+        NumberFormatPipe,
     ]
 })
 export class SharedModule { }

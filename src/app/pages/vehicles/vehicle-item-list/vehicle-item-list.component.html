@@ -6,18 +6,14 @@
         </ion-col>
     </ion-row>
     <ion-row class="ion-justify-content-center">
-        <ion-card-title>{{vehicle?.brand}} {{vehicle?.model}}</ion-card-title>
+        <ion-card-title>{{vehicle?.brand |upperCamelCase}} {{vehicle?.model | upperCamelCase}}</ion-card-title>
     </ion-row>
     <ion-row class="ion-justify-content-center">
-        <ion-card-subtitle>{{vehicle?.plate}}</ion-card-subtitle>
+        <ion-card-subtitle>{{vehicle?.plate | uppercase}}</ion-card-subtitle>
     </ion-row>
     <ion-row class="ion-justify-content-center">
-        <ion-card-content>{{vehicle?.available}}
-            <ion-item>
-                <ion-checkbox justify="start" value="vehicle.available">Vehículo disponible</ion-checkbox>
-            </ion-item>
-        </ion-card-content>
+            <ion-card-subtitle *ngIf="vehicle?.available">Vehículo disponible</ion-card-subtitle>
+            <ion-card-subtitle *ngIf="!vehicle?.available" class="no-available">Vehículo no disponible</ion-card-subtitle>
     </ion-row>
-    <ion-datetime presentation="date" [firstDayOfWeek]="1"
-        [value]="vehicle?.registrationDate"></ion-datetime>
+    <ion-datetime presentation="date" [firstDayOfWeek]="1" [value]="vehicle?.registrationDate"></ion-datetime>
 </ion-card>
