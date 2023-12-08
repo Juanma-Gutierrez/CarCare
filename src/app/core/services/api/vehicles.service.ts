@@ -61,4 +61,5 @@ export class VehiclesService implements CrudVehicles {
     deleteVehicle(vehicle: Vehicle): Observable<Vehicle> {
         return this.dataSvc.delete<any>(this.mapping.deleteVehicleUrl(vehicle.id!)).pipe(map(this.mapping.mapVehicle.bind(this.mapping)));
     }
+
 }

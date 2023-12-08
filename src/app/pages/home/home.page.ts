@@ -163,12 +163,13 @@ export class HomePage implements OnInit {
     }
 
 
-    onNewSpent() {
+    onNewSpent(vehicleId: number) {
         console.log("nuevo gasto")
         var onDismiss = (info: any) => {
             switch (info.role) {
                 case 'ok': {
                     this.spentsSvc.addSpent(info.data).subscribe(async user => {
+                        console.log()
                         this.uiSvc.showToast("Gasto creado correctamente", "tertiary", "bottom")
                         if (this.user)
                             this.reloadSpents(this.user);
@@ -180,7 +181,7 @@ export class HomePage implements OnInit {
                 }
             }
         }
-        this.presentFormSpents(null, onDismiss);
+        this.presentFormSpents(null, vehicleId, onDismiss);
     }
 
 
@@ -191,11 +192,12 @@ export class HomePage implements OnInit {
             this.vehiclesSvc.getAll(user.id).subscribe();
     }
 
-    async presentFormSpents(data: Spent | null, onDismiss: (result: any) => void) {
+    async presentFormSpents(data: Spent | null, _vehicleId: number, onDismiss: (result: any) => void) {
         const modal = await this.modal.create({
             component: SpentFormComponent,
             componentProps: {
-                spent: data
+                spent: data,
+                vehicleId: _vehicleId
             },
             cssClass: "modal-w50"
         });

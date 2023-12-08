@@ -37,8 +37,6 @@ export class SpentsService implements CrudSpents {
         var obs = this.dataSvc.query<any>(apiUrl, {}).pipe(tap(response => {
             this._spents.next(response)
         }))
-        //this.calculateTotalSpents();
-        //this.calculateNumberOfSpents();
         return obs;
     }
 
@@ -67,8 +65,19 @@ export class SpentsService implements CrudSpents {
 
 
     addSpent(spent: Spent): Observable<Spent> {
-        throw new Error('Method not implemented.');
+        console.log(spent)
+        const endPoint = "api/spents";
+        var _spent: any = {
+            date: spent.date,
+            amount: spent.amount,
+            provider: spent.provider,
+            vehicle: spent.vehicle,
+            observations: spent.observations
+        }
+        return this.dataSvc.post<Spent>(endPoint, _spent);
     }
+
+
 
     updateSpent(spent: Spent): Observable<Spent> {
         throw new Error('Method not implemented.');

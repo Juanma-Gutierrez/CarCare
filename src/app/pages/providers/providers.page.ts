@@ -82,6 +82,7 @@ export class ProvidersPage implements OnInit {
         }
         this.presentForm(null, onDismiss);
     }
+    
     async presentForm(data: Provider | null, onDismiss: (result: any) => void) {
         const modal = await this.modal.create({
             component: ProvidersFormComponent,
