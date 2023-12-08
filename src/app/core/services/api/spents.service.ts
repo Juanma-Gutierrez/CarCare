@@ -77,15 +77,18 @@ export class SpentsService implements CrudSpents {
         return this.dataSvc.post<Spent>(endPoint, _spent);
     }
 
-
-
     updateSpent(spent: Spent): Observable<Spent> {
-        throw new Error('Method not implemented.');
+        console.log("update")
+        return this.dataSvc.put<any>(this.mapping.updateSpentUrl(spent.id!), spent).pipe(map(this.mapping.mapSpent.bind(this.mapping)));
     }
 
     deleteSpent(spent: Spent): Observable<Spent> {
-        throw new Error('Method not implemented.');
+        console.log("delete")
+        return this.dataSvc.delete<any>(this.mapping.deleteSpentUrl(spent.id!)).pipe(map(this.mapping.mapSpent.bind(this.mapping)));
     }
+
+
+
 
     updateTotalSpentsAmount(amount: number): void {
         this._totalSpentsAmount.next(amount);

@@ -4,6 +4,7 @@ import { PaginatedData } from 'src/app/core/interfaces/data';
 import { StrapiOwner, User } from './interfaces/strapi-users';
 import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 import { Provider } from 'src/app/core/interfaces/Provider';
+import { Spent } from 'src/app/core/interfaces/Spent';
 
 @Injectable({
     providedIn: 'root'
@@ -82,5 +83,16 @@ export class StrapiMappingService extends MappingService {
     public override mapProvider(data: any): Provider {
         return data;
     }
+
+    public override updateSpentUrl(id: number): string {
+        return `api/spents/${id}`;
+    }
+    public override deleteSpentUrl(id: number): string {
+        return `api/spents/${id}`;
+    }
+    public override mapSpent(data: any): Spent {
+        return data;
+    }
+
 }
 

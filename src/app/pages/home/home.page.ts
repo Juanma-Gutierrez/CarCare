@@ -184,7 +184,38 @@ export class HomePage implements OnInit {
         this.presentFormSpents(null, vehicleId, onDismiss);
     }
 
-
+    public async onEditSpentClicked(spent: StrapiSpent) {
+        console.log("entra")
+        var onDismiss = (info: any) => {
+            switch (info.role) {
+                case 'ok': {
+                    this.spentsSvc.updateSpent(info.data).subscribe(async user => {
+                        this.uiSvc.showToast("Gasto actualizado", "tertiary", "bottom")
+                        this.reloadSpents(this.user!);
+                    })
+                }
+                    break;
+                case 'delete': {
+                    this.spentsSvc.deleteSpent(info.data).subscribe(async user => {
+                        this.uiSvc.showToast("Gasto eliminado", "tertiary", "bottom")
+                        this.reloadSpents(this.user!);
+                    })
+                }
+                    break;
+                default: {
+                    console.error("No debería entrar");
+                }
+            }
+        }
+        var _spent: Spent = {
+            id: spent.id,
+            date: spent.date,
+            amount: spent.amount,
+            provider: spent.provider.data.id,
+            vehicle: spent.vehicle.data.id
+        };
+        this.presentFormSpents(_spent, _spent.vehicle, onDismiss);
+    }
 
     reloadSpents(user: User) {
         console.log("Entra en reloadSpents")
@@ -196,6 +227,7 @@ export class HomePage implements OnInit {
     }
 
     async presentFormSpents(data: Spent | null, _vehicleId: number, onDismiss: (result: any) => void) {
+        console.log(data)
         const modal = await this.modal.create({
             component: SpentFormComponent,
             componentProps: {

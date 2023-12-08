@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { PaginatedData } from '../../interfaces/data';
 import { Vehicle } from '../../interfaces/Vehicle';
 import { Provider } from '../../interfaces/Provider';
+import { Spent } from '../../interfaces/Spent';
 
 
 @Injectable({
@@ -20,4 +21,7 @@ export abstract class MappingService {
     public abstract deleteProviderUrl(id: number): string;
     public abstract mapProvider(data: any): Provider;
 
+    public abstract updateSpentUrl(id: number): string;
+    public abstract deleteSpentUrl(id: number): string;
+    public abstract mapSpent(data: any): Spent;
 }

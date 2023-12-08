@@ -25,30 +25,6 @@ export interface SpentItem {
     }
 }
 
-/* export interface StrapiSpent {
-    data: {
-        id: number
-        attributes: {
-            date: Date
-            amount: number
-            observations: string
-            provider: {
-                data: {
-                    id: number
-                }
-            }
-            vehicle: {
-                data: {
-                    id: number
-                }
-            }
-        }
-    }
-} */
-
-
-
-
 export interface StrapiSpent {
     date: Date
     amount: number

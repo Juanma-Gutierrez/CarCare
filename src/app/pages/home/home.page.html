@@ -42,14 +42,16 @@
                                 <ion-col>
                                     <ion-card-title>{{selectedVehicle?.brand | upperCamelCase}}
                                         {{selectedVehicle?.model | upperCamelCase}}</ion-card-title>
-                                    <ion-card-title>Total gastado: {{(spentsSvc.totalSpentsAmount$ | async) |numberFormat
+                                    <ion-card-title>Total gastado: {{(spentsSvc.totalSpentsAmount$ | async)
+                                        |numberFormat
                                         }}</ion-card-title>
                                     <ion-card-subtitle>Nº de gastos: {{spentsSvc.totalSpentsNumber$ |
                                         async}}</ion-card-subtitle>
                                 </ion-col>
                                 <ion-col>
                                     <div *ngIf="selectedVehicle?.id!==null">
-                                        <ion-fab-button class="spentFab" aria-label="New spent" (click)="onNewSpent(selectedVehicle!!.id)">
+                                        <ion-fab-button class="spentFab" aria-label="New spent"
+                                            (click)="onNewSpent(selectedVehicle!!.id)">
                                             <ion-icon name="add-outline"></ion-icon>
                                         </ion-fab-button>
                                     </div>
@@ -59,7 +61,8 @@
                         <ion-card-content>
                             <ion-list *ngFor="let spent of (spentsSvc.spents$ | async)?.data">
                                 <ion-item>
-                                    <app-spent-item [spent]="spent"></app-spent-item>
+                                    <app-spent-item [spent]="spent" (onEditSpentClicked)="onEditSpentClicked(spent)">
+                                    </app-spent-item>
                                 </ion-item>
                             </ion-list>
                         </ion-card-content>
