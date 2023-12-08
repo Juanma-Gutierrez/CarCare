@@ -188,8 +188,11 @@ export class HomePage implements OnInit {
 
     reloadSpents(user: User) {
         console.log("Entra en reloadSpents")
-        if (user?.id)
+        if (user?.id) {
             this.vehiclesSvc.getAll(user.id).subscribe();
+            if (this.selectedVehicle)
+                this.spentsSvc.getAll(this.selectedVehicle.id).subscribe();
+        }
     }
 
     async presentFormSpents(data: Spent | null, _vehicleId: number, onDismiss: (result: any) => void) {
