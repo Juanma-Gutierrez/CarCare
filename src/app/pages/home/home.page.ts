@@ -9,6 +9,7 @@ import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 import { Spent } from 'src/app/core/interfaces/Spent';
 import { SpentsService } from 'src/app/core/services/api/spents.service';
 import { SpentFormComponent } from './spent-form/spent-form.component';
+import { StrapiSpent } from 'src/app/core/services/api/strapi/interfaces/strapi-spents';
 
 
 
@@ -24,15 +25,9 @@ export class HomePage implements OnInit {
     public filterAvailableVehicle = true;
     private user: User | null = null;
 
-
-    // Mockup de datos locales en array
-    // public vehicles: Vehicle[] | undefined;
-    //public providers: Provider[] | undefined;
-    public spents: Spent[] = [];
+    public spents: StrapiSpent[] = [];
     public filteredSpent: Spent[] = [];
     public selectedVehicle: Vehicle | undefined;
-    public totalSpentsAmount: number = 0;
-    public totalSpentsNumber: number = 0;
 
     constructor(
         private modal: ModalController,
@@ -49,7 +44,6 @@ export class HomePage implements OnInit {
         this.apiSvc.user$.subscribe(u => {
             this.user = u;
             this.reloadVehicles(this.user);
-            this.calculateTotalSpents;
         })
     }
 
@@ -78,11 +72,13 @@ export class HomePage implements OnInit {
     public async onVehicleItemClicked(vehicle: Vehicle) {
         this.selectedVehicle = vehicle;
         if (this.user) {
-            await this.getSpents();
-            console.log(this.spents);
-            this.filteredSpent = this.spents?.filter(spent => spent.vehicle == this.selectedVehicle?.id);
-            this.calculateTotalSpents();
-            this.reloadSpents(this.user);
+            this.getSpents();
+            this.spentsSvc.totalSpentsAmount$.subscribe();
+            this.spentsSvc.totalSpentsNumber$.subscribe();
+            this.spentsSvc.spents$.subscribe(c => {
+                this.spentsSvc.calculateTotalSpents();
+                this.spentsSvc.calculateNumberOfSpents();
+            });
         }
     }
 
@@ -147,16 +143,6 @@ export class HomePage implements OnInit {
 
     // ***************************** SPENTS *****************************
 
-    /*
-    StrapiSpent
-    id?: number,
-    date: string,
-    amount: number,
-    observations: string,
-    vehicle_id: number,
-    provider_id: number
-     */
-
     async getSpents() {
         if (this.selectedVehicle?.id) {
             this.spentsSvc.getAll(this.selectedVehicle?.id).subscribe(s => {
@@ -170,9 +156,8 @@ export class HomePage implements OnInit {
                         provider: temp.provider.data.id,
                         vehicle: temp.vehicle.data.id
                     }
-                    this.spents?.push(newSpent)
+                    this.spentsSvc.updateSpent(newSpent)
                 }
-                this.calculateTotalSpents();
             });
         }
     }
@@ -204,12 +189,6 @@ export class HomePage implements OnInit {
         console.log("Entra en reloadSpents")
         if (user?.id)
             this.vehiclesSvc.getAll(user.id).subscribe();
-    }
-
-
-    calculateTotalSpents() {
-        this.totalSpentsAmount = this.filteredSpent?.reduce((total, spent) => total + spent.amount, 0);
-        this.totalSpentsNumber = this.filteredSpent?.length;
     }
 
     async presentFormSpents(data: Spent | null, onDismiss: (result: any) => void) {

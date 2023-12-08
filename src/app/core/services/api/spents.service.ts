@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, map, take, tap } from 'rxjs';
 import { Spent } from '../../interfaces/Spent';
 import { PaginatedSpents } from './strapi/interfaces/strapi-spents';
 import { DataService } from './data.service';
@@ -19,6 +19,13 @@ export class SpentsService implements CrudSpents {
     private _spents: BehaviorSubject<PaginatedSpents> = new BehaviorSubject<PaginatedSpents>({ data: [], pagination: { page: 0, pageCount: 0, pageSize: 0, total: 0 } });
     public spents$: Observable<PaginatedSpents> = this._spents.asObservable();
 
+    private _totalSpentsAmount = new BehaviorSubject<number>(0);
+    totalSpentsAmount$: Observable<number> = this._totalSpentsAmount.asObservable();
+
+    private _totalSpentsNumber = new BehaviorSubject<number>(0);
+    totalSpentsNumber$: Observable<number> = this._totalSpentsNumber.asObservable();
+
+
     constructor(
         private dataSvc: DataService,
         private mapping: MappingService,
@@ -30,9 +37,34 @@ export class SpentsService implements CrudSpents {
         var obs = this.dataSvc.query<any>(apiUrl, {}).pipe(tap(response => {
             this._spents.next(response)
         }))
+        //this.calculateTotalSpents();
+        //this.calculateNumberOfSpents();
         return obs;
-
     }
+
+    calculateTotalSpents() {
+        this.spents$.pipe(
+            take(1),
+            tap(spents => {
+                let totalAmount = 0;
+                for (const spent of spents.data) {
+                    console.log(spent.amount);
+                    totalAmount += spent.amount;
+                }
+                console.log(totalAmount);
+                this._totalSpentsAmount.next(totalAmount);
+            })
+        ).subscribe();
+    }
+
+
+    calculateNumberOfSpents() {
+        this.spents$.pipe(take(1)).subscribe(spents => {
+            const numberOfSpents = spents.data.length;
+            this._totalSpentsNumber.next(numberOfSpents);
+        });
+    }
+
 
     addSpent(spent: Spent): Observable<Spent> {
         throw new Error('Method not implemented.');
@@ -46,4 +78,14 @@ export class SpentsService implements CrudSpents {
         throw new Error('Method not implemented.');
     }
 
+    updateTotalSpentsAmount(amount: number): void {
+        this._totalSpentsAmount.next(amount);
+    }
+
+    updateTotalSpentsNumber(number: number): void {
+        this._totalSpentsNumber.next(number);
+    }
+
+
 }
+

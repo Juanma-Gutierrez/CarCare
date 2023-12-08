@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class NumberFormatPipe implements PipeTransform {
 
-    transform(value: number | undefined): string {
+    transform(value: number | null): string {
         if (isNaN(value!!) || value === null) {
             return '';
         }

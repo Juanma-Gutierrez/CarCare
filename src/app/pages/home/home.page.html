@@ -40,15 +40,16 @@
                         <ion-card-header>
                             <ion-row>
                                 <ion-col>
-                                    <ion-card-title>{{selectedVehicle?.brand}}
-                                        {{selectedVehicle?.model}}</ion-card-title>
-                                    <ion-card-title>Total gastado: {{totalSpentsAmount | number:'1.2-2'}}
-                                        €</ion-card-title>
-                                    <ion-card-subtitle>Nº de gastos: {{totalSpentsNumber}}</ion-card-subtitle>
+                                    <ion-card-title>{{selectedVehicle?.brand | upperCamelCase}}
+                                        {{selectedVehicle?.model | upperCamelCase}}</ion-card-title>
+                                    <ion-card-title>Total gastado: {{(spentsSvc.totalSpentsAmount$ | async) |numberFormat
+                                        }}</ion-card-title>
+                                    <ion-card-subtitle>Nº de gastos: {{spentsSvc.totalSpentsNumber$ |
+                                        async}}</ion-card-subtitle>
                                 </ion-col>
                                 <ion-col>
                                     <div *ngIf="selectedVehicle?.id!==null">
-                                        <ion-fab-button class="spentFab" aria-label="New spent"  (click)="onNewSpent()">
+                                        <ion-fab-button class="spentFab" aria-label="New spent" (click)="onNewSpent()">
                                             <ion-icon name="add-outline"></ion-icon>
                                         </ion-fab-button>
                                     </div>

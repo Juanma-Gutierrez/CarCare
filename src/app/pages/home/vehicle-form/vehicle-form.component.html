@@ -40,15 +40,8 @@
             <div class="date-block">
                 <div>
                     Fecha de matriculación:
-                </div>
-                <div>
-                    <ion-datetime-button datetime="datetime"></ion-datetime-button>
-                    <ion-modal [keepContentsMounted]="true">
-                        <ng-template>
-                            <ion-datetime id="datetime" presentation="date" [firstDayOfWeek]="1"
-                                [value]="vehicle?.registrationDate" formControlName="registrationDate"></ion-datetime>
-                        </ng-template>
-                    </ion-modal>
+                    <ion-datetime presentation="date" [firstDayOfWeek]="1" [value]="vehicle?.registrationDate"
+                    formControlName="registrationDate"></ion-datetime>
                 </div>
             </div>
         </ion-list>
