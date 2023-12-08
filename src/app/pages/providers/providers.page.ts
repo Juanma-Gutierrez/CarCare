@@ -40,14 +40,14 @@ export class ProvidersPage implements OnInit {
             switch (info.role) {
                 case 'ok': {
                     this.providersSvc.updateProvider(info.data).subscribe(async user => {
-                        this.uiSvc.showToast("Proveedor actualizado", "tertiary", "bottom")
+                        this.uiSvc.showToast("Proveedor actualizado", "success", "bottom")
                         this.reloadProviders(this.user);
                     })
                 }
                     break;
                 case 'delete': {
                     this.providersSvc.deleteProvider(info.data).subscribe(async user => {
-                        this.uiSvc.showToast("Proveedor eliminado", "tertiary", "bottom")
+                        this.uiSvc.showToast("Proveedor eliminado", "success", "bottom")
                         this.reloadProviders(this.user);
                     })
                 }
@@ -70,7 +70,7 @@ export class ProvidersPage implements OnInit {
             switch (info.role) {
                 case 'ok': {
                     this.providersSvc.addProvider(info.data).subscribe(async provider => {
-                        this.uiSvc.showToast("Proveedor creado correctamente", "tertiary", "bottom")
+                        this.uiSvc.showToast("Proveedor creado correctamente", "success", "bottom")
                         this.reloadProviders(this.user);
                     })
                     break;

@@ -45,7 +45,6 @@ export class ProvidersService implements CrudProviders{
         return this.dataSvc.post<Provider>(endPoint, _provider);
     }
 
-
     updateProvider(provider: Provider): Observable<Provider> {
         return this.dataSvc.put<any>(this.mapping.updateProviderUrl(provider.id!), provider).pipe(map(this.mapping.mapProvider.bind(this.mapping)));
     }

@@ -18,6 +18,7 @@
 <ion-content class="ion-padding" size="small">
     <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
         <ion-list>
+            <app-provider-item-selectable formControlName="providerId"></app-provider-item-selectable>
             <ion-input label="Proveedor" labelPlacement="floating" fill="outline" formControlName="provider" type="text"
                 class="input">
             </ion-input>

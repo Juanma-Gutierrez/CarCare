@@ -10,6 +10,10 @@ import { Spent } from 'src/app/core/interfaces/Spent';
 import { SpentsService } from 'src/app/core/services/api/spents.service';
 import { SpentFormComponent } from './spent-form/spent-form.component';
 import { StrapiSpent } from 'src/app/core/services/api/strapi/interfaces/strapi-spents';
+import { ProvidersService } from 'src/app/core/services/api/providers.service';
+import { Provider } from 'src/app/core/interfaces/Provider';
+import { map } from 'rxjs';
+import { PaginatedProviders, StrapiProvider } from 'src/app/core/services/api/strapi/interfaces/strapi-providers';
 
 
 
@@ -24,17 +28,16 @@ export class HomePage implements OnInit {
     public loading = true;
     public filterAvailableVehicle = true;
     private user: User | null = null;
-
-    public spents: StrapiSpent[] = [];
-    public filteredSpent: Spent[] = [];
     public selectedVehicle: Vehicle | undefined;
+    public providers: Provider[] = [];
 
     constructor(
         private modal: ModalController,
         private uiSvc: InternalUIService,
         public apiSvc: ApiService,
         public vehiclesSvc: VehiclesService,
-        public spentsSvc: SpentsService
+        public spentsSvc: SpentsService,
+        public providersSvc: ProvidersService,
     ) { }
 
 
@@ -45,6 +48,23 @@ export class HomePage implements OnInit {
             this.user = u;
             this.reloadVehicles(this.user);
         })
+        // Carga los proveedores
+        if (this.user?.id) {
+            this.providersSvc.getAll(this.user.id).pipe(
+                map((paginatedProviders: PaginatedProviders) => paginatedProviders.data)).subscribe((provider: StrapiProvider[]) => {
+                    this.providers = this.mapToStrapiProviderToProvider(provider);
+                })
+        }
+    }
+
+    private mapToStrapiProviderToProvider(strapiProviders: StrapiProvider[]): Provider[] {
+        return strapiProviders.map((strapiProvider: StrapiProvider) => ({
+            id: strapiProvider.id,
+            name: strapiProvider.name,
+            category: strapiProvider.category,
+            phone: strapiProvider.phone,
+            users_permissions_user: strapiProvider.users_permissions_user
+        }));
     }
 
     // ***************************** VEHICLES *****************************
@@ -87,7 +107,7 @@ export class HomePage implements OnInit {
             switch (info.role) {
                 case 'ok': {
                     this.vehiclesSvc.addVehicle(info.data).subscribe(async user => {
-                        this.uiSvc.showToast("Vehículo creado correctamente", "tertiary", "bottom")
+                        this.uiSvc.showToast("Vehículo creado correctamente", "success", "bottom")
                         this.reloadVehicles(this.user);
                     })
                     break;
@@ -105,14 +125,14 @@ export class HomePage implements OnInit {
             switch (info.role) {
                 case 'ok': {
                     this.vehiclesSvc.updateVehicle(info.data).subscribe(async user => {
-                        this.uiSvc.showToast("Vehículo actualizado", "tertiary", "bottom")
+                        this.uiSvc.showToast("Vehículo actualizado", "success", "bottom")
                         this.reloadVehicles(this.user);
                     })
                 }
                     break;
                 case 'delete': {
                     this.vehiclesSvc.deleteVehicle(info.data).subscribe(async user => {
-                        this.uiSvc.showToast("Vehículo eliminado", "tertiary", "bottom")
+                        this.uiSvc.showToast("Vehículo eliminado", "success", "bottom")
                         this.reloadVehicles(this.user);
                     })
                 }
@@ -146,7 +166,6 @@ export class HomePage implements OnInit {
     async getSpents() {
         if (this.selectedVehicle?.id) {
             this.spentsSvc.getAll(this.selectedVehicle?.id).subscribe(s => {
-                this.spents = [];
                 for (var i = 0; i < s.data.length; i++) {
                     var temp = s.data[i];
                     var newSpent: Spent = {
@@ -170,7 +189,7 @@ export class HomePage implements OnInit {
                 case 'ok': {
                     this.spentsSvc.addSpent(info.data).subscribe(async user => {
                         console.log()
-                        this.uiSvc.showToast("Gasto creado correctamente", "tertiary", "bottom")
+                        this.uiSvc.showToast("Gasto creado correctamente", "success", "bottom")
                         if (this.user)
                             this.reloadSpents(this.user);
                     })
@@ -190,14 +209,14 @@ export class HomePage implements OnInit {
             switch (info.role) {
                 case 'ok': {
                     this.spentsSvc.updateSpent(info.data).subscribe(async user => {
-                        this.uiSvc.showToast("Gasto actualizado", "tertiary", "bottom")
+                        this.uiSvc.showToast("Gasto actualizado", "success", "bottom")
                         this.reloadSpents(this.user!);
                     })
                 }
                     break;
                 case 'delete': {
                     this.spentsSvc.deleteSpent(info.data).subscribe(async user => {
-                        this.uiSvc.showToast("Gasto eliminado", "tertiary", "bottom")
+                        this.uiSvc.showToast("Gasto eliminado", "success", "bottom")
                         this.reloadSpents(this.user!);
                     })
                 }
