@@ -1,0 +1,56 @@
+{
+  "toolbar": {
+    "user-item": {
+      "closeSession": "Cerrar sesión"
+    }
+  },
+  "home": {
+    "vehicles": "Vehículosa",
+    "availables": "Disponibles",
+    "all": "Todos",
+    "spents": "Gastos",
+    "totalAmount": "Total gastado:",
+    "numSpents": "Nº de gastos: "
+  },
+
+  "main": {
+    "hello": "Hola"
+  },
+  "login": {
+    "user": "Usuario",
+    "pwd": "Contraseña",
+    "noAccount": "¿Necesitas una cuenta?",
+    "submit": "Acceder"
+  },
+  "register": {
+    "email": "Email",
+    "name": "Nombre",
+    "surname": "Apellidos",
+    "nickname": "Apodo",
+    "pwd": "Contraseña",
+    "confirm": "Confirmar contraseña",
+    "login": "Quiero iniciar sesión",
+    "submit": "Registrar"
+  },
+  "user-card": {
+    "name": "Nombre"
+  },
+  "header": {
+    "user": {
+      "profile": "Mi perfil",
+      "signout": "Cerrar sesión"
+    },
+    "languages": {
+      "es": "Español",
+      "en": "Inglés"
+    }
+  },
+  "menu": {
+    "home": "Inicio",
+    "tasks": "Tareas",
+    "assignments": "Asignaciones",
+    "signout": "Cerrar sesión",
+    "profile": "Mi perfil",
+    "about": "Acerca de Tasks"
+  }
+}

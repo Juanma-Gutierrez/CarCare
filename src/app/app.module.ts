@@ -16,6 +16,8 @@ import { RouteReuseStrategy } from '@angular/router';
 import { SharedModule } from './shared/shared.module';
 import { StrapiDataService } from './core/services/api/strapi/strapi-data.service';
 import { StrapiMappingService } from './core/services/api/strapi/strapi-mapping.service';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { createTranslateLoader } from './core/services/custom-translate.service';
 
 export function httpProviderFactory(
     http: HttpClient) {
@@ -29,7 +31,6 @@ export function MappingServiceFactory(
             return new StrapiMappingService();
         default:
             throw new Error("Not implemented");
-
     }
 }
 
@@ -58,7 +59,14 @@ export function DataServiceFactory(
         AppRoutingModule,
         BrowserModule,
         HttpClientModule,
-        SharedModule
+        SharedModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (createTranslateLoader),
+                deps: [HttpClient]
+            }
+        }),
     ],
     providers: [
         {

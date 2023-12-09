@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { User } from './core/interfaces/User';
 import { ApiService } from './core/services/api/api.service';
+import { CustomTranslateService } from './core/services/custom-translate.service';
 
 @Component({
     selector: 'app-root',
@@ -13,12 +14,15 @@ import { ApiService } from './core/services/api/api.service';
 export class AppComponent {
     protected _user = new BehaviorSubject<User | undefined>(undefined);
     public user$ = this._user.asObservable();
+    lang:string = "es";
 
     constructor(
         public authSvc: AuthService,
         private router: Router,
-        private apiSvc: ApiService
+        private apiSvc: ApiService,
+        public translate:CustomTranslateService,
     ) {
+        this.translate.use(this.lang);
         // Se suscribe al observable isLogged$ del servicio AuthService.
         this.authSvc.isLogged$.subscribe(logged => {
             if (logged) {
