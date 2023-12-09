@@ -1,4 +1,8 @@
-<ion-content class="ion-text-center">
-    <app-card-about></app-card-about>
-    <ion-button  buttonDirective (click)="navToHome()">Volver</ion-button>
+<ion-content>
+    <app-card-about class="container"></app-card-about>
+    <ion-grid>
+        <ion-row class="ion-justify-content-center">
+            <ion-button buttonDirective (click)="navToHome()" class="button">Volver</ion-button>
+        </ion-row>
+    </ion-grid>
 </ion-content>

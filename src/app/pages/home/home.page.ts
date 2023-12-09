@@ -147,7 +147,7 @@ export class HomePage implements OnInit {
             componentProps: {
                 vehicle: data
             },
-            cssClass: "modal-w50"
+            cssClass: "modal-w50 modal-h"
         });
         modal.present();
         modal.onDidDismiss().then(result => {

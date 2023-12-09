@@ -1,10 +1,4 @@
 <ion-card appSelectableCard="">
-    <ion-row>
-        <ion-col>
-            <img alt="Silhouette of mountains"
-                src="https://unsplash.com/photos/d1Jum1vVLew/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzAwODU1OTM0fA&force=true&w=640" />
-        </ion-col>
-    </ion-row>
     <ion-row class="ion-justify-content-center">
         <ion-card-title>{{vehicle?.brand |upperCamelCase}} {{vehicle?.model | upperCamelCase}}</ion-card-title>
     </ion-row>
@@ -12,8 +6,8 @@
         <ion-card-subtitle>{{vehicle?.plate | uppercase}}</ion-card-subtitle>
     </ion-row>
     <ion-row class="ion-justify-content-center">
-            <ion-card-subtitle *ngIf="vehicle?.available">Vehículo disponible</ion-card-subtitle>
-            <ion-card-subtitle *ngIf="!vehicle?.available" class="no-available">Vehículo no disponible</ion-card-subtitle>
+        <ion-card-subtitle *ngIf="vehicle?.available">Vehículo disponible</ion-card-subtitle>
+        <ion-card-subtitle *ngIf="!vehicle?.available" class="no-available">Vehículo no disponible</ion-card-subtitle>
     </ion-row>
     <ion-datetime presentation="date" [firstDayOfWeek]="1" [value]="vehicle?.registrationDate"></ion-datetime>
 </ion-card>

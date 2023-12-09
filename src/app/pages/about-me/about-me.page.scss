@@ -2,10 +2,10 @@ img {
     width: 75px;
 }
 
-.scrollable {
-    overflow: scroll;
-}
-
-.h90{
-    height: 90vh;
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    width: 100vw;
 }

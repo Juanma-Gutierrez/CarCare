@@ -5,3 +5,12 @@ ion-card{
 ion-icon{
     padding-right: 10px;
 }
+.card{
+    width: 50vw;
+}
+
+@media (max-width: 767px) {
+    .card{
+        width: 100vw;
+    }
+}
