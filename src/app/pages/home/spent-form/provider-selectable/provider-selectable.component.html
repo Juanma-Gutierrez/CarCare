@@ -1,9 +1,9 @@
 <ion-list>
     <ion-item>
         <ion-select label="Selecciona proveedor"
-        [value]="selectedProvider | upperCamelCase" interface="action-sheet" placeholder="Selecciona proveedor"
-            formControlName="selectedProvider">
-            <ion-select-option *ngFor="let provider of providers" [value]="provider">{{provider.name | upperCamelCase}}
+        [value]="selectedProvider" interface="action-sheet" placeholder="Selecciona proveedor"
+            formControlName="selectedProvider">{{selectedProvider}}
+            <ion-select-option  *ngFor="let provider of providers" [value]="provider">{{provider.name | upperCamelCase}}
             </ion-select-option>
         </ion-select>
     </ion-item>

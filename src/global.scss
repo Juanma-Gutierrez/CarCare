@@ -54,7 +54,7 @@
 // ItemActive Directive
 .item-active {
     background-color: white;
-    transition:0.3s;
+    transition: 0.3s;
 }
 
 .item-active:hover {
@@ -66,4 +66,10 @@
 .modal-w50 {
     --width: 50vw;
     --min-width: 400px;
+}
+
+@media (max-width: 767px) {
+    .modal-w50 {
+        --width: 100vw;
+    }
 }
