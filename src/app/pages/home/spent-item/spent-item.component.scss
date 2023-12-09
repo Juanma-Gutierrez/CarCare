@@ -10,3 +10,31 @@ ion-grid {
 .amount {
     text-align: end;
 }
+
+.mobile-mode {
+    display: none;
+    margin:3px 0px;
+}
+
+.pc-mode {
+    display: block;
+}
+
+
+@media (max-width: 767px) {
+
+    .mobile-mode {
+        display: block;
+    }
+
+    .pc-mode {
+        display: none;
+    }
+
+    .edit-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+}
