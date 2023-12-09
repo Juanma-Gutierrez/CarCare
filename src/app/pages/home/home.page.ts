@@ -25,7 +25,6 @@ type PaginatedSpents = Spent[]
 })
 export class HomePage implements OnInit {
 
-    public loading = true;
     public filterAvailableVehicle = true;
     private user: User | null = null;
     public selectedVehicle: Vehicle | undefined;
@@ -42,7 +41,6 @@ export class HomePage implements OnInit {
 
 
     ngOnInit(): void {
-        this.loading = true;
         this.user = this.apiSvc.getUser();
         this.apiSvc.user$.subscribe(u => {
             this.user = u;
@@ -70,9 +68,7 @@ export class HomePage implements OnInit {
     // ***************************** VEHICLES *****************************
 
     async getVehicles(ownerId: number) {
-        this.vehiclesSvc.getAll(ownerId).subscribe((c) => {
-            this.loading = false;
-        });
+        this.vehiclesSvc.getAll(ownerId).subscribe();
     }
 
     selectionChanged(event: CustomEvent) {
