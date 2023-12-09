@@ -7,6 +7,7 @@ export interface User {
     surname: string,
 }
 
+
 export interface UserRegisterInfo {
     username: string,
     name: string,

@@ -4,6 +4,7 @@ export interface Pagination{
     pageCount:number,
     total:number
 }
+
 export interface PaginatedData<T>{
     data:T[],
     pagination:Pagination
