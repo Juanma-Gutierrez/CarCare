@@ -1,28 +1,9 @@
-<div id="popover-provider-button">
+<ion-list>
     <ion-item>
-        <ion-text slot="start" position="fixed">Artista:</ion-text>
-        <ion-text *ngIf="!providerSelected && !disabled">Seleccione un artista</ion-text>
-        <ion-text *ngIf="!providerSelected && disabled">Ningún proveedor</ion-text>
-        <ion-text *ngIf="providerSelected">{{providerSelected.name}}</ion-text>
+        <ion-select label="Selecciona proveedor" interface="action-sheet" placeholder="Selecciona proveedor"
+            formControlName="selectedProvider">
+            <ion-select-option *ngFor="let provider of providers" [value]="provider">{{provider.name | upperCamelCase}}
+            </ion-select-option>
+        </ion-select>
     </ion-item>
-</div>
-
-<!-- <ion-popover *ngIf="!disabled" trigger="popover-provider-button" #popover (willPresent)="onLoadProviders()">
-    <ng-template>
-        <ion-content>
-            <ion-list>
-                <ion-item>
-                    <ion-input #search placeholder="Buscar" type="text" (ionInput)="onFilter($event)"
-                        debounce="200"></ion-input>
-                    <ion-button color="medium" slot="end" fill="clear" (click)="clearSearch(search)"><ion-icon
-                            slot="icon-only" name="close-outline"></ion-icon></ion-button>
-                </ion-item>
-                <ion-item button (click)="deselect(popover)">
-                    <ion-text>Ningún proveedor</ion-text>
-                </ion-item>
-                <app-provider-item-selectable (clicked)="onProviderClicked(popover,$event)" *ngFor="let provider of providers"
-                    [provider]="provider"></app-provider-item-selectable>
-            </ion-list>
-        </ion-content>
-    </ng-template>
-</ion-popover> -->
+</ion-list>

@@ -8,15 +8,10 @@ import { Provider } from 'src/app/core/interfaces/Provider';
 })
 export class ProviderSelectableComponent implements OnInit {
 
-    providerSelected: Provider | undefined;
     disabled: boolean = true;
-    // providers: Provider[] = [];
-    private _providers: Provider[] = [];
 
-    @Input() set providers(_providers: Provider[]) {
-        this._providers = _providers;
-    }
-
+    @Input() providers: Provider[] = [];
+    @Input() selectedProvider?: Provider;
 
     constructor() { }
 

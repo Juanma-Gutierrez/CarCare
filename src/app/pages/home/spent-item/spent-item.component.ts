@@ -14,12 +14,9 @@ export class SpentItemComponent implements OnInit {
         public spentsSvc: SpentsService
     ) { }
 
-    ngOnInit() {
-        console.log(this.spent)
-    }
+    ngOnInit() { }
 
-    onEditSpentClick(event:Event) {
-        console.log("entra")
+    onEditSpentClick(event: Event) {
         this.onEditSpentClicked.emit();
         event.stopPropagation();
     }

@@ -90,9 +90,8 @@ export class StrapiMappingService extends MappingService {
     public override deleteSpentUrl(id: number): string {
         return `api/spents/${id}`;
     }
-    public override mapSpent(data: any): Spent {
+    public override mapSpent(data: Spent): Spent {
         return data;
     }
-
 }
 

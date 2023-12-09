@@ -183,12 +183,10 @@ export class HomePage implements OnInit {
 
 
     onNewSpent(vehicleId: number) {
-        console.log("nuevo gasto")
         var onDismiss = (info: any) => {
             switch (info.role) {
                 case 'ok': {
                     this.spentsSvc.addSpent(info.data).subscribe(async user => {
-                        console.log()
                         this.uiSvc.showToast("Gasto creado correctamente", "success", "bottom")
                         if (this.user)
                             this.reloadSpents(this.user);
@@ -204,7 +202,6 @@ export class HomePage implements OnInit {
     }
 
     public async onEditSpentClicked(spent: StrapiSpent) {
-        console.log("entra")
         var onDismiss = (info: any) => {
             switch (info.role) {
                 case 'ok': {
@@ -231,13 +228,13 @@ export class HomePage implements OnInit {
             date: spent.date,
             amount: spent.amount,
             provider: spent.provider.data.id,
-            vehicle: spent.vehicle.data.id
+            providerName: spent.provider.data.attributes.name,
+            vehicle: spent.vehicle.data.id,
         };
         this.presentFormSpents(_spent, _spent.vehicle, onDismiss);
     }
 
     reloadSpents(user: User) {
-        console.log("Entra en reloadSpents")
         if (user?.id) {
             this.vehiclesSvc.getAll(user.id).subscribe();
             if (this.selectedVehicle)
@@ -246,12 +243,12 @@ export class HomePage implements OnInit {
     }
 
     async presentFormSpents(data: Spent | null, _vehicleId: number, onDismiss: (result: any) => void) {
-        console.log(data)
         const modal = await this.modal.create({
             component: SpentFormComponent,
             componentProps: {
                 spent: data,
-                vehicleId: _vehicleId
+                vehicleId: _vehicleId,
+                providers: this.providers,
             },
             cssClass: "modal-w50"
         });

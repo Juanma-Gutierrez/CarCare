@@ -4,5 +4,6 @@ export interface Spent {
     amount: number,
     observations?: string,
     provider: number,
+    providerName?:string,
     vehicle: number,
 }

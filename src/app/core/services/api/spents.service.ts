@@ -46,10 +46,8 @@ export class SpentsService implements CrudSpents {
             tap(spents => {
                 let totalAmount = 0;
                 for (const spent of spents.data) {
-                    console.log(spent.amount);
                     totalAmount += spent.amount;
                 }
-                console.log(totalAmount);
                 this._totalSpentsAmount.next(totalAmount);
             })
         ).subscribe();
@@ -65,7 +63,6 @@ export class SpentsService implements CrudSpents {
 
 
     addSpent(spent: Spent): Observable<Spent> {
-        console.log(spent)
         const endPoint = "api/spents";
         var _spent: any = {
             date: spent.date,
@@ -78,12 +75,11 @@ export class SpentsService implements CrudSpents {
     }
 
     updateSpent(spent: Spent): Observable<Spent> {
-        console.log("update")
-        return this.dataSvc.put<any>(this.mapping.updateSpentUrl(spent.id!), spent).pipe(map(this.mapping.mapSpent.bind(this.mapping)));
+        const endPoint = `api/spents/${spent.id}`;
+        return this.dataSvc.put<Spent>(endPoint, spent);
     }
 
     deleteSpent(spent: Spent): Observable<Spent> {
-        console.log("delete")
         return this.dataSvc.delete<any>(this.mapping.deleteSpentUrl(spent.id!)).pipe(map(this.mapping.mapSpent.bind(this.mapping)));
     }
 
