@@ -16,15 +16,16 @@ export class SpentFormComponent implements OnInit {
     today: Date = new Date()
     form: FormGroup;
     mode: 'New' | 'Edit' = 'New';
-    selectedProvider?: Provider | undefined;
+    selectedProvider?: string;
 
     private _vehicle: number = -1;
     @Input() set vehicleId(vehiclePassed: number) {
-        this._vehicle = vehiclePassed;{}
+        this._vehicle = vehiclePassed; { }
         this.form.controls['vehicle'].setValue(this._vehicle);
     };
     @Input() set spent(_spent: Spent | null) {
         if (_spent) {
+            console.log(_spent)
             this.mode = 'Edit';
             this.form.controls['id'].setValue(_spent.id);
             this.form.controls['date'].setValue(_spent.date);
@@ -33,6 +34,8 @@ export class SpentFormComponent implements OnInit {
             this.form.controls['providerName'].setValue(_spent.providerName);
             this.form.controls['vehicle'].setValue(_spent.vehicle);
             this.form.controls['observations'].setValue(_spent.observations);
+            this.selectedProvider = _spent.providerName;
+            console.log(this.selectedProvider);
         }
     }
 
@@ -51,8 +54,9 @@ export class SpentFormComponent implements OnInit {
             providerName: ['', Validators.required],
             vehicle: [this._vehicle],
             observations: ['']
-        })
+        });
     }
+
     getVehicle(): number {
         return this._vehicle
     }
@@ -63,6 +67,8 @@ export class SpentFormComponent implements OnInit {
 
     onSelection(event: any) {
         const provider = event.detail.value;
+        this.selectedProvider = provider;
+        console.log(this.selectedProvider)
         this.form.controls['providerName'].setValue(provider?.name);
         this.form.controls['provider'].setValue(provider?.id);
         this.form.markAsDirty();

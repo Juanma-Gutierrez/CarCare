@@ -11,10 +11,11 @@ export class ProviderSelectableComponent implements OnInit {
     disabled: boolean = true;
 
     @Input() providers: Provider[] = [];
-    @Input() selectedProvider?: Provider;
+    @Input() selectedProvider?: string;
 
     constructor() { }
 
-    ngOnInit() { }
-
+    ngOnInit() {
+        console.log(this.selectedProvider)
+    }
 }

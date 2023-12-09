@@ -230,6 +230,7 @@ export class HomePage implements OnInit {
             provider: spent.provider.data.id,
             providerName: spent.provider.data.attributes.name,
             vehicle: spent.vehicle.data.id,
+            observations: spent.observations
         };
         this.presentFormSpents(_spent, _spent.vehicle, onDismiss);
     }
