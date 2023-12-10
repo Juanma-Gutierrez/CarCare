@@ -45,7 +45,7 @@ export class VehicleFormComponent implements OnInit {
             brand: ['', Validators.required],
             model: ['', Validators.required],
             registrationDate: [new Date().toISOString()],
-            category: ['Coche', Validators.required],
+            category: ['car', Validators.required],
             available: [true],
             owner: ownerId
         })

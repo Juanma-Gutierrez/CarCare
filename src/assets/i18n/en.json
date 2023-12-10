@@ -24,6 +24,7 @@
             "model": "Model",
             "categoryTitle": "Category",
             "category": {
+                "selectCategory": "Select category",
                 "car": "Car",
                 "motorcycle": "Motorcycle",
                 "van": "Van",
