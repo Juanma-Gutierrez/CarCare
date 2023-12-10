@@ -17,24 +17,13 @@ img {
 .in-line {
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
-@media only screen and (max-width: 767px) {
-    .mobile-mode {
-        display: block;
-    }
-
-    .computer-mode {
-        display: none;
-    }
+.flags {
+    width: 25px;
 }
 
-@media only screen and (min-width: 767px) {
-    .mobile-mode {
-        display: none;
-    }
-
-    .computer-mode {
-        display: block;
-    }
+.button {
+    cursor: pointer;
 }

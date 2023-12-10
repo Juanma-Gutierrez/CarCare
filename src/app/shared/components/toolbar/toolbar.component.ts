@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, lastValueFrom, of } from 'rxjs';
 import { User } from 'src/app/core/interfaces/User';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { AuthService } from 'src/app/core/services/api/auth.service';
+import { CustomTranslateService } from 'src/app/core/services/custom-translate.service';
 
 @Component({
     selector: 'app-toolbar',
@@ -13,11 +13,13 @@ import { AuthService } from 'src/app/core/services/api/auth.service';
 export class ToolbarComponent implements OnInit {
     public selectedPage = "home";
     public user: User | null = null;
+    @Output() languageChanged = new EventEmitter();
 
     constructor(
         private router: Router,
         public auth: AuthService,
         public api: ApiService,
+        public translateScv: CustomTranslateService,
     ) { }
     ngOnInit(): void {
         this.api.user$.subscribe(user => {
@@ -49,6 +51,10 @@ export class ToolbarComponent implements OnInit {
         this.auth.logout().subscribe(_ => {
             this.router.navigate(['/login']);
         });
+    }
+
+    onLanguageChanged(event: Event) {
+        this.languageChanged.emit(event);
     }
 }
 

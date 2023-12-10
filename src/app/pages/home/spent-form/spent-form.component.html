@@ -5,8 +5,11 @@
                 <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
             </ion-button>
         </ion-buttons>
-        <ion-title>
-            {{(mode==='New'?'Nuevo gasto':'Editar gasto')}}
+        <ion-title *ngIf="mode==='New'">
+            {{'home.spentForm.newSpent' | translate}}
+        </ion-title>
+        <ion-title *ngIf="mode==='Edit'">
+            {{'home.spentForm.editSpent' | translate}}
         </ion-title>
         <ion-buttons slot="end">
             <ion-button *ngIf="mode==='Edit'" color="primary" fill="clear" (click)="onDelete()">
@@ -26,16 +29,16 @@
                     <ion-input formControlName="providerId" class="hidden"></ion-input>
                 </ion-col>
                 <ion-col size="3">
-                    <ion-input label="Importe" labelPlacement="floating" fill="outline" formControlName="amount"
-                        type="number" class="input">
+                    <ion-input label="{{'home.spentForm.amount' | translate}}" labelPlacement="floating" fill="outline"
+                        formControlName="amount" type="number" class="input">
                     </ion-input>
                 </ion-col>
             </ion-row>
-            <ion-input label="Observaciones" labelPlacement="floating" fill="outline" formControlName="observations"
-                type="text" class="input">
+            <ion-input label="{{'home.spentForm.observations' | translate}}" labelPlacement="floating" fill="outline"
+                formControlName="observations" type="text" class="input">
             </ion-input>
             <div class="centered vertical">
-                Fecha del gasto:
+                {{'home.spentForm.spentDate' | translate}}
                 <ion-datetime presentation="date" [firstDayOfWeek]="1" [value]="(mode === 'New') ? today : spent?.date"
                     formControlName="date"></ion-datetime>
             </div>
@@ -43,6 +46,8 @@
     </form>
 </ion-content>
 <ion-footer>
-    <ion-button buttonDirective type="submit" [disabled]="!form.dirty || form.invalid" class="ion-padding" expand="full"
-        (click)="onSubmit()">{{(mode==='New'?'Crear':'Guardar')}}</ion-button>
+    <ion-button *ngIf="mode==='New'" buttonDirective type="submit" [disabled]="!form.dirty || form.invalid"
+        class="ion-padding" expand="full" (click)="onSubmit()">{{'ui.create' | translate}}</ion-button>
+    <ion-button *ngIf="mode==='Edit'" buttonDirective type="submit" [disabled]="!form.dirty || form.invalid"
+        class="ion-padding" expand="full" (click)="onSubmit()">{{'ui.save' | translate}}</ion-button>
 </ion-footer>

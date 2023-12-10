@@ -14,13 +14,13 @@ import { CustomTranslateService } from './core/services/custom-translate.service
 export class AppComponent {
     protected _user = new BehaviorSubject<User | undefined>(undefined);
     public user$ = this._user.asObservable();
-    lang:string = "es";
+    lang: string = "es";
 
     constructor(
         public authSvc: AuthService,
         private router: Router,
         private apiSvc: ApiService,
-        public translate:CustomTranslateService,
+        public translate: CustomTranslateService,
     ) {
         this.translate.use(this.lang);
         // Se suscribe al observable isLogged$ del servicio AuthService.
@@ -38,5 +38,11 @@ export class AppComponent {
         });
     }
 
+    languageChanged(event: CustomEvent) {
+        const lang = event.detail.value
+        console.log(lang)
+        this.lang = lang;
+        this.translate.use(this.lang);
+    }
 
 }

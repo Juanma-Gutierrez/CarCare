@@ -1,4 +1,4 @@
-<ion-card appSelectableCard="">
+<ion-card [ngClass]="{'not-available': !vehicle?.available}">
     <ion-row class="ion-justify-content-center">
         <ion-card-title>{{vehicle?.brand |upperCamelCase}} {{vehicle?.model | upperCamelCase}}</ion-card-title>
     </ion-row>
@@ -6,8 +6,14 @@
         <ion-card-subtitle>{{vehicle?.plate | uppercase}}</ion-card-subtitle>
     </ion-row>
     <ion-row class="ion-justify-content-center">
-        <ion-card-subtitle *ngIf="vehicle?.available">Vehículo disponible</ion-card-subtitle>
-        <ion-card-subtitle *ngIf="!vehicle?.available" class="no-available">Vehículo no disponible</ion-card-subtitle>
+        <ion-card-subtitle *ngIf="vehicle?.available">{{"vehicles.vehicleItem.available" |
+            translate}}</ion-card-subtitle>
+        <ion-card-subtitle *ngIf="!vehicle?.available" class="no-available">{{"vehicles.vehicleItem.notAvailable" |
+            translate}}</ion-card-subtitle>
     </ion-row>
-    <ion-datetime presentation="date" [firstDayOfWeek]="1" [value]="vehicle?.registrationDate"></ion-datetime>
+    <ion-row class="ion-justify-content-center">
+        <ion-card-subtitle>{{'vehicles.vehicleItem.registrationDate' | translate}}: {{ vehicle?.registrationDate |
+            date:'dd
+            MMM yyyy' }}</ion-card-subtitle>
+    </ion-row>
 </ion-card>

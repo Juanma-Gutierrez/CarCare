@@ -1,12 +1,12 @@
 <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()" (key.enter)="onSubmit()">
     <ion-item>
-        <ion-input labelPlacement="stacked" label="Nombre de usuario / Email" formControlName="username"
+        <ion-input labelPlacement="stacked" label="{{'login.userName' | translate}}" formControlName="username"
             type="text"></ion-input>
     </ion-item>
     <ion-item>
-        <ion-input labelPlacement="stacked" label="Contraseña" formControlName="password" type="password"></ion-input>
+        <ion-input labelPlacement="stacked" label="{{'login.password' | translate}}" formControlName="password" type="password"></ion-input>
     </ion-item>
     <div class="ion-text-end">
-        <ion-button style="text-transform: none;" [disabled]="!form.valid" (click)="onSubmit()">Acceder</ion-button>
+        <ion-button style="text-transform: none;" [disabled]="!form.valid" (click)="onSubmit()">{{'ui.register' | translate}}</ion-button>
     </div>
 </form>
