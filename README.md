@@ -15,7 +15,7 @@ Link en producción: [https://carcare-project.netlify.app](https://carcare-proje
 - **Capacitor CLI:** Versión 5.5.1
 - **Strapi:** Versión 3.6.11
 
-    
+
 # **Requisitos del proyecto**
 
 ## Tecnologías a usar
@@ -118,6 +118,11 @@ Habrá al menos:
 - Haz uso de componentes de PrimeNg (opcional).
 
 # Proyecto en marcha
+
+Link al video demostrativo del funcionamiento de la aplicación.
+
+https://www.youtube.com/watch?v=BkaSsS3durw
+
 
 La aplicación inicia con un control de acceso, ya que comprueba si tiene JWT almacenado en la caché. Si lo tiene, te redirige a la página principal de la aplicación. En caso contrario, te lleva a la página de login y registro.
 
