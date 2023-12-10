@@ -1,3 +1,6 @@
+/**
+ * Interfaz que representa a un usuario.
+ */
 export interface User {
     id?: number,
     users_permissions_user: number,
@@ -7,7 +10,9 @@ export interface User {
     surname: string,
 }
 
-
+/**
+ * Interfaz que representa la información para registrar a un usuario.
+ */
 export interface UserRegisterInfo {
     username: string,
     name: string,

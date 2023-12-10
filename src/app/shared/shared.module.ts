@@ -1,17 +1,17 @@
+import { ButtonDirective } from './directives/button-directive.directive';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { SelectedCardDirective } from './directives/selectable-card.directive';
-import { UserItemComponent } from './components/toolbar/user-item/user-item.component';
-import { ButtonDirective } from './directives/button-directive.directive';
+import { IonicModule } from '@ionic/angular';
 import { ItemDirective } from './directives/item-directive.directive';
-import { UpperCamelCasePipe } from './pipes/upper-camel-case.pipe';
+import { NgModule } from '@angular/core';
 import { NumberFormatPipe } from './pipes/number-format.pipe';
+import { RouterModule } from '@angular/router';
+import { SelectedCardDirective } from './directives/selectable-card.directive';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { UpperCamelCasePipe } from './pipes/upper-camel-case.pipe';
+import { UserItemComponent } from './components/toolbar/user-item/user-item.component';
 import { createTranslateLoader } from '../core/services/custom-translate.service';
 
 @NgModule({
@@ -20,13 +20,13 @@ import { createTranslateLoader } from '../core/services/custom-translate.service
         ToolbarComponent,
         UserItemComponent,
         // Directives
-        SelectedCardDirective,
         ButtonDirective,
         ItemDirective,
+        SelectedCardDirective,
         UpperCamelCasePipe,
         // Pipes
-        UpperCamelCasePipe,
         NumberFormatPipe,
+        UpperCamelCasePipe,
     ],
     imports: [
         // Modules
@@ -38,11 +38,11 @@ import { createTranslateLoader } from '../core/services/custom-translate.service
         RouterModule,
         TranslateModule.forChild({
             loader: {
-            provide: TranslateLoader,
-            useFactory: (createTranslateLoader),
-            deps: [HttpClient]
+                provide: TranslateLoader,
+                useFactory: (createTranslateLoader),
+                deps: [HttpClient]
             }
-            }),
+        }),
     ],
     exports: [
         //Components
@@ -54,12 +54,12 @@ import { createTranslateLoader } from '../core/services/custom-translate.service
         SelectedCardDirective,
         // Modules
         CommonModule,
-        TranslateModule,
+        FormsModule,
         HttpClientModule,
         IonicModule,
-        FormsModule,
         ReactiveFormsModule,
         RouterModule,
+        TranslateModule,
         //Pipes
         NumberFormatPipe,
         UpperCamelCasePipe,

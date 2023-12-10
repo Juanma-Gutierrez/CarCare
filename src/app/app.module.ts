@@ -19,11 +19,21 @@ import { StrapiMappingService } from './core/services/api/strapi/strapi-mapping.
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { createTranslateLoader } from './core/services/custom-translate.service';
 
+/**
+ * Proveedor de fábrica para el servicio de HTTP.
+ * @param {HttpClient} http - Cliente HTTP de Angular.
+ * @returns {HttpClientWebProvider} - Instancia del proveedor de servicios HTTP.
+ */
 export function httpProviderFactory(
     http: HttpClient) {
     return new HttpClientWebProvider(http);
 }
 
+/**
+ * Proveedor de fábrica para el servicio de mapeo.
+ * @param {string} backend - Backend seleccionado.
+ * @returns {StrapiMappingService} - Instancia del servicio de mapeo de Strapi.
+ */
 export function MappingServiceFactory(
     backend: string) {
     switch (backend) {
@@ -34,6 +44,12 @@ export function MappingServiceFactory(
     }
 }
 
+/**
+ * Proveedor de fábrica para el servicio de autenticación.
+ * @param {JwtService} jwt - Servicio de tokens JWT.
+ * @param {ApiService} api - Servicio de API.
+ * @returns {AuthStrapiService} - Instancia del servicio de autenticación de Strapi.
+ */
 export function AuthServiceFactory(
     jwt: JwtService,
     api: ApiService,
@@ -41,6 +57,12 @@ export function AuthServiceFactory(
     return new AuthStrapiService(jwt, api);
 }
 
+/**
+ * Proveedor de fábrica para el servicio de datos.
+ * @param {string} backend - Backend seleccionado.
+ * @param {ApiService} api - Servicio de API.
+ * @returns {StrapiDataService} - Instancia del servicio de datos de Strapi.
+ */
 export function DataServiceFactory(
     backend: string,
     api: ApiService) {

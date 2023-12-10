@@ -1,14 +1,19 @@
+/**
+ * Interfaz que representa una respuesta de Strapi.
+ * @param <T> Tipo de dato asociado a la respuesta.
+ */
 export interface StrapiResponse<T> {
     data: T
 }
 
 /**
- * Main response of Strapi to Vehicles
+ * Tipo que representa la respuesta de Strapi para elementos de vehículos.
+ * @param <T> Tipo de elemento de vehículo en la respuesta.
  */
 export type StrapiVehiclesResponse = StrapiResponse<VehicleItem>
 
 /**
- * Vehicle item
+ * Interfaz que representa un elemento de vehículo.
  */
 export interface VehicleItem {
     id: number
@@ -16,7 +21,7 @@ export interface VehicleItem {
 }
 
 /**
- * Attributes of a vehicle item
+ * Interfaz que representa los atributos de un elemento de vehículo.
  */
 export interface VehicleItemAttributes {
     plate: string

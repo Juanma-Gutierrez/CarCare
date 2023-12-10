@@ -1,10 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IonPopover, ModalController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { Provider } from 'src/app/core/interfaces/Provider';
 import { Spent } from 'src/app/core/interfaces/Spent';
-import { Vehicle } from 'src/app/core/interfaces/Vehicle';
-import { NumberFormatPipe } from 'src/app/shared/pipes/number-format.pipe';
 
 @Component({
     selector: 'app-spent-form',
@@ -57,14 +55,25 @@ export class SpentFormComponent implements OnInit {
         });
     }
 
-    getVehicle(): number {
-        return this._vehicle
-    }
-
+    /**
+     * Método del ciclo de vida llamado al inicializar el componente.
+     */
     ngOnInit() {
         this.providerName = this.spent?.providerName;
     }
 
+    /**
+     * Obtiene el identificador del vehículo.
+     * @returns {number} - Identificador del vehículo.
+     */
+    getVehicle(): number {
+        return this._vehicle
+    }
+
+    /**
+     * Maneja la selección de un proveedor.
+     * @param {any} event - Evento de selección.
+     */
     onSelection(event: any) {
         const provider = event.detail.value;
         this.selectedProvider = provider;
@@ -74,14 +83,23 @@ export class SpentFormComponent implements OnInit {
         this.form.markAsDirty();
     }
 
+    /**
+     * Cierra el formulario sin realizar cambios.
+     */
     onCancel() {
         this._modal.dismiss(null, 'cancel');
     }
 
+    /**
+     * Envía los datos del formulario al cerrarse correctamente.
+     */
     onSubmit() {
         this._modal.dismiss(this.form.value, 'ok');
     }
 
+    /**
+     * Maneja la eliminación de un gasto.
+     */
     onDelete() {
         this._modal.dismiss(this.form.value, 'delete');
     }

@@ -1,5 +1,8 @@
 import { PaginatedData } from "./data";
 
+/**
+ * Interfaz que representa un vehículo.
+ */
 export interface Vehicle {
     id: number,
     plate: string,
@@ -12,13 +15,19 @@ export interface Vehicle {
     spents?: []
 }
 
+/**
+ * Enumeración que representa las categorías de vehículos.
+ */
 export enum VehicleCategory {
-    car = 'Coche',
-    motorcycle = 'Motocicleta',
-    van = 'Furgoneta',
-    truck = 'Camión'
+    car = 'car',
+    motorcycle = 'motorcycle',
+    van = 'van',
+    truck = 'truck'
 }
 
+/**
+ * Tipo que representa un conjunto de datos paginado de vehículos.
+ */
 export type PaginatedVehicles = PaginatedData<Vehicle>;
 
 

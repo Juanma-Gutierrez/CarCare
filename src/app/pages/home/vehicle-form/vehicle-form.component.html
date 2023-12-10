@@ -24,22 +24,28 @@
     <ion-content class="ion-padding" size="small">
         <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
             <ion-list>
-                <ion-input label="{{'home.vehicleForm.brand' | translate}}" labelPlacement="floating" fill="outline" formControlName="brand"
-                type="text"></ion-input>
-                <ion-input label="{{'home.vehicleForm.model' | translate}}" labelPlacement="floating" fill="outline" formControlName="model"
-                type="text"></ion-input>
-                <ion-input label="{{'home.vehicleForm.plate' | translate}}" labelPlacement="floating" fill="outline" formControlName="plate"
-                    type="text"></ion-input>
+                <ion-input label="{{'home.vehicleForm.brand' | translate}}" labelPlacement="floating" fill="outline"
+                    formControlName="brand" type="text"></ion-input>
+                <ion-input label="{{'home.vehicleForm.model' | translate}}" labelPlacement="floating" fill="outline"
+                    formControlName="model" type="text"></ion-input>
+                <ion-input label="{{'home.vehicleForm.plate' | translate}}" labelPlacement="floating" fill="outline"
+                    formControlName="plate" type="text"></ion-input>
                 <div>
-                    <ion-select label="{{'home.vehicleForm.categoryTitle' | translate}}" formControlName="category" placeholder="Selecciona tipo de vehículo">
-                        <ion-select-option value="car">{{"home.vehicleForm.category.car" | translate}}</ion-select-option>
-                        <ion-select-option value="motorcycle">{{"home.vehicleForm.category.motorcycle" | translate}}</ion-select-option>
-                        <ion-select-option value="van">{{"home.vehicleForm.category.van" | translate}}</ion-select-option>
-                        <ion-select-option value="truck">{{"home.vehicleForm.category.truck" | translate}}</ion-select-option>
+                    <ion-select label="{{'home.vehicleForm.categoryTitle' | translate}}" formControlName="category"
+                        placeholder="Selecciona tipo de vehículo">
+                        <ion-select-option value="car">{{"home.vehicleForm.category.car" |
+                            translate}}</ion-select-option>
+                        <ion-select-option value="motorcycle">{{"home.vehicleForm.category.motorcycle" |
+                            translate}}</ion-select-option>
+                        <ion-select-option value="van">{{"home.vehicleForm.category.van" |
+                            translate}}</ion-select-option>
+                        <ion-select-option value="truck">{{"home.vehicleForm.category.truck" |
+                            translate}}</ion-select-option>
                     </ion-select>
                 </div>
                 <div>
-                    <ion-checkbox labelPlacement="end" formControlName="available" checked="true">{{'home.vehicleForm.available' | translate}}</ion-checkbox>
+                    <ion-checkbox labelPlacement="end" formControlName="available"
+                        checked="true">{{'home.vehicleForm.available' | translate}}</ion-checkbox>
                 </div>
                 <div class="date-block">
                     <div>
@@ -52,8 +58,11 @@
         </form>
     </ion-content>
     <div>
-        <ion-button *ngIf="mode==='New'" buttonDirective class="button-bottom" type="submit" [disabled]="!form.dirty || form.invalid" class="ion-padding" expand="full" (click)="onSubmit()">{{'ui.create' | translate}}</ion-button>
-        <ion-button *ngIf="mode==='Edit'" buttonDirective class="button-bottom" type="submit" [disabled]="!form.dirty || form.invalid"
-            class="ion-padding" expand="full" (click)="onSubmit()">{{'ui.save' | translate}}</ion-button>
+        <ion-button *ngIf="mode==='New'" buttonDirective class="button-bottom" type="submit"
+            [disabled]="!form.dirty || form.invalid" class="ion-padding" expand="full"
+            (click)="onSubmit()">{{'ui.create' | translate}}</ion-button>
+        <ion-button *ngIf="mode==='Edit'" buttonDirective class="button-bottom" type="submit"
+            [disabled]="!form.dirty || form.invalid" class="ion-padding" expand="full" (click)="onSubmit()">{{'ui.save'
+            | translate}}</ion-button>
     </div>
 </div>

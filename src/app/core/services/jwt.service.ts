@@ -5,12 +5,15 @@ import { Preferences } from '@capacitor/preferences';
 export type JwtToken = string;
 @Injectable({ providedIn: 'root' })
 export class JwtService {
-
     token: string = "";
 
     constructor() {
     }
 
+    /**
+     * Carga el token JWT almacenado.
+     * @return Observable que emite el token JWT cargado.
+     */
     loadToken(): Observable<JwtToken> {
         return new Observable<JwtToken>(observer => {
             Preferences.get({ key: 'jwtToken' }).then((ret: any) => {
@@ -30,10 +33,19 @@ export class JwtService {
         });
     }
 
+    /**
+     * Obtiene el token JWT actual.
+     * @return Token JWT actual.
+     */
     getToken(): JwtToken {
         return this.token;
     }
 
+    /**
+     * Almacena un nuevo token JWT.
+     * @param token Nuevo token JWT a almacenar.
+     * @return Observable que emite el token JWT almacenado.
+     */
     saveToken(token: JwtToken): Observable<JwtToken> {
         return new Observable<JwtToken>(observer => {
             Preferences.set({
@@ -49,6 +61,10 @@ export class JwtService {
         });
     }
 
+    /**
+     * Elimina el token JWT almacenado.
+     * @return Observable que emite el token JWT eliminado.
+     */
     destroyToken(): Observable<JwtToken> {
         this.token = "";
         return this.saveToken(this.token);

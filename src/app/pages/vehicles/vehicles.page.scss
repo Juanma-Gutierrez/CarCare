@@ -1,4 +1,4 @@
-.container{
+.container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -6,7 +6,7 @@
 }
 
 @media (max-width: 767px) {
-    .container{
+    .container {
         flex-direction: column;
         width: 100%;
     }

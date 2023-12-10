@@ -1,19 +1,27 @@
-import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, lastValueFrom, map, tap } from 'rxjs';
 import { ApiService } from '../api.service';
 import { AuthService } from '../auth.service';
-import { UserCredentials } from '../../../interfaces/User-credentials';
+import { Injectable } from '@angular/core';
 import { JwtService } from '../../jwt.service';
-import { User, UserRegisterInfo } from 'src/app/core/interfaces/User';
+import { Observable, lastValueFrom, map } from 'rxjs';
 import { PostStrapiRegister, StrapiMe, StrapiOwner, StrapiRegisterPayload, StrapiUser } from './interfaces/strapi-users';
 import { StrapiRegisterResponse } from './interfaces/strapi-data';
+import { User, UserRegisterInfo } from 'src/app/core/interfaces/User';
+import { UserCredentials } from '../../../interfaces/User-credentials';
 
-
+/**
+ * Servicio de autenticación que interactúa con la API de Strapi.
+ * Extiende la clase base AuthService.
+ */
 @Injectable({
     providedIn: 'root'
 })
 export class AuthStrapiService extends AuthService {
 
+    /**
+     * Constructor del servicio AuthStrapiService.
+     * @param jwtSvc Servicio JwtService para la gestión de tokens JWT.
+     * @param apiSvc Servicio ApiService para realizar peticiones a la API.
+     */
     constructor(
         private jwtSvc: JwtService,
         private apiSvc: ApiService,
@@ -32,6 +40,11 @@ export class AuthStrapiService extends AuthService {
         });
     }
 
+    /**
+     * Inicia sesión del usuario utilizando las credenciales proporcionadas.
+     * @param credentials Credenciales del usuario que incluyen el nombre de usuario (identifier) y la contraseña (password).
+     * @return Observable que emite un evento cuando el inicio de sesión ha sido completado exitosamente.
+     */
     public login(credentials: UserCredentials): Observable<void> {
         return new Observable<void>(obs => {
             const _credentials = {
@@ -65,6 +78,10 @@ export class AuthStrapiService extends AuthService {
         });
     }
 
+    /**
+     * Cierra la sesión del usuario actual.
+     * @return Observable que emite un evento cuando el cierre de sesión ha sido completado exitosamente.
+     */
     logout(): Observable<void> {
         return this.jwtSvc.destroyToken().pipe(map(_ => {
             this._logged.next(false);
@@ -72,7 +89,11 @@ export class AuthStrapiService extends AuthService {
         }));
     }
 
-
+    /**
+     * Registra un nuevo usuario con la información proporcionada.
+     * @param info Información del usuario a registrar, incluyendo nombre de usuario (username), correo electrónico (email), contraseña (password), nombre (name), apellido (surname), y el rol del usuario (role).
+     * @return Observable que emite el usuario registrado cuando el proceso de registro ha sido completado exitosamente.
+     */
     register(info: UserRegisterInfo): Observable<User> {
         return new Observable<User>(obs => {
             const _info: StrapiRegisterPayload = {
@@ -109,7 +130,10 @@ export class AuthStrapiService extends AuthService {
         });
     }
 
-
+    /**
+     * Obtiene la información del usuario actualmente autenticado.
+     * @return Observable que emite la información del usuario cuando la solicitud ha sido completada exitosamente.
+     */
     public me(): Observable<User> {
         return new Observable<User>(obs => {
             this.apiSvc.get('/api/users/me').subscribe({
@@ -133,5 +157,4 @@ export class AuthStrapiService extends AuthService {
             });
         });
     }
-
 }

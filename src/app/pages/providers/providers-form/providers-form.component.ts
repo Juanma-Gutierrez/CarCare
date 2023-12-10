@@ -1,8 +1,8 @@
+import { ApiService } from 'src/app/core/services/api/api.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Provider } from 'src/app/core/interfaces/Provider';
-import { ApiService } from 'src/app/core/services/api/api.service';
 
 @Component({
     selector: 'app-providers-form',
@@ -24,6 +24,13 @@ export class ProvidersFormComponent implements OnInit {
         }
     }
 
+    /**
+     * Constructor del componente.
+     * @constructor
+     * @param {ModalController} _modal - Controlador del modal para gestionar el estado del modal.
+     * @param {FormBuilder} formBuilder - Instancia de FormBuilder para construir el formulario.
+     * @param {ApiService} apiSvc - Servicio para realizar operaciones generales de la API.
+     */
     constructor(
         private _modal: ModalController,
         private formBuilder: FormBuilder,
@@ -42,14 +49,29 @@ export class ProvidersFormComponent implements OnInit {
 
     ngOnInit() { }
 
+    /**
+     * Maneja el evento de cancelación. Cierra el modal sin realizar cambios.
+     * @method onCancel
+     * @return {void}
+     */
     onCancel() {
         this._modal.dismiss(null, 'cancel');
     }
 
+    /**
+     * Maneja el evento de envío del formulario. Cierra el modal y emite los datos del formulario con el evento 'ok'.
+     * @method onSubmit
+     * @return {void}
+     */
     onSubmit() {
         this._modal.dismiss(this.form.value, 'ok');
     }
 
+    /**
+     * Maneja el evento de envío del formulario. Cierra el modal y emite los datos del formulario con el evento 'ok'.
+     * @method onSubmit
+     * @return {void}
+     */
     onDelete() {
         this._modal.dismiss(this.form.value, 'delete');
     }

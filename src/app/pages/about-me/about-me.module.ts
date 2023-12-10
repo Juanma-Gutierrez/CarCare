@@ -1,6 +1,6 @@
-import { CardAboutComponent } from './card-about/card-about.component';
 import { AboutMePage } from './about-me.page';
 import { AboutMePageRoutingModule } from './about-me-routing.module';
+import { CardAboutComponent } from './card-about/card-about.component';
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 

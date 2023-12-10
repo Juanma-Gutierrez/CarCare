@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Preferences } from '@capacitor/preferences';
-import { UserCredentials } from 'src/app/core/interfaces/User-credentials';
 import { AuthService } from 'src/app/core/services/api/auth.service';
+import { Component, OnInit } from '@angular/core';
 import { InternalUIService } from 'src/app/core/services/internalUI.service';
+import { Router } from '@angular/router';
+import { UserCredentials } from 'src/app/core/interfaces/User-credentials';
 
 @Component({
     selector: 'app-login',
@@ -12,6 +11,13 @@ import { InternalUIService } from 'src/app/core/services/internalUI.service';
 })
 export class LoginPage implements OnInit {
 
+    /**
+     * Constructor del componente.
+     * @constructor
+     * @param {AuthService} auth - Servicio de autenticación para gestionar el estado de la autenticación.
+     * @param {Router} router - Instancia del enrutador de Angular para navegar entre las páginas.
+     * @param {InternalUIService} uiSvc - Servicio interno para manejar la interfaz de usuario y mostrar mensajes.
+     */
     constructor(
         private auth: AuthService,
         private router: Router,

@@ -1,16 +1,18 @@
-ion-card{
-    margin:20px;
-    padding:20px;
+ion-card {
+    margin: 20px;
+    padding: 20px;
 }
-ion-icon{
+
+ion-icon {
     padding-right: 10px;
 }
-.card{
+
+.card {
     width: 50vw;
 }
 
 @media (max-width: 767px) {
-    .card{
+    .card {
         width: 100vw;
     }
 }

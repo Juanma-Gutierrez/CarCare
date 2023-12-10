@@ -1,3 +1,6 @@
+/**
+ * Interfaz que representa un gasto.
+ */
 export interface Spent {
     id: number,
     date: Date,

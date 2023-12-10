@@ -8,8 +8,8 @@ import { Vehicle } from 'src/app/core/interfaces/Vehicle';
 })
 export class VehicleItemListComponent implements OnInit {
     @Input() vehicle?: Vehicle
-    constructor(
 
-    ) { }
+    constructor() { }
+
     ngOnInit(): void { }
 }

@@ -1,20 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { VehiclesService } from 'src/app/core/services/api/vehicles.service';
 import { ApiService } from 'src/app/core/services/api/api.service';
+import { Component, OnInit } from '@angular/core';
 import { InternalUIService } from 'src/app/core/services/internalUI.service';
-import { User } from 'src/app/core/interfaces/User';
-import { VehicleFormComponent } from './vehicle-form/vehicle-formcomponent';
-import { Vehicle } from 'src/app/core/interfaces/Vehicle';
-import { Spent } from 'src/app/core/interfaces/Spent';
-import { SpentsService } from 'src/app/core/services/api/spents.service';
-import { SpentFormComponent } from './spent-form/spent-form.component';
-import { StrapiSpent } from 'src/app/core/services/api/strapi/interfaces/strapi-spents';
-import { ProvidersService } from 'src/app/core/services/api/providers.service';
-import { Provider } from 'src/app/core/interfaces/Provider';
-import { map } from 'rxjs';
+import { ModalController } from '@ionic/angular';
 import { PaginatedProviders, StrapiProvider } from 'src/app/core/services/api/strapi/interfaces/strapi-providers';
-
+import { Provider } from 'src/app/core/interfaces/Provider';
+import { ProvidersService } from 'src/app/core/services/api/providers.service';
+import { Spent } from 'src/app/core/interfaces/Spent';
+import { SpentFormComponent } from './spent-form/spent-form.component';
+import { SpentsService } from 'src/app/core/services/api/spents.service';
+import { StrapiSpent } from 'src/app/core/services/api/strapi/interfaces/strapi-spents';
+import { User } from 'src/app/core/interfaces/User';
+import { Vehicle } from 'src/app/core/interfaces/Vehicle';
+import { VehicleFormComponent } from './vehicle-form/vehicle-formcomponent';
+import { VehiclesService } from 'src/app/core/services/api/vehicles.service';
+import { map } from 'rxjs';
 
 
 type PaginatedSpents = Spent[]
@@ -39,7 +38,11 @@ export class HomePage implements OnInit {
         public providersSvc: ProvidersService,
     ) { }
 
-
+    /**
+     * Método del ciclo de vida llamado al inicializar la página de inicio.
+     * @method ngOnInit
+     * @returns {void}
+     */
     ngOnInit(): void {
         this.user = this.apiSvc.getUser();
         this.apiSvc.user$.subscribe(u => {
@@ -55,22 +58,23 @@ export class HomePage implements OnInit {
         }
     }
 
-    private mapToStrapiProviderToProvider(strapiProviders: StrapiProvider[]): Provider[] {
-        return strapiProviders.map((strapiProvider: StrapiProvider) => ({
-            id: strapiProvider.id,
-            name: strapiProvider.name,
-            category: strapiProvider.category,
-            phone: strapiProvider.phone,
-            users_permissions_user: strapiProvider.users_permissions_user
-        }));
-    }
-
     // ***************************** VEHICLES *****************************
 
+    /**
+     * Obtiene y carga los vehículos del propietario con el identificador proporcionado.
+     * @async
+     * @param {number} ownerId - Identificador del propietario.
+     * @return {Promise<void>} - Promesa que se resuelve cuando se completan las operaciones.
+     */
     async getVehicles(ownerId: number) {
         this.vehiclesSvc.getAll(ownerId).subscribe();
     }
 
+    /**
+     * Maneja el cambio en la selección de filtros de vehículos.
+     * @param {CustomEvent} event - Evento de cambio en la selección.
+     * @return {void}
+     */
     selectionChanged(event: CustomEvent) {
         switch (event.detail.value) {
             case "available": this.filterAvailableVehicle = true;
@@ -80,11 +84,25 @@ export class HomePage implements OnInit {
         }
     }
 
+    /**
+     * Recarga la lista de vehículos del usuario proporcionado.
+     * @method reloadVehicles
+     * @param {User | null} user - Objeto de usuario o nulo.
+     * @return {void}
+     */
     reloadVehicles(user: User | null) {
         if (user?.id)
             this.vehiclesSvc.getAll(user.id).subscribe();
     }
 
+    /**
+     * Maneja el evento de clic en un elemento de vehículo.
+     * Actualiza la lista de gastos y estadísticas relacionadas con el vehículo seleccionado.
+     * @async
+     * @method onVehicleItemClicked
+     * @param {Vehicle} vehicle - Objeto de vehículo seleccionado.
+     * @return {Promise<void>} - Promesa que se resuelve cuando se completan las operaciones.
+     */
     public async onVehicleItemClicked(vehicle: Vehicle) {
         this.selectedVehicle = vehicle;
         if (this.user) {
@@ -98,6 +116,12 @@ export class HomePage implements OnInit {
         }
     }
 
+    /**
+     * Maneja la creación de un nuevo vehículo.
+     * Abre un formulario para introducir los detalles del nuevo vehículo y realiza las operaciones correspondientes.
+     * @method onNewVehicle
+     * @return {void}
+     */
     onNewVehicle() {
         var onDismiss = (info: any) => {
             switch (info.role) {
@@ -116,6 +140,13 @@ export class HomePage implements OnInit {
         this.presentFormVehicles(null, onDismiss);
     }
 
+    /**
+     * Maneja el evento de clic en "Editar" para un vehículo.
+     * Abre un formulario prellenado con los detalles del vehículo y realiza las operaciones correspondientes.
+     * @method onEditVehicleClicked
+     * @param {Vehicle} vehicle - Objeto de vehículo a editar.
+     * @return {void}
+     */
     public async onEditVehicleClicked(vehicle: Vehicle) {
         var onDismiss = (info: any) => {
             switch (info.role) {
@@ -141,6 +172,14 @@ export class HomePage implements OnInit {
         this.presentFormVehicles(vehicle, onDismiss);
     }
 
+    /**
+     * Presenta un formulario para la gestión de vehículos.
+     * @async
+     * @method presentFormVehicles
+     * @param {Vehicle | null} data - Datos del vehículo para prellenar el formulario (puede ser nulo para un nuevo vehículo).
+     * @param {(result: any) => void} onDismiss - Función que se llama cuando se cierra el formulario, proporcionando el resultado.
+     * @return {Promise<void>} - Promesa que se resuelve cuando se ha presentado el formulario.
+     */
     async presentFormVehicles(data: Vehicle | null, onDismiss: (result: any) => void) {
         const modal = await this.modal.create({
             component: VehicleFormComponent,
@@ -159,6 +198,12 @@ export class HomePage implements OnInit {
 
     // ***************************** SPENTS *****************************
 
+    /**
+     * Obtiene y actualiza la lista de gastos asociados al vehículo seleccionado.
+     * @async
+     * @method getSpents
+     * @return {Promise<void>} - Promesa que se resuelve cuando se completan las operaciones.
+     */
     async getSpents() {
         if (this.selectedVehicle?.id) {
             this.spentsSvc.getAll(this.selectedVehicle?.id).subscribe(s => {
@@ -177,7 +222,13 @@ export class HomePage implements OnInit {
         }
     }
 
-
+    /**
+     * Maneja la creación de un nuevo gasto asociado a un vehículo.
+     * Abre un formulario para introducir los detalles del nuevo gasto y realiza las operaciones correspondientes.
+     * @method onNewSpent
+     * @param {number} vehicleId - Identificador del vehículo asociado al gasto.
+     * @return {void}
+     */
     onNewSpent(vehicleId: number) {
         var onDismiss = (info: any) => {
             switch (info.role) {
@@ -197,6 +248,13 @@ export class HomePage implements OnInit {
         this.presentFormSpents(null, vehicleId, onDismiss);
     }
 
+    /**
+     * Maneja el evento de clic en "Editar" para un gasto.
+     * Abre un formulario prellenado con los detalles del gasto y realiza las operaciones correspondientes.
+     * @method onEditSpentClicked
+     * @param {StrapiSpent} spent - Objeto de gasto a editar.
+     * @return {void}
+     */
     public async onEditSpentClicked(spent: StrapiSpent) {
         var onDismiss = (info: any) => {
             switch (info.role) {
@@ -231,6 +289,12 @@ export class HomePage implements OnInit {
         this.presentFormSpents(_spent, _spent.vehicle, onDismiss);
     }
 
+    /**
+     * Recarga la lista de vehículos y gastos del usuario proporcionado.
+     * @method reloadSpents
+     * @param {User} user - Objeto de usuario.
+     * @return {void}
+     */
     reloadSpents(user: User) {
         if (user?.id) {
             this.vehiclesSvc.getAll(user.id).subscribe();
@@ -239,6 +303,31 @@ export class HomePage implements OnInit {
         }
     }
 
+    /**
+     * Convierte un array de proveedores de Strapi a un array de proveedores genéricos.
+     * @method mapToStrapiProviderToProvider
+     * @param {StrapiProvider[]} strapiProviders - Array de proveedores de Strapi.
+     * @returns {Provider[]} - Array de proveedores genéricos.
+     */
+    private mapToStrapiProviderToProvider(strapiProviders: StrapiProvider[]): Provider[] {
+        return strapiProviders.map((strapiProvider: StrapiProvider) => ({
+            id: strapiProvider.id,
+            name: strapiProvider.name,
+            category: strapiProvider.category,
+            phone: strapiProvider.phone,
+            users_permissions_user: strapiProvider.users_permissions_user
+        }));
+    }
+
+    /**
+     * Presenta un formulario para la gestión de gastos.
+     * @async
+     * @method presentFormSpents
+     * @param {Spent | null} data - Datos del gasto para prellenar el formulario (puede ser nulo para un nuevo gasto).
+     * @param {number} _vehicleId - Identificador del vehículo asociado al gasto.
+     * @param {(result: any) => void} onDismiss - Función que se llama cuando se cierra el formulario, proporcionando el resultado.
+     * @return {Promise<void>} - Promesa que se resuelve cuando se ha presentado el formulario.
+     */
     async presentFormSpents(data: Spent | null, _vehicleId: number, onDismiss: (result: any) => void) {
         const modal = await this.modal.create({
             component: SpentFormComponent,

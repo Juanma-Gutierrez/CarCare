@@ -6,14 +6,19 @@ import { Router } from '@angular/router';
     templateUrl: './about-me.page.html',
     styleUrls: ['./about-me.page.scss'],
 })
-export class AboutMePage implements OnInit {
+export class AboutMePage {
 
+    /**
+     * Constructor de la clase.
+     * @param router Servicio de enrutamiento utilizado para navegar entre páginas.
+     */
     constructor(
-        private router: Router) { }
+        private router: Router
+    ) { }
 
-    ngOnInit() {
-    }
-
+    /**
+     * Navega a la página de inicio.
+     */
     navToHome() {
         this.router.navigate(["/home"]);
     }

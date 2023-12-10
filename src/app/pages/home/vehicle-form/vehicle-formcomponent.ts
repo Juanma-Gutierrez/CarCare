@@ -1,8 +1,8 @@
+import { ApiService } from 'src/app/core/services/api/api.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Vehicle } from 'src/app/core/interfaces/Vehicle';
-import { ApiService } from 'src/app/core/services/api/api.service';
 
 @Component({
     selector: 'app-vehicle-form',
@@ -26,6 +26,12 @@ export class VehicleFormComponent implements OnInit {
         }
     }
 
+    /**
+     * Constructor del componente.
+     * @param {ModalController} _modal - Controlador de modal de Ionic.
+     * @param {FormBuilder} formBuilder - Constructor de formularios reactivos.
+     * @param {ApiService} apiSvc - Servicio de API para obtener información del usuario.
+     */
     constructor(
         private _modal: ModalController,
         private formBuilder: FormBuilder,
@@ -45,16 +51,28 @@ export class VehicleFormComponent implements OnInit {
         })
     }
 
+    /**
+     * Método del ciclo de vida llamado al inicializar el componente.
+     */
     ngOnInit() { }
 
+    /**
+     * Cierra el formulario sin realizar cambios.
+     */
     onCancel() {
         this._modal.dismiss(null, 'cancel');
     }
 
+    /**
+     * Envía los datos del formulario al cerrarse correctamente.
+     */
     onSubmit() {
         this._modal.dismiss(this.form.value, 'ok');
     }
 
+    /**
+     * Maneja la eliminación de un vehículo.
+     */
     onDelete() {
         this._modal.dismiss(this.form.value, 'delete');
     }

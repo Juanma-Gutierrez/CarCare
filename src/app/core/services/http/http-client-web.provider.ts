@@ -1,12 +1,7 @@
-// angular
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-
-// rxjs
-import { Observable } from 'rxjs';
-
-// providers
 import { HttpClientProvider } from './http-client.provider';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class HttpClientWebProvider extends HttpClientProvider {
@@ -16,7 +11,9 @@ export class HttpClientWebProvider extends HttpClientProvider {
      *
      * @param httpClient angular http client
      */
-    constructor(private readonly httpClient: HttpClient) {
+    constructor(
+        private readonly httpClient: HttpClient
+    ) {
         super();
     }
 
@@ -48,14 +45,11 @@ export class HttpClientWebProvider extends HttpClientProvider {
         params: any = {},
         headers: any = {}
     ): Observable<T> {
-
         return this.httpClient.get<T>(url, {
             params: new HttpParams({ fromObject: params }),
             headers: this.createHeaders(headers)
         });
     }
-
-
 
     /**
      * post
@@ -72,7 +66,6 @@ export class HttpClientWebProvider extends HttpClientProvider {
         headers: any = {},
         urlEncoded: boolean = false
     ): Observable<T> {
-
         return this.httpClient.post<T>(url, this.createBody(body, urlEncoded), {
             headers: this.createHeaders(headers, urlEncoded)
         });
@@ -93,7 +86,6 @@ export class HttpClientWebProvider extends HttpClientProvider {
         headers: any = {},
         urlEncoded: boolean = false
     ): Observable<T> {
-
         return this.httpClient.put<T>(url, this.createBody(body, urlEncoded), {
             headers: this.createHeaders(headers, urlEncoded)
         });
@@ -114,7 +106,6 @@ export class HttpClientWebProvider extends HttpClientProvider {
         headers: any = {},
         urlEncoded: boolean = false
     ): Observable<T> {
-
         if (body instanceof FormData) {
             return this.httpClient.patch<T>(url, body, { headers: headers });
         }
@@ -123,7 +114,6 @@ export class HttpClientWebProvider extends HttpClientProvider {
                 headers: this.createHeaders(headers, urlEncoded)
             });
         }
-
     }
 
     /**
@@ -139,7 +129,6 @@ export class HttpClientWebProvider extends HttpClientProvider {
         params: any = {},
         headers: any = {}
     ): Observable<T> {
-
         return this.httpClient.delete<T>(url, {
             params: new HttpParams({ fromObject: params }),
             headers: this.createHeaders(headers)
@@ -164,7 +153,6 @@ export class HttpClientWebProvider extends HttpClientProvider {
         headers: any,
         urlEncoded: boolean = false
     ): HttpHeaders {
-
         var _headers = new HttpHeaders(headers);
         if (urlEncoded)
             _headers.set('Accept', ' application/x-www-form-urlencoded');
@@ -179,7 +167,6 @@ export class HttpClientWebProvider extends HttpClientProvider {
      * @returns http request body
      */
     private createBody(body: any, urlEncoded: boolean): any | HttpParams {
-
         return urlEncoded
             ? new HttpParams({ fromObject: body })
             : body;

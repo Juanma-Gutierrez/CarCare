@@ -2,8 +2,7 @@
     <ion-item>
         <ion-select label="{{'home.spentForm.providerTitle' | translate}}" [value]="selectedProvider"
             interface="action-sheet" placeholder="{{'home.spentForm.provider.selectProvider' | translate}}"
-            cancelText="{{'ui.cancel' | translate}}"
-            formControlName="selectedProvider">{{selectedProvider}}
+            cancelText="{{'ui.cancel' | translate}}" formControlName="selectedProvider">{{selectedProvider}}
             <ion-select-option *ngFor="let provider of providers" [value]="provider">{{provider.name | upperCamelCase}}
             </ion-select-option>
         </ion-select>

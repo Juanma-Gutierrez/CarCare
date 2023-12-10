@@ -1,23 +1,29 @@
 import { StrapiData } from "./strapi-data";
 
+/**
+ * Interfaz que representa un usuario en Strapi.
+ */
 export interface StrapiUser {
     id: number,
     username: string,
     email: string
 }
 
+/**
+ * Tipo que representa la información de usuario en Strapi.
+ */
 export type StrapiMe = StrapiUser;
 
-
 /**
-* Jwt Response
-*/
+ *  Interfaz que representa la respuesta JWT.
+ */
 export interface JwtResponse {
     jwt: string
     user: User
 }
+
 /**
- * User
+ * Interfaz que representa un usuario.
  */
 export interface User {
     id: number
@@ -31,12 +37,12 @@ export interface User {
 }
 
 /**
- * List of users
+ * Tipo que representa una lista de usuarios.
  */
 export type UserList = User[]
 
 /**
- * PostUser
+ * Interfaz que representa la información de usuario para el registro.
  */
 export interface PostUser {
     username: string
@@ -45,9 +51,8 @@ export interface PostUser {
     role: number
 }
 
-
 /**
- * PostUserResponse
+ * Interfaz que representa la respuesta de creación de usuario.
  */
 export interface PostUserResponse {
     data: any
@@ -55,8 +60,8 @@ export interface PostUserResponse {
 }
 
 /**
-* PostUserResponse error
-*/
+ * Interfaz que representa un error.
+ */
 export interface Error {
     status: number
     name: string
@@ -65,17 +70,22 @@ export interface Error {
 }
 
 /**
-* PostUserResponse Details
-*/
+ * Interfaz que representa detalles adicionales.
+ */
 export interface Details { }
 
-
+/**
+ * Interfaz que representa los datos necesarios para registrar un usuario en Strapi.
+ */
 export interface StrapiRegisterPayload {
     email: string,
     password: string,
     username: string
 }
 
+/**
+ * Interfaz que representa la información del propietario en Strapi.
+ */
 export interface StrapiOwner {
     id?: number,
     name: string,
@@ -83,7 +93,9 @@ export interface StrapiOwner {
     user_id: number,
 }
 
-
+/**
+ * Interfaz que representa la respuesta de registro en Strapi.
+ */
 export interface PostStrapiRegister {
     data: {
         id?: number,

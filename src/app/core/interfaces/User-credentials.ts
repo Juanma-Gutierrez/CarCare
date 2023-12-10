@@ -1,6 +1,5 @@
 /**
- * La interfaz `UserCredentials` define la estructura de los datos necesarios
- * para autenticar a un usuario, como el nombre de usuario y la contraseña.
+ * Interfaz que representa las credenciales de usuario.
  */
 export interface UserCredentials {
     username: string,
