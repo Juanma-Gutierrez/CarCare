@@ -9,6 +9,7 @@ import { UserRegisterInfo } from 'src/app/core/interfaces/User';
     styleUrls: ['./register-form.component.scss'],
 })
 export class RegisterFormComponent implements OnInit {
+    userPassword?: string;
     form: FormGroup | null = null;
     @Output() onsubmit = new EventEmitter<UserRegisterInfo>();
 

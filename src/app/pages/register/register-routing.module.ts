@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { RegisterPage } from './register.page';
+import { PasswordStrengthComponent } from './register-form/password-strength/password-strength.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 const routes: Routes = [
     {
@@ -11,7 +12,16 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule],
+    imports: [
+        SharedModule,
+        RouterModule.forChild(routes)
+    ],
+    declarations: [
+        PasswordStrengthComponent
+    ],
+    exports: [
+        RouterModule,
+        PasswordStrengthComponent
+    ],
 })
 export class RegisterPageRoutingModule { }
