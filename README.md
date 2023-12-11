@@ -117,6 +117,14 @@ Habrá al menos:
 - Configura el tema de ionic para cambiar los colores corporativos que se añaden por defecto.
 - Haz uso de componentes de PrimeNg (opcional).
 
+# Documentación del proyecto
+
+En la carpeta documentation del repositorio está disponible la documentación del proyecto.
+
+Éste ese un resumen de los principales elementos utilizados en la aplicación.
+
+![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/0f162392-c52b-426e-a78f-09e80c653d11)
+
 # Proyecto en marcha
 
 Link al video demostrativo del funcionamiento de la aplicación.
