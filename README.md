@@ -125,6 +125,10 @@ En la carpeta documentation del repositorio está disponible la documentación d
 
 ![image](https://github.com/Juanma-Gutierrez/CarCare/assets/101201349/0f162392-c52b-426e-a78f-09e80c653d11)
 
+Documentación completa del proyecto:
+
+https://juanma-gutierrez.github.io/CarCareDocumentation/
+
 # Proyecto en marcha
 
 Link al video demostrativo del funcionamiento de la aplicación.
